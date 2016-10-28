@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.10.13)  27 OCT 2016 22:46
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2016.10.13)  27 OCT 2016 22:48
 entering extended mode
 **./SRS.tex
 (SRS.tex
@@ -607,7 +607,8 @@ File: lstlang1.sty 2015/06/04 1.6 listings language file
 )
 ("C:\Program Files\MiKTeX 2.9\tex\latex\listings\lstmisc.sty"
 File: lstmisc.sty 2015/06/04 1.6 (Carsten Heinz)
-) (SRS.aux)
+) (SRS.aux
+(software_requirements.aux))
 \openout1 = `SRS.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 24.
@@ -737,7 +738,7 @@ Missing character: There is no ù in font ptmr7t!
  (software_requirements.tex) [3
 
 ]
-Overfull \hbox (28.67583pt too wide) in paragraph at lines 104--105
+Overfull \hbox (28.67583pt too wide) in paragraph at lines 113--114
  [] 
  []
 
@@ -745,18 +746,18 @@ Overfull \hbox (28.67583pt too wide) in paragraph at lines 104--105
 
 ] (SRS.aux (software_requirements.aux)) ) 
 Here is how much of TeX's memory you used:
- 16802 strings out of 493334
- 340551 string characters out of 3139251
- 411632 words of memory out of 3000000
- 20041 multiletter control sequences out of 15000+200000
- 34067 words of font info for 63 fonts, out of 3000000 for 9000
+ 16814 strings out of 493334
+ 340836 string characters out of 3139251
+ 412632 words of memory out of 3000000
+ 20050 multiletter control sequences out of 15000+200000
+ 35174 words of font info for 64 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 62i,9n,65p,580b,891s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 62i,9n,65p,580b,895s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files/MiKTeX 2.9/fonts/enc
 /dvips/fontname/8r.enc}<C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmb8
 a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmr8a.pfb><C:/Program
  Files/MiKTeX 2.9/fonts/type1/urw/times/utmri8a.pfb>
-Output written on SRS.pdf (5 pages, 51421 bytes).
+Output written on SRS.pdf (5 pages, 53166 bytes).
 PDF statistics:
  34 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
