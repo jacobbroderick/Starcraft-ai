@@ -30,7 +30,11 @@
   \date{October 28, 2016}
   \maketitle
   \vspace{4cm}
-
+  \begin{abstract}
+  	\noindent 
+  	  	\noindent
+	Specifying the requirements of a project before implementing helps remove ambiguities. This document will provide the details of the project as well as provide a list of tasks the development team must complete. The goal of this document is to specify the requirements for the system to be developed.
+   \end{abstract}
 \end{titlepage}
 
 \tableofcontents
@@ -47,9 +51,13 @@ The purpose of this document is to describe the requirements of "Project DevAI".
 
 \subsection{Definitions, Acronyms, and Abbreviations}
 AI - artificial intelligence
+
 Agent - the program that will play Starcraft Brood War by itself
+
 Client - person or organization that has requested the project to be developed
+
 User - any future Oregon State University club member that wishes to interact with the artificial intelligence
+
 Starcraft Brood War - a real time strategy game created by Blizzard Entertainment
 
 \subsection{References}
@@ -80,10 +88,10 @@ vgrid,hgrid,
 title label anchor/.style={below=-1.6ex},
 title left shift=.05,
 title right shift=-.05,
+title top shift = -.25,
 title height=1,
 bar/.style={fill=gray!50},
-incomplete/.style={fill=white},
-progress label text={},
+bar incomplete/.style={fill=red},
 bar height=0.7,
 group right shift=0,
 group top shift=.6,
@@ -96,10 +104,11 @@ group peaks height=.2]
 \gantttitle{Winter 2017}{10} 
 \gantttitle{Spring 2017}{10} 
 %tasks
+\ganttset{bar height=.4}
 \ganttbar{Problem Statement}{3}{5} \\
-\ganttbar[progress=50]{Requirements Document}{4}{6} \\
-\ganttbar[progress=0]{Technical Document}{7}{9} \\
-\ganttbar[progress=0]{Design Document}{7}{9}
+\ganttbar[progress=75]{Requirements Document}{4}{6} \\
+\ganttbar[progress=0]{Technical Document}{5}{8} \\
+\ganttbar[progress=0]{Design Document}{5}{8}
 
 \end{ganttchart}
 \end{center}
