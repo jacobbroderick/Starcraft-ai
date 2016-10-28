@@ -4,6 +4,7 @@
 \usepackage{color}
 \usepackage{longtable}
 \usepackage{tabu}
+\usepackage{pgfgantt}
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \definecolor{gray}{rgb}{0.5,0.5,0.5}
 \definecolor{mauve}{rgb}{0.58,0,0.82}
@@ -78,5 +79,40 @@ The agent should be comprised of modular components that are well-documented. Fu
 
 \subsection{Functional Requirements}
 Our agent will use the BWAPI to interact with the Starcraft Brood War game. Our agent will follow a scripted strategy. Since the intent is for the agent to play the game on its own, there is no user interface beyond running the program. People can potentially play against the agent, however this requires no additional interaction with our agent. The scripted strategies will be based on how we can engineer the agent to gather resources and expend them while also eliminating the opponent's ability to do these things.
+
+\begin{figure}[h]
+\begin{center}
+
+\begin{ganttchart}[y unit title=0.4cm,
+y unit chart=0.5cm,
+vgrid,hgrid, 
+title label anchor/.style={below=-1.6ex},
+title left shift=.05,
+title right shift=-.05,
+title height=1,
+bar/.style={fill=gray!50},
+incomplete/.style={fill=white},
+progress label text={},
+bar height=0.7,
+group right shift=0,
+group top shift=.6,
+group height=.3,
+group peaks height=.2]
+{1}{30}
+%labels
+\gantttitle{Terms}{30} \\
+\gantttitle{Fall 2016}{10} 
+\gantttitle{Winter 2017}{10} 
+\gantttitle{Spring 2017}{10} 
+%tasks
+\ganttbar{Problem Statement}{3}{5} \\
+\ganttbar[progress=50]{Requirements Document}{4}{6} \\
+\ganttbar[progress=0]{Technical Document}{7}{9} \\
+\ganttbar[progress=0]{Design Document}{7}{9}
+
+\end{ganttchart}
+\end{center}
+\caption{Gantt Chart}
+\end{figure}
 
 \end{document}
