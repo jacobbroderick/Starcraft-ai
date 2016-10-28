@@ -1,0 +1,27 @@
+\section{Overall description}
+
+\subsection{Product perspective}
+This system consists of a single application that will be ran via the game Starcraft Broodwar.
+The application will communicate with Starcraft via an api that will inject itself directly into the game code.
+The software has no external interfaces with which it can be modified in real time, it must be completely autonomous and run as long as the game itself is running.
+The agent is allowed to save files to a folder that will be removed once the game is done. There are no constraints to how much memory is accepted by the system,
+but it must be able to handle the data without slowing down the frame rate of the game.
+The agent can create a log of what errors it runs into as it is running so that developers can have access to the required information to fix any bugs.
+It will be limited to the operations defined the in broodwar api that will be used to create the project.
+
+\subsection{User interfaces}
+There are two kinds of users that could interact with the machine, developers and players.
+There shall be a way for the system to provide log files so developers can see the results of individual runs of the game.
+Users can play against the the agent as well, but it would require no changes from normal use. All interaction occurs within the game parameters.
+Players would be able to try different strategies against the AI to see how it reacts to different situations.
+Other AI's could also be players in our system. They would be pit against our AI just like our AI would work.
+There will be no other interaction with the users, as the AI should be able to work completely autonomously.
+
+\subsection{constraints}
+The system must be able to run within Starcraft Broodwar on most modern computers. It needs to be able to operate within the memory constraints to not affect the runtime of the environment.
+The system must not slow down the game by more than 1 frame per 10 seconds. 
+
+\subsection{Apporting of requirements}
+The AI's ability to change strategies will be delayed until future versions. The initial version shall only have one script that can be executed efficiently.
+In the future other strategies 
+The project will be opened to future developers to add more features to in a club setting. These are undocumented for now, but may be written in the future.
