@@ -49,7 +49,7 @@ The purpose of this document is to describe the requirements of "Project DevAI".
 \subsection{Scope}
 "Project DevAI" is an AI that plays Starcraft Brood War and provides a user with a well-documented AI that can be used for research purposes. The AI should implement at least one strategy to play Starcraft Brood War. A user can interact with the AI by opening the source code and viewing it. The source code must be highly documented and modular that way users can pull any section of code from the source code and use it for their own program.
 
-\subsection{Definitions, Acronyms, and Abbreviations}
+\subsection{Definitions, acronyms, and abbreviations}
 AI - artificial intelligence
 
 Agent - the program that will play Starcraft Brood War by itself
@@ -78,7 +78,7 @@ This document contains two more sections. The second sections contains informati
 \section{Specific Requirements}
 The agent should be comprised of modular components that are well-documented. Functionality should be broken into stand-alone pieces that could nearly directly translate into another developer's agent. Also, these pieces should be documented well enough such that a developer can understand and make adjustments to them per their needs. Our stretch goal is to give the agent the ability to switch between scripts based on game circumstances. This would mean adjusting to a new strategy based on the agent's resources and potentially the opponents estimated resources.
 
-\subsection{Functional Requirements}
+\subsection{Functional requirements}
 Our agent will use the BWAPI to interact with the Starcraft Brood War game. Our agent will follow a scripted strategy. Since the intent is for the agent to play the game on its own, there is no user interface beyond running the program. People can potentially play against the agent, however this requires no additional interaction with our agent. The scripted strategies will be based on how we can engineer the agent to gather resources and expend them while also eliminating the opponent's ability to do these things.
 
 \begin{figure}[h]
