@@ -22,6 +22,33 @@ The system must be able to run within Starcraft Brood War on most modern compute
 The system must not slow down the game by more than 1 frame per 10 seconds. 
 
 \subsection{Apportioning of requirements}
-Other strategies are not included in the intial plan. If the system is completed early, then other strategies will be implemented.
+Other strategies are not included in the initial plan. If the system is completed early, then other strategies will be implemented.
 The AI's ability to change strategies will be delayed until future versions. The initial version shall only have one script that can be executed efficiently.
-The project will be opened to future developers to add more features to in a club setting. These are undocumented for now, but may be written in the future.
+The project will be opened to future developers to add more features to in a club setting. These are undocumented for now, but may be written in the future. The library will be separated into classes focused on the two generalized areas of game-play categories: micro and macro.
+
+\Title{Micro}
+Objects focused on micro management decisions will often be more specific to the current state of the game and micro management decisions of the opponent.
+
+\subsubsection{Forming groups}
+An object for unit positioning will encapsulate the functionality of unit grouping. Units are generally grouped for combat when facing an opponent and this object will focus on ensuring combat units are moving in a cluster as much as possible. 
+
+\subsubsection{Movement}
+There will be an object for individual unit movements and group movements. Our base strategy will focus primarily on moving aggressive units into advantageous positions for attack and defense and doing so in groups. Other strategies that may be developed in following versions may be more heavily focused on individual unit movements for specific strategies. 
+
+\subsubsection{Attacking}
+Another object will handle the logic of aggressive tactical decisions. The movement object will extensively interact with this object in order to adjust unit positions based on changes in enemy position or discovery of previously unidentified enemy structures. Also, logic regarding attacking specific units as opposed to general clusters of unit could be included. However, implementations of this logic will be rudimentary in the first version. 
+
+\Title{Macro}
+Objects focused on macro management will be more closely tied to basic functionality of the game rather than tactics while keeping track of the resource collection and expenditures.
+
+\subsubsection{Resource gathering}
+The resource gathering object will handle resource gathering. This object will work closely with the state of the game in order to keep track of what resources will be needed most immediately. Also, this will work closely with the unit production class in order to build units to increase resource production.
+
+\subsubsection{Building production}
+As resources are gathered, the building production object will establish a foundation for production of necessary units for the strategy. Again, this class will work closely with the current state of the game in order to produce necessary buildings as soon as the resources are available.
+
+\subsubsection{Unit production}
+The unit production object will focus on production of units when resources are made available. 
+
+\subsubsection{Expansions}
+Expansions will come about through an interaction of all three of these Macro subsections. A new gathering location will be established, new units will be built to populate the resource deposits, and resources will be gathered.
