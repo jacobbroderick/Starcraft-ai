@@ -85,7 +85,8 @@ The agent should be comprised of modular components that are well-documented. Fu
 \subsection{Functional requirements}
 Our agent will use the BWAPI to interact with the Starcraft Brood War game. Our agent will follow a scripted strategy. Since the intent is for the agent to play the game on its own, there is no user interface beyond running the program. People can potentially play against the agent, however this requires no additional interaction with our agent. The scripted strategies will be based on how we can engineer the agent to gather resources and expend them while also eliminating the opponent's ability to do these things.
 
-\begin{figure}[p]
+\begin{figure}[b]
+\begin{center}
 
 \begin{ganttchart}[y unit title=0.4cm,
 y unit chart=1.2cm,
@@ -116,13 +117,15 @@ group peaks height=.2]
 \ganttbar[progress=0]{Design Document}{5}{8} \\
 \ganttbar[progress=0]{Learn BWAPI}{7}{10} \\
 \ganttbar[progress=0]{Implementation}{11}{16} \\
-\ganttbar[progress=0]{Prepare for Competition}{16}{17} \\
+\ganttbar[progress=0]{Competition Prep}{16}{17} \\
 \ganttbar[progress=0]{Enter Competition}{17}{18} \\
-\ganttbar[progress=0]{Corrections and Stretch Goals}{19}{26} \\
+\ganttbar[progress=0]{Correct}{19}{26} \\
+\ganttbar[progress=0]{Stretch Goals}{23}{26} \\
 \ganttbar[progress=0]{Prepare for Expo}{27}{28} \\
 \ganttbar[progress=0]{Expo}{28}{29}
 
 \end{ganttchart}
+\end{center}
 \caption{Gantt Chart}
 \end{figure}
 
