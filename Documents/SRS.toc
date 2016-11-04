@@ -1,13 +1,22 @@
 \contentsline {section}{\numberline {I}Introduction}{2}
 \contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {I-A}}Purpose}{2}
 \contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {I-B}}Scope}{2}
-\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {I-C}}Definitions, Acronyms, and Abbreviations}{2}
+\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {I-C}}Definitions, acronyms, and abbreviations}{2}
 \contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {I-D}}References}{2}
 \contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {I-E}}Overview}{2}
 \contentsline {section}{\numberline {II}Overall description}{3}
 \contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {II-A}}Product perspective}{3}
 \contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {II-B}}User interfaces}{3}
-\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {II-C}}constraints}{3}
-\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {II-D}}Apporting of requirements}{3}
+\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {II-C}}Constraints}{3}
+\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {II-D}}Apportioning of requirements}{3}
 \contentsline {section}{\numberline {III}Specific Requirements}{4}
-\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {III-A}}Functional Requirements}{4}
+\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {III-A}}Functional requirements}{4}
+\contentsline {subsubsection}{\numberline {\unhbox \voidb@x \hbox {III-A}1}Micro Library Objects}{4}
+\contentsline {paragraph}{\numberline {\unhbox \voidb@x \hbox {III-A}1a}Forming groups}{4}
+\contentsline {paragraph}{\numberline {\unhbox \voidb@x \hbox {III-A}1b}Movement}{4}
+\contentsline {paragraph}{\numberline {\unhbox \voidb@x \hbox {III-A}1c}Attacking}{4}
+\contentsline {subsubsection}{\numberline {\unhbox \voidb@x \hbox {III-A}2}Macro Library Objects}{4}
+\contentsline {paragraph}{\numberline {\unhbox \voidb@x \hbox {III-A}2a}Resource gathering}{4}
+\contentsline {paragraph}{\numberline {\unhbox \voidb@x \hbox {III-A}2b}Building production}{4}
+\contentsline {paragraph}{\numberline {\unhbox \voidb@x \hbox {III-A}2c}Unit production}{4}
+\contentsline {paragraph}{\numberline {\unhbox \voidb@x \hbox {III-A}2d}Expansions}{4}
