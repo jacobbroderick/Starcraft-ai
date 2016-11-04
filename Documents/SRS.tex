@@ -85,7 +85,7 @@ The agent should be comprised of modular components that are well-documented. Fu
 \subsection{Functional requirements}
 Our agent will use the BWAPI to interact with the Starcraft Brood War game. Our agent will follow a scripted strategy. Since the intent is for the agent to play the game on its own, there is no user interface beyond running the program. People can potentially play against the agent, however this requires no additional interaction with our agent. The scripted strategies will be based on how we can engineer the agent to gather resources and expend them while also eliminating the opponent's ability to do these things.
 
-\subsubsection{Micro Library Objects}
+\subsubsection{Micro library objects}
 Objects focused on micro management decisions will often be more specific to the current state of the game and micro management decisions of the opponent.
 
 \paragraph{Forming groups}
@@ -95,22 +95,37 @@ An object for unit positioning will encapsulate the functionality of unit groupi
 There will be an object for individual unit movements and group movements. Our base strategy will focus primarily on moving aggressive units into advantageous positions for attack and defense and doing so in groups. Other strategies that may be developed in following versions may be more heavily focused on individual unit movements for specific strategies. 
 
 \paragraph{Attacking}
-Another object will handle the logic of aggressive tactical decisions. The movement object will extensively interact with this object in order to adjust unit positions based on changes in enemy position or discovery of previously unidentified enemy structures. Also, logic regarding attacking specific units as opposed to general clusters of unit could be included. However, implementations of this logic will be rudimentary in the first version. 
+This object will handle the commands of aggressive tactical decisions. The combat decisions object will extensively interact with this object in order to adjust unit positions based on changes in enemy position or discovery of previously unidentified enemy structures. Also, logic regarding attacking specific units as opposed to general clusters of unit could be included. However, implementations of this logic will be rudimentary in the first version. 
 
-\subsubsection{Macro Library Objects}
+\subsubsection{Macro library objects}
 Objects focused on macro management will be more closely tied to basic functionality of the game rather than tactics while keeping track of the resource collection and expenditures.
 
 \paragraph{Resource gathering}
 The resource gathering object will handle resource gathering. This object will work closely with the state of the game in order to keep track of what resources will be needed most immediately. Also, this will work closely with the unit production class in order to build units to increase resource production.
 
 \paragraph{Building production}
-As resources are gathered, the building production object will establish a foundation for production of necessary units for the strategy. Again, this class will work closely with the current state of the game in order to produce necessary buildings as soon as the resources are available.
+As resources are gathered, the building production object will establish a foundation for production of necessary units for the strategy. This object will work closely with the construction decision object in order to produce necessary buildings as soon as the resources are available.
 
 \paragraph{Unit production}
-The unit production object will focus on production of units when resources are made available. 
+The unit production object will focus on production of units when resources are made available based on input from the unit production decision making object. 
 
 \paragraph{Expansions}
 Expansions will come about through an interaction of all three of these Macro subsections. A new gathering location will be established, new units will be built to populate the resource deposits, and resources will be gathered.
+
+\subsubsection{Decision making class objects}
+Each object requires decision making logic to decide what to do under certain circumstances. The decision making objects will decipher what input to give the objects given a set of circumstances.
+
+\paragraph{Combat decisions}
+This object will handle decisions based on combat information such as opponent positioning or unit types. Also, tactical objectives must be considered, for instance, whether a unit is defending or attacking as specific area.
+
+\paragraph{Resource gathering decisions}
+Resource gathering requires decision making when deciding whether to harvest from the home base resource deposits or expansion resource deposits while also considering opponent positions. Sometimes, resource deposits are at maximum capacity of resource collecting units and therefore, the unit should collect from a less populated expansion base if one exists.
+
+\paragraph{Construction decisions}
+Structures are allocated a specific amount of area when being built and cannot overlap. This object will handle the decision making with regards to where structures should be built. 
+
+\paragraph{Unit production decision making}
+United will be produced based on the scripted strategy, available resources, and opponent unit production. In later versions, this logic will more extensively responsive to opponent actions. For now, this object will follow the scripted strategy very closely and execute commands for units matching that fit that strategy.
 
 \begin{figure}[h]
 \begin{center}

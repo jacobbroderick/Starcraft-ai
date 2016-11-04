@@ -11,12 +11,17 @@
 \contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {II-D}}Apportioning of requirements}{3}
 \contentsline {section}{\numberline {III}Specific Requirements}{4}
 \contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {III-A}}Functional requirements}{4}
-\contentsline {subsubsection}{\numberline {\unhbox \voidb@x \hbox {III-A}1}Micro Library Objects}{4}
+\contentsline {subsubsection}{\numberline {\unhbox \voidb@x \hbox {III-A}1}Micro library objects}{4}
 \contentsline {paragraph}{\numberline {\unhbox \voidb@x \hbox {III-A}1a}Forming groups}{4}
 \contentsline {paragraph}{\numberline {\unhbox \voidb@x \hbox {III-A}1b}Movement}{4}
 \contentsline {paragraph}{\numberline {\unhbox \voidb@x \hbox {III-A}1c}Attacking}{4}
-\contentsline {subsubsection}{\numberline {\unhbox \voidb@x \hbox {III-A}2}Macro Library Objects}{4}
+\contentsline {subsubsection}{\numberline {\unhbox \voidb@x \hbox {III-A}2}Macro library objects}{4}
 \contentsline {paragraph}{\numberline {\unhbox \voidb@x \hbox {III-A}2a}Resource gathering}{4}
 \contentsline {paragraph}{\numberline {\unhbox \voidb@x \hbox {III-A}2b}Building production}{4}
 \contentsline {paragraph}{\numberline {\unhbox \voidb@x \hbox {III-A}2c}Unit production}{4}
 \contentsline {paragraph}{\numberline {\unhbox \voidb@x \hbox {III-A}2d}Expansions}{4}
+\contentsline {subsubsection}{\numberline {\unhbox \voidb@x \hbox {III-A}3}Decision making class objects}{5}
+\contentsline {paragraph}{\numberline {\unhbox \voidb@x \hbox {III-A}3a}Combat decisions}{5}
+\contentsline {paragraph}{\numberline {\unhbox \voidb@x \hbox {III-A}3b}Resource gathering decisions}{5}
+\contentsline {paragraph}{\numberline {\unhbox \voidb@x \hbox {III-A}3c}Construction decisions}{5}
+\contentsline {paragraph}{\numberline {\unhbox \voidb@x \hbox {III-A}3d}Unit production decision making}{5}

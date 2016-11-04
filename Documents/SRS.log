@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9) (preloaded format=pdflatex 2016.10.27)  4 NOV 2016 14:52
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9) (preloaded format=pdflatex 2016.10.27)  4 NOV 2016 15:36
 entering extended mode
 **./SRS.tex
 (SRS.tex
@@ -770,33 +770,33 @@ Missing character: There is no ù in font ptmr7t!
  (software_requirements.tex)
 [3
 
+] [4
+
 ]
-Overfull \hbox (28.67583pt too wide) in paragraph at lines 169--170
+Overfull \hbox (28.67583pt too wide) in paragraph at lines 184--185
  [] 
  []
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[4
-
-] [5] (SRS.aux (software_requirements.aux)) ) 
+[5] [6] (SRS.aux (software_requirements.aux)) ) 
 Here is how much of TeX's memory you used:
  16940 strings out of 493334
  346061 string characters out of 3136674
- 418632 words of memory out of 3000000
+ 415632 words of memory out of 3000000
  20176 multiletter control sequences out of 15000+200000
  35174 words of font info for 64 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  62i,9n,65p,594b,887s stack positions out of 5000i,500n,10000p,200000b,50000s
-{C:/Program Files (x86)/MiKTeX 2.9
-/fonts/enc/dvips/fontname/8r.enc}<C:/Program Files (x86)/MiKTeX 2.9/fonts/type1
-/urw/times/utmb8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw/times/
-utmr8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw/times/utmri8a.pfb
->
-Output written on SRS.pdf (6 pages, 59064 bytes).
+{C:/Program Files (x86)/MiKTeX 2
+.9/fonts/enc/dvips/fontname/8r.enc}<C:/Program Files (x86)/MiKTeX 2.9/fonts/typ
+e1/urw/times/utmb8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw/time
+s/utmr8a.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/urw/times/utmri8a.p
+fb>
+Output written on SRS.pdf (7 pages, 61000 bytes).
 PDF statistics:
- 37 PDF objects out of 1000 (max. 8388607)
+ 42 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 
