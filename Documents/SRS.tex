@@ -21,6 +21,7 @@
   tabsize=4
 }
 
+
 \begin{document}
 
 \begin{titlepage}
@@ -50,21 +51,29 @@ The purpose of this document is to describe the requirements of "Project DevAI".
 "Project DevAI" is an AI that plays Starcraft Brood War and provides a user with a well-documented AI that can be used for research purposes. The AI should implement at least one strategy to play Starcraft Brood War. A user can interact with the AI by opening the source code and viewing it. The source code must be highly documented and modular that way users can pull any section of code from the source code and use it for their own program.
 
 \subsection{Definitions, acronyms, and abbreviations}
-AI - artificial intelligence
+AI - Artificial intelligence
 
-Agent - the program that will play Starcraft Brood War by itself
+Agent - The program that will play Starcraft Brood War by itself
 
-Client - person or organization that has requested the project to be developed
+Client - Person or organization that has requested the project to be developed
 
-User - any future Oregon State University club member that wishes to interact with the artificial intelligence
+User - Any future Oregon State University club member that wishes to interact with the system
 
-Starcraft Brood War - a real time strategy game created by Blizzard Entertainment
+Starcraft Brood War - A real time strategy game created by Blizzard Entertainment
 
 API - Application Programming Interface
 
 BWAPI - API used to interact with Brood War's code
 
-Script - procedure in a C program that calls a variety of generic real time strategy procedures.
+Script - Procedure in a C program that calls a variety of generic real time strategy procedures
+
+Micro - A term used in Starcraft to describe actions pertaining to controlling individual units, mostly related to attacking
+
+Macro - A term used in Starcraft to describe actions pertaining to managing resources and constructing buildings, mostly related to economy management
+
+Unit - A controllable object in Starcraft that can move, attack, and gather resources
+
+Resource - An item in Starcraft used to construct units and buildings
 
 \subsection{References}
 [1] IEEE Software Engineering Standards Committee, “IEEE Std 830-1998, IEEE Recommended Practice for Software Requirements Specifications”, October 20, 1998.
@@ -85,11 +94,12 @@ The agent should be comprised of modular components that are well-documented. Fu
 \subsection{Functional requirements}
 Our agent will use the BWAPI to interact with the Starcraft Brood War game. Our agent will follow a scripted strategy. Since the intent is for the agent to play the game on its own, there is no user interface beyond running the program. People can potentially play against the agent, however this requires no additional interaction with our agent. The scripted strategies will be based on how we can engineer the agent to gather resources and expend them while also eliminating the opponent's ability to do these things.
 
+
 \subsubsection{Micro library objects}
 Objects focused on micro management decisions will often be more specific to the current state of the game and micro management decisions of the opponent.
 
 \paragraph{Forming groups}
-An object for unit positioning will encapsulate the functionality of unit grouping. Units are generally grouped for combat when facing an opponent and this object will focus on ensuring combat units are moving in a cluster as much as possible based on input from the combat decisions object. 
+An object for unit positioning will encapsulate the functionality of unit grouping. Units are generally grouped for combat when facing an opponent and this object will focus on ensuring combat units are moving in a group as much as possible based on input from the combat decisions object. 
 
 \paragraph{Movement}
 This is an object for individual unit movements and group movements. Our base strategy will focus primarily on moving aggressive units into advantageous positions for attack and defense and doing so in groups. Other strategies that may be developed in following versions may be more heavily focused on individual unit movements for specific strategies. These actions will be made based on input from the combat decisions object.
@@ -116,7 +126,7 @@ Expansions will come about through an interaction of all three of these Macro su
 Each object requires decision making logic to decide what to do under certain circumstances. The decision making objects will decipher what input to give the objects given a set of circumstances.
 
 \paragraph{Combat decisions}
-This object will handle decisions based on combat information such as opponent positioning or unit types. Also, tactical objectives must be considered, for instance, whether a unit is defending or attacking as specific area.
+This object will handle decisions based on combat information such as opponent positioning or unit types. Also, tactical objectives must be considered, for instance, whether a unit is defending or attacking a specific area.
 
 \paragraph{Resource gathering decisions}
 Resource gathering requires decision making when deciding whether to harvest from the home base resource deposits or expansion resource deposits while also considering opponent positions. Sometimes, resource deposits are at maximum capacity of resource collecting units and therefore, the unit should collect from a less populated expansion base if one exists.
