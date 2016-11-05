@@ -92,26 +92,28 @@ This document contains two more sections. The second section contains informatio
 The agent should be comprised of modular components that are well-documented. Functionality should be broken into stand-alone pieces that could nearly directly translate into another developer's agent. Also, these pieces should be documented well enough such that a developer can understand and make adjustments to them per their needs. Our stretch goal is to give the agent the ability to switch between scripts based on game circumstances. This would mean adjusting to a new strategy based on the agent's resources and potentially the opponents estimated resources.
 
 \subsection{Functional requirements}
-Our agent will use the BWAPI to interact with the Starcraft Brood War game. Our agent will follow a scripted strategy. Since the intent is for the agent to play the game on its own, there is no user interface beyond running the program. People can potentially play against the agent, however this requires no additional interaction with our agent. The scripted strategies will be based on how we can engineer the agent to gather resources and expend them while also eliminating the opponent's ability to do these things.
-
+Our agent will use the BWAPI to interact with the Starcraft Brood War game. Our agent will follow a scripted strategy. Since the intent is for the agent to play the game on its own, there is no user interface beyond running the program. People can potentially play against the agent, however this requires no additional interaction with our agent. The scripted strategies will be based on how we can engineer the agent to gather resources and expend them while also eliminating the opponent's ability to do these things. \\
+\vspace{5mm}
 
 \subsubsection{Micro library objects}
-Objects focused on micro management decisions will often be more specific to the current state of the game and micro management decisions of the opponent.
+\vspace{5mm}
+Objects focused on micro management decisions will often be more specific to the current state of the game and micro management decisions of the opponent. \\
+\vspace{5mm}
 
 \paragraph{Forming groups}
-An object for unit positioning will encapsulate the functionality of unit grouping. Units are generally grouped for combat when facing an opponent and this object will focus on ensuring combat units are moving in a group as much as possible based on input from the combat decisions object. 
+An object for unit positioning will encapsulate the functionality of unit grouping. Units are generally grouped for combat when facing an opponent and this object will focus on ensuring combat units are moving in a group as much as possible based on input from the combat decisions object.
 
 \paragraph{Movement}
 This is an object for individual unit movements and group movements. Our base strategy will focus primarily on moving aggressive units into advantageous positions for attack and defense and doing so in groups. Other strategies that may be developed in following versions may be more heavily focused on individual unit movements for specific strategies. These actions will be made based on input from the combat decisions object.
 
 \paragraph{Attacking}
-This object will handle the commands of aggressive tactical decisions. The combat decisions object will extensively interact with this object in order to attack enemy units or structures. 
+This object will handle the commands of aggressive tactical decisions. The combat decisions object will extensively interact with this object in order to attack enemy units or structures.
 
 \subsubsection{Macro library objects}
 Objects focused on macro management will be more closely tied to basic functionality of the game rather than tactics while keeping track of the resource collection and expenditures.
 
 \paragraph{Resource gathering}
-This object will handle resource collection while working closely with the state of the game in order to keep track of what resources will be needed most immediately. 
+This object will handle resource collection while working closely with the state of the game in order to keep track of what resources will be needed most immediately.
 
 \paragraph{Building production}
 As resources are gathered, the building production object will establish a foundation for production of necessary units for the scripted strategy. This object will work closely with the construction decision object in order to produce necessary buildings as soon as the resources are available.
