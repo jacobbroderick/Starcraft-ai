@@ -93,7 +93,7 @@ The agent should be comprised of modular components that are well-documented. Fu
 
 \subsection{Functional requirements}
 Our agent will use the BWAPI to interact with the Starcraft Brood War game. Our agent will follow a scripted strategy. Since the intent is for the agent to play the game on its own, there is no user interface beyond running the program. People can potentially play against the agent, however this requires no additional interaction with our agent. The scripted strategies will be based on how we can engineer the agent to gather resources and expend them while also eliminating the opponent's ability to do these things.
-\vspace{1mm}
+\vspace{2mm}
 
 \subsubsection{Micro library objects}
 Objects focused on micro management decisions will often be more specific to the current state of the game and micro management decisions of the opponent.
@@ -113,7 +113,7 @@ This object will handle the commands of aggressive tactical decisions. The comba
 
 \subsubsection{Macro library objects}
 Objects focused on macro management will be more closely tied to basic functionality of the game rather than tactics while keeping track of the resource collection and expenditures.
-\vspace{1mm}
+\vspace{2mm}
 
 \paragraph{Resource gathering}
 This object will handle resource collection while working closely with the state of the game in order to keep track of what resources will be needed most immediately.
@@ -125,7 +125,7 @@ As resources are gathered, the building production object will establish a found
 
 \paragraph{Unit production}
 The unit production object will focus on production of units when resources are made available based on input from the unit production decision making object. 
-\vspace{1mm}
+\vspace{2mm}
 
 \paragraph{Expansions}
 Expansions will come about through an interaction of all three of these Macro subsections' decision object. A new gathering location will be established, new units will be built to populate the resource deposits, and resources will be gathered.
@@ -137,7 +137,6 @@ Each object requires decision making logic to decide what to do under certain ci
 
 \paragraph{Combat decisions}
 This object will handle decisions based on combat information such as opponent positioning or unit types. Also, tactical objectives must be considered, for instance, whether a unit is defending or attacking a specific area.
-\vspace{1mm}
 
 \paragraph{Resource gathering decisions}
 Resource gathering requires decision making when deciding whether to harvest from the home base resource deposits or expansion resource deposits while also considering opponent positions. Sometimes, resource deposits are at maximum capacity of resource collecting units and therefore, the unit should collect from a less populated expansion base if one exists.
