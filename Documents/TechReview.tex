@@ -9,6 +9,8 @@
 \definecolor{mauve}{rgb}{0.58,0,0.82}
 \newcolumntype{L}{>{\centering\arraybackslash}m{6cm}}
 \newcolumntype{C}{>{\centering\arraybackslash}m{3cm}}
+\newcolumntype{B}{>{\centering\arraybackslash}m{1.5cm}}
+\newcolumntype{M}{>{\centering\arraybackslash}m{2.5cm}}
 
 \lstset{frame=tb,
   language=C,
@@ -66,8 +68,35 @@ Paradigm & Description & Reason for Selection \\
 The goal of comparing the chosen programming paradigms for functionalization is to clarify which method of coding is best for our project. It will also help to remind us of how functions need to be set up and whether a section of code needs to be broken down into separate blocks.
 
 \subsubsection{Criteria}
+\paragraph{Independent}
+Functions must be stand alone and should not rely on other functions.
+
+\paragraph{Flexible}
+The functions must be easily changed and modifiable so other programmers can use it.
+
+\paragraph{Easily tested}
+Each function can be tested individually and the results can be easily identified.
+
+\paragraph{Portable}
+A function is portable if it can be taken from our code and applied to another code and work with little to no change.
+
+\paragraph{Simple}
+A function is simple if it has only one purpose.
 
 \subsubsection{Table}
+\begin{center}
+\begin{tabular}{ ||B|M|M|M|M|M|| } 
+\hline
+Paradigm & Independent & Flexible & Easily tested & Portable & Simple \\
+ \hline
+ Modular & Highly independent & Can be changed without major issues in the code & Individual tests can be completed with specific results & Mainly interacts with the API rather than other functions & Only serves one purpose\\ 
+ \hline
+ Object Oriented & Independent classes of functions and attributes & Can change code in objects easily but may cause problems in other code & Requires some handling of the object to test a specific function & Objects protected code can be easily ported & An object can serve a wide variety of purposes\\ 
+ \hline
+ Recursion & Requires dependence on other functions or previous occurrences of itself & Difficult to change as it can require changes to other functions & Errors can be difficult to find  & Difficult to port to other code without including other functions & Has one goal but multiple steps to get to the goal\\ 
+ \hline
+\end{tabular}
+\end{center}
 
 \subsubsection{Discusion}
 
@@ -94,8 +123,35 @@ Language & Description & Reason for Selection \\
 Comparing languages will help to settle the environment as well as the core of our assignment. Choosing a language will also help decide the programming practices and format we will decide on.
 
 \subsubsection{Criteria}
+\paragraph{Performance}
+The program created by the language cannot slow down a game in Starcraft Brood War by 1 frame per 10 seconds.
+
+\paragraph{Easy to comment}
+The language must provide a simple system to accurately and efficiently comment our code.
+
+\paragraph{Large project support}
+The language needs an environment that can increase efficiency and organization to help in the development of a large project.
+
+\paragraph{Commonly used}
+A language is commonly used if it is widely taught, understood, and other coders prefer to use it in projects.
+
+\paragraph{Simple documentation}
+There must be a resource that can adequately describe the functions included in the language and how to interact with them.
 
 \subsubsection{Table}
+\begin{center}
+\begin{tabular}{ ||B|M|M|M|M|M|| } 
+\hline
+Language & Performance & Easy to comment & Large project support & Commonly used & Simple documentation\\
+ \hline
+ C++ &  & Provides a way to comment a line or a whole section of code & Allows the use of headers and other source code to further organize projects & Yes & \\ 
+ \hline
+ Java & Has a slight reputation for being slow and having memory leaks &  &  & Yes & \\ 
+ \hline
+ C Sharp &  & Includes single line and delimited comments, also includes hotkeys to change lines of code to comments & Searches the whole project for any files specified in the namespace & Yes & \\ 
+ \hline
+\end{tabular}
+\end{center}
 
 \subsubsection{Discusion}
 
@@ -123,8 +179,35 @@ IDE & Description & Reason for Selection \\
 The goal for the comparison of different IDEs is to distinguish a sleek efficient environment for the developers. The IDE must also provide tools to increase the speed of debugging and must work correctly with the language we select to work with.
 
 \subsubsection{Criteria}
+\paragraph{Compatible languages}
+A language is compatible if an IDE can successfully implement and compile that language.
+
+\paragraph{Debugging tools}
+An IDE must have tools that can adequately help a programmer find, assess, and fix any bugs in the program.
+
+\paragraph{Compiling tool}
+An IDE must include a tool to compile the system in a way that the programmer specifies.
+
+\paragraph{Format}
+The format of an IDE must be readable and well organized for any programmer to be able to digest lines of code easily.
+
+\paragraph{Navigation window}
+A navigation window should be included for programmers to be able to access any other source files and header files quickly and seamlessly.
 
 \subsubsection{Table}
+\begin{center}
+\begin{tabular}{ ||B|M|M|M|M|M|| } 
+\hline
+IDE & Compatible languages & Debugging tools & Compiling tool & Format & Navigation window\\
+ \hline
+ Visual Studio[1] &  &  &  &  & \\ 
+ \hline
+ Eclipse[2] &  &  &  &  & \\ 
+ \hline
+ IntelliJ IDEA[3] &  &  &  &  & \\ 
+ \hline
+\end{tabular}
+\end{center}
 
 \subsubsection{Discusion}
 
@@ -190,5 +273,10 @@ Since we are choosing to program in C++, and it is the recommended environment f
 \newpage
 
 \section{Bibliography}
+[1]Microsoft, "Visual Studio IDE". Visual Studio. N.p., 2016. Web. 14 Nov. 2016. https://www.visualstudio.com/vs/
+
+[2]Eclipse, N.p., 2016. Web. 14 Nov. 2016. https://www.eclipse.org/ide/
+
+[3]JetBrains, "Intellij IDEA The Java IDE". JetBrains. N.p., 2016. Web. 14 Nov. 2016. http://www.jetbrains.com/idea/
 
 \end{document}
