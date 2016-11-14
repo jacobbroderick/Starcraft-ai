@@ -96,10 +96,52 @@ IDE & Description & Reason for Selection \\
 \end{center}
 
 \subsection{APIs}
+\subsubsection{Options}
+\begin{center}
+	\begin{tabular}{ ||C|L|L|| } 
+		\hline
+		API & Description & Reason for Selection \\
+		\hline
+		BWAPI & BWAPI designed to build AI agents. & Includes functionality to automate necessary game mechanics and use information on the current state of the game. \\ 
+		\hline
+		Brood Data API & API focused on data mining for future use in machine-learning algorithms for AI or competitive player training. & Useful for gathering data for design algorithms.\\ 
+		\hline
+		 BW Spectator Interface API & API designed for spectator-mode interface customization with real-time game stats and interaction with units. & Useful for observing performance of AI. \\ 
+		\hline
+	\end{tabular}
+\end{center}
 
 \subsection{Documentation for API}
+\subsubsection{Options}
+\begin{center}
+	\begin{tabular}{ ||C|L|L|| } 
+		\hline
+		Source & Description & Reason for Selection \\
+		\hline
+		BWAPI  & Commonly used programming language with many functionalities derived from C. & It is commonly taught and used and is the recommended language from BWAPI. \\ 
+		\hline
+		BWAPI Wiki & Web page with links to BWAPI source code documentations as well as other links to other BWAPI related information such as extensions, tutorials and game fundamentals. & Useful for identifying and explaining all of the tools available to the project. \\ 
+		\hline
+		Source Code Comments & Explanations of code functionality directly within the code. & Concise explanation of code located inside of the code for easy access. \\
+		\hline
+	\end{tabular}
+\end{center}
 
 \subsection{Choice algorithm}
+\subsubsection{Options}
+\begin{center}
+	\begin{tabular}{ ||C|L|L|| } 
+		\hline
+		Type & Description & Reason for Selection \\
+		\hline
+	Scripted Tree Selection & Creating a tree with scripted strategies to alternate between in response to game data. & Significantly easier implementation that still provides flexibility between strategies. \\ 
+		\hline
+		Machine Learning - Supervised & AI would base decisions on outcomes of previous instances of decisions and those outcomes. & Identifies patterns in outcomes and can eventually identify the appropriate response based on previous successes or mistakes. \\ 
+		\hline
+		Machine Learning - Reinforcement Learning & Creates a reward system for which the program will attempt to maximize reward by responding to each point of data given. & Powerful when making decisions and evaluating the effectiveness of that decision given the current state of the game. \\ 
+		\hline
+	\end{tabular}
+\end{center}
 
 \subsection{Extensions to the API}
 
