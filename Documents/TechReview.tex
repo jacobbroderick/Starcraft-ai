@@ -98,7 +98,7 @@ Paradigm & Independent & Flexible & Easily tested & Portable & Simple \\
 \end{tabular}
 \end{center}
 
-\subsubsection{Discusion}
+\subsubsection{Discussion}
 
 \subsubsection{Selection}
 The client specifically requested that we have our code be modular enough that a coder can grab a function and use it in their program with little to no problem. Keeping the system modular will also help with documenting the code and keeping it well-commented.
@@ -209,7 +209,7 @@ IDE & Compatible languages & Debugging tools & Compiling tool & Format & Navigat
 \end{tabular}
 \end{center}
 
-\subsubsection{Discusion}
+\subsubsection{Discussion}
 
 \subsubsection{Selection}
 Since we are choosing to program in C++, and it is the recommended environment for the BWAPI, we will be working within Visual Studio.
@@ -263,11 +263,11 @@ Since we are choosing to program in C++, and it is the recommended environment f
 		\hline
 		Documentation Source & Description & Reason for Selection \\
 		\hline
-		BWAPI Homepage  & The homepage for the BWAPI that provides organized explanations of the libraries included in the API. & Very thorough and well-organized into specific libraries making it easier to find the certain tool you may be looking for. \\ 
+		BWAPI Homepage[7]  & The homepage for the BWAPI that provides organized explanations of the libraries included in the API. & Very thorough and well-organized into specific libraries making it easier to find the certain tool you may be looking for. \\ 
 		\hline
-		BWAPI Wiki & Web page with links to BWAPI source code documentations as well as other links to other BWAPI related information such as extensions, tutorials and game fundamentals. & Useful for identifying and explaining all of the tools available to the project. \\ 
+		BWAPI Wiki[8] & Web page with links to BWAPI source code documentations as well as other links to other BWAPI related information such as extensions, tutorials and game fundamentals. & Useful for identifying and explaining all of the tools available to the project. \\ 
 		\hline
-		Source Code Comments & Explanations of code functionality directly within the code. & Concise explanation of code located inside of the code for easy access. \\
+		Source Code Comments[9] & Explanations of code functionality directly within the code. & Concise explanation of code located inside of the code for easy access. \\
 		\hline
 	\end{tabular}
 \end{center}
@@ -297,7 +297,7 @@ The goal for the selected Documentation source is to find a source that is thoro
 \subsubsection{Discussion}
 While the BWAPI Wiki does have a broad reach of resources, it may not be the best immediate source for development as it merely redirects us to the more applicable BWAPI Homepage. Source code comments are extremely useful, but they are not as descriptive as an entire cite can be like the BWAPI Homepage. The comments sometimes tell users how to use a function, but does not provide a holistic explanation of what it is doing.
 \subsubsection{Selection}
-The BWAPI Homepage is well-organized and provides specific enough information to explain how to use the API and thus, is our choice.
+The BWAPI Homepage is well-organized and provides specific enough information to explain how to use the API while also being the authoritative source and thus, is our choice.
 
 \subsection{Choice algorithm}
 \subsubsection{Options}
@@ -314,6 +314,34 @@ The BWAPI Homepage is well-organized and provides specific enough information to
 		\hline
 	\end{tabular}
 \end{center}
+\subsubsection{Goals}
+The goal in choosing a choice algorithm is to select something that is moderately flexible while not requiring an extensive amount of time implementing.
+\subsubsection{Criteria}
+\paragraph{Flexibility}
+The choice algorithm should be able to choose between several scripted strategies.
+\paragraph{Efficacy of Decisions}
+The choice algorithm should choose the best option it is aware of based on certain criteria regarding current game and/or previous game data.
+\paragraph{Implementation Time}
+The choice algorithm ideally will be able to be implemented without extensive knowledge in machine learning or mining a significant amount of data from previous games.
+\subsubsection{Table}
+\begin{center}
+	\begin{tabular}{ ||C|M|M|M|| } 
+		\hline
+		Decision Algorithm & Flexibility & Efficacy of Decisions & Implementation Time \\
+		\hline
+		Scripted Tree Selection & Fairly flexible with an unlimited number of possible strategies. & Decisions cannot be evaluated for effectiveness, only if they were the correct decision based on the pre-defined decision algorithm criteria. & Relatively short implementation time. \\ 
+		\hline
+		Machine Learning - Supervised & Very flexible because strategies are fluid, considering all options at all times. & Efficacy is reinforced as the AI attempts to maximize efficacy with each decision based on previous outcomes. & Long implementation time, especially when considering time taken while creating a data pool to use. \\ 
+		\hline
+		 Machine Learning Reinforced & Very flexible but slightly constrained to a predefined reward system that determines what a successful decision was. & Efficacy of decisions is reinforced but entirely based on the definition of success is programmed within the reward system. & Long implementation time required to create logic that constantly considers all options with regards to the reward system. \\ 
+		\hline
+	\end{tabular}
+\end{center}
+\subsubsection{Discussion}
+While both machine learning algorithms would be fantastic to implement and would make for an impressive AI, they are not possible to implement within our projected development schedule. 
+\subsubsection{Selection}
+We will be implementing an algorithm that picks from a tree of scripted strategies. It will decide what the best strategy is based on the current game data.
+
 
 \subsection{Extensions to the API}
 
@@ -339,5 +367,14 @@ http://www.oracle.com/technetwork/java/javase/documentation/tutorials-jsp-138802
 [5]Eclipse, N.p., 2016. Web. 14 Nov. 2016. https://www.eclipse.org/ide/
 
 [6]JetBrains, "Intellij IDEA The Java IDE". JetBrains. N.p., 2016. Web. 14 Nov. 2016. http://www.jetbrains.com/idea/
+
+[7]"Brood War API." BWAPI: Main Page. N.p., n.d. Web. 14 Nov. 2016. http://bwapi.github.io/index.html
+
+[8]"Main Page." StarCraft AI, the Resource for Custom StarCraft Brood War AIs. N.p., n.d. Web. 14 Nov. 2016. http://www.starcraftai.com/wiki/Main\_Page
+
+[9]Bwapi. "Bwapi/bwapi." GitHub. N.p., 2015. Web. 14 Nov. 2016.  https://github.com/bwapi/bwapi
+
+
+
 
 \end{document}
