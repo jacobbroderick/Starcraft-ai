@@ -225,19 +225,45 @@ Since we are choosing to program in C++, and it is the recommended environment f
 		\hline
 		Brood Data API & API focused on data mining for future use in machine-learning algorithms for AI or competitive player training. & Useful for gathering data for design algorithms.\\ 
 		\hline
-		 BW Spectator Interface API & API designed for spectator-mode interface customization with real-time game stats and interaction with units. & Useful for observing performance of AI. \\ 
+		 BW Spectator API & API designed for spectator-mode interface customization with real-time game stats and interaction with units. & Useful for observing performance of AI. \\ 
 		\hline
 	\end{tabular}
 \end{center}
-
+\subsubsection{Goals}
+	The goal for the selected API is to fit the appropriate needs of the team in development of an AI. Additionally, it should be designed such that in the future, the API will support the desire for machine learning implementations using current game data. Finally, it should be well-documented and ideally have a community that has provided further learning tools such as videos.
+\subsubsection{Criteria}
+	\paragraph{AI Functionality}
+	Allows for interaction with the AI agent in order to automate the game mechanics.
+	\paragraph{Current Game Data}
+	Allows for gathering of current game stats in order to make immediate decisions based on that information.
+	\paragraph{Documentation}
+	Thorough explanations of how the API works and instructional information such as tutorials on how to use it.
+\subsubsection{Table}
+\begin{center}
+	\begin{tabular}{ ||B|M|M|M|| } 
+		\hline
+		API & AI Functionality & Current Game Data & Documentation \\
+		\hline
+		BWAPI & BWAPI supports interfacing with game mechanics for AI agents. & Provides current game data for data mining or machine learning strategies. & Thorough documentation and extensive learning tools created by the community. \\ 
+		\hline
+		Brood Data API & N/A & Excellent data collection functionality. & Provides minimal documentation and learning tools. \\ 
+		\hline
+		BW Spectator API & N/A  & Interface for collecting current data for presenting important game stats to viewers. & Well-documented but minimal additional learning tools. \\ 
+		\hline
+	\end{tabular}
+\end{center}
+\subsubsection{Discussion}
+	Because BWAPI is built to support AI agent functionality, and the others do not, BWAPI is the obvious choice. Furthermore, while Brood Data API is more powerful for data mining for data-driven machine learning algorithms, BWAPI is more well-rounded with learning tools and enough game-data functionality. Lastly, BW Spectator API allows for displaying relevant game stats to viewers but does not provide any functionality to interact directly with an AI agent.
+\subsubsection{Selection}
+	Since BWAPI offers the most versatility of the three options and is the most useful for AI development, BWAPI is the API we will be using. 
 \subsection{Documentation for API}
 \subsubsection{Options}
 \begin{center}
 	\begin{tabular}{ ||C|L|L|| } 
 		\hline
-		Source & Description & Reason for Selection \\
+		Documentation Source & Description & Reason for Selection \\
 		\hline
-		BWAPI  & Commonly used programming language with many functionalities derived from C. & It is commonly taught and used and is the recommended language from BWAPI. \\ 
+		BWAPI Homepage  & The homepage for the BWAPI that provides organized explanations of the libraries included in the API. & Very thorough and well-organized into specific libraries making it easier to find the certain tool you may be looking for. \\ 
 		\hline
 		BWAPI Wiki & Web page with links to BWAPI source code documentations as well as other links to other BWAPI related information such as extensions, tutorials and game fundamentals. & Useful for identifying and explaining all of the tools available to the project. \\ 
 		\hline
@@ -245,6 +271,33 @@ Since we are choosing to program in C++, and it is the recommended environment f
 		\hline
 	\end{tabular}
 \end{center}
+\subsubsection{Goals}
+The goal for the selected Documentation source is to find a source that is thorough, well-organized, and authoritative.
+\subsubsection{Criteria}
+	\paragraph{Thorough Information}
+	The documentation should provide information on all of the built-in functionality provided by the API.
+	\paragraph{Organization}
+	The documentation would ideally be organized into subsections for efficiently sorting through material.
+	\paragraph{Authoritative}
+	The documentation should be definitively true and current.
+\subsubsection{Table}
+\begin{center}
+	\begin{tabular}{ ||C|M|M|M|| } 
+		\hline
+		Documentation Source & Thorough Information & Organization & Authoritative \\
+		\hline
+		BWAPI Homepage & The BWAPI homepage provides documentation on the entire API. & The information is organized into subcategories to organize functionality. & It is the most genuine source of information for the BWAPI as it was created by the developer who made the BWAPI. \\ 
+		\hline
+		BWAPI Wiki & Extensive links to resources like the BWAPI Homepage, information on BWAPI extensions, and other learning tools such as instructional videos. & Organized into categories however it does not hose the information, it redirects users to other sources. & Some of the resources may not be good for development consider they are outside developer's work thus, is not authoritative.  \\ 
+		\hline
+		Source Code Comments & Thorough and applicable information for small, modular pieces of API source code. & Paired with the code the comments refer to. & Authoritative because they were written by the developer who created the BWAPI. \\ 
+		\hline
+	\end{tabular}
+\end{center}
+\subsubsection{Discussion}
+While the BWAPI Wiki does have a broad reach of resources, it may not be the best immediate source for development as it merely redirects us to the more applicable BWAPI Homepage. Source code comments are extremely useful, but they are not as descriptive as an entire cite can be like the BWAPI Homepage. The comments sometimes tell users how to use a function, but does not provide a holistic explanation of what it is doing.
+\subsubsection{Selection}
+The BWAPI Homepage is well-organized and provides specific enough information to explain how to use the API and thus, is our choice.
 
 \subsection{Choice algorithm}
 \subsubsection{Options}
@@ -253,7 +306,7 @@ Since we are choosing to program in C++, and it is the recommended environment f
 		\hline
 		Type & Description & Reason for Selection \\
 		\hline
-	Scripted Tree Selection & Creating a tree with scripted strategies to alternate between in response to game data. & Significantly easier implementation that still provides flexibility between strategies. \\ 
+		Scripted Tree Selection & Creating a tree with scripted strategies to alternate between in response to game data. & Significantly easier implementation that still provides flexibility between strategies. \\ 
 		\hline
 		Machine Learning - Supervised & AI would base decisions on outcomes of previous instances of decisions and those outcomes. & Identifies patterns in outcomes and can eventually identify the appropriate response based on previous successes or mistakes. \\ 
 		\hline
