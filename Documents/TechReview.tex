@@ -348,10 +348,133 @@ We will be implementing an algorithm that picks from a tree of scripted strategi
 
 
 \subsection{Extensions to the API}
+\subsubsection{Options}
+\begin{center}
+	\begin{tabular}{ ||C|L|L|| } 
+		\hline
+		Type & Description & Reason for Selection \\
+		\hline
+		BWTA2 & Second version of the BW terrain analyzer. Analyzes maps in broodwar to give information about possible spawn locations. & Would be useful for determining map based strategies without having to implement it from scratch. \\ 
+		\hline
+		SparCraft & A tool that simulates battles between specified units. Would assist in scripting how the AI would battle other AIs. & It would be useful for testing battle modules in the AI. \\ 
+		\hline
+		Map Editor & A map editor that allows users to put their AIs in unique situations to see how it handles them. & Extremely useful if one would need to test very specific situations over and over again. \\ 
+		\hline
+	\end{tabular}
+\end{center}
+\subsubsection{Goals}
+The goal in choosing an extension is to pick something that is useful, multipurpose, hard to implement from scratch.
+\subsubsection{Criteria}
+\paragraph{Useful}
+Above all the extension has to be useful for the project to require it.
+\paragraph{Multipurpose}
+The chosen extension should allow for multiple different uses so that the project can benefit the most with as little overhead.
+\paragraph{Hard to implement otherwise}
+The extension should be something that would not otherwise be able to be implemented in the time frame. 
+\subsubsection{Table}
+\begin{center}
+	\begin{tabular}{ ||C|M|M|M|| } 
+		\hline
+		Decision Algorithm & Useful & Multipurpose & Hard to implement otherwise \\
+		\hline
+		BWTA2 & API would allow for the AI to analyze maps which is very useful in determining winning moves. & This would allow us to better determine attack and defense around the map. & This would be something that would be relatively difficult to develop for every single map in Brood War. \\ 
+		\hline
+		SparCraft & This API would be a good way to test the battle effectiveness at different unit values with very little effort & This algorithm would only be useful in testing combat effectiveness of the AI. & This would be something that would be very hard to develop within the time given for this project. \\ 
+		\hline
+		Map Editor & This extension is useful because it would allow for testing in many different situations. & Extremely multipurpose since it would allow for any map/situation to be created. & This would take a very long time to implement from scratch because of the fine tuning for use in the Starcraft system. \\ 
+		\hline
+	\end{tabular}
+\end{center}
+\subsubsection{Discussion}
+All of these extensions would be very useful if there was unlimited time to learn and explore with them, unfortunately this project has a very short time line compared to the amount of work that can be done. 
+\subsubsection{Selection}
+The Extension that could be utilized best given the time line would be the Terrain analyzer. It would save us time because there is a lot of work involved with map analysis. It also would not add too much overhead to the project to try to learn and apply it.
 
 \subsection{Compiling environment}
+\subsubsection{Options}
+\begin{center}
+	\begin{tabular}{ ||C|L|L|| } 
+		\hline
+		Type & Description & Reason for Selection \\
+		\hline
+		Visual Studio C++ (G++) & GNU compiler for C++ plugged in to visual studio & Convenient compiler because of the chosen IDE (Visual Studio) \\ 
+		\hline
+		Intel Compiler & Compiler released by intel which has a lot of useful optimizations for things like kernel development. & It could be more optimal than other compilers if the project made use of features that it has to offer. \\ 
+		\hline
+		Java Compiler & Compiler used by java to create programs runnable in the java runtime environment & If the project is written in Java this would be the optimal choice \\ 
+		\hline
+	\end{tabular}
+\end{center}
+\subsubsection{Goals}
+The goals that the proper compiler should meet are: Fast, Compatible, Convenient.
+\subsubsection{Criteria}
+\paragraph{Fast}
+The chosen compiler should not take too long in order to generate a usable program for the system.
+\paragraph{Compatible}
+The chosen compiler should be compatible with the requirements of the system.
+\paragraph{Convenient}
+Ideally the compiler should not add any overhead to the work environment while still being able to perform.
+\subsubsection{Table}
+\begin{center}
+	\begin{tabular}{ ||C|M|M|M|| } 
+		\hline
+		Decision Algorithm & Fast & Compatible & Convenient \\
+		\hline
+		G++ & Very fast and optimized compiler. & This compiler is compatible with the system. & It is available for use within the IDE that has been chosen \\ 
+		\hline
+		Intel Compiler & The intel compiler is the most optimized compiler of the choices, and should outperform them. & The compiler is compatible with the system that has been chosen. & The compiler would have to be configured in addition to working out the system, it would not be very convenient. \\ 
+		\hline
+		Java Compiler & The slowest of the options, this compiler has a lot of overhead because it has to prepare code for the runtime environment. & The compiler is not compatible with our environment. & The compiler would not be convenient because it would require a change to the entire project \\ 
+		\hline
+	\end{tabular}
+\end{center}
+\subsubsection{Discussion}
+The c++ compilers would both be useful within the system. Most compilers can perform the functions that are required for this project, some are just more convenient and compatible with what is required by the project.
+\subsubsection{Selection}
+The visual studio G++ compiler will be the choice for this technology. It is already built in to the tools that will be used to develop this project.
 
 \subsection{Compiling type}
+\subsubsection{Options}
+\begin{center}
+	\begin{tabular}{ ||C|L|L|| } 
+		\hline
+		Type & Description & Reason for Selection \\
+		\hline
+		DLL & A windows library file that can contain information about how to fun a program. It would be a library with how the ai would run & Small compact file that is accepted by the tournament. Recommended by the chosen API \\ 
+		\hline
+		EXE & Windows executable file type. A program output as an EXE can be ran directly & EXE provides flexibility in how the program is ran. \\ 
+		\hline
+		JAR & Java executable program file. Works well for projects using the Java environment & Would be useful with a custom environment that would allow for java files to be ran directly. \\ 
+		\hline
+	\end{tabular}
+\end{center}
+\subsubsection{Goals}
+The goal in choosing the right output is to choose one that is flexible, while also being usable by the API.
+\subsubsection{Criteria}
+\paragraph{Compatibility}
+The chosen output should be compatible with the system that our API chooses.
+\paragraph{Size}
+The chosen output should be compact to allow for transfer and portability.
+\paragraph{Implementation Time}
+\subsubsection{Compiler}
+The chosen output should work with the compiler that our environment uses.
+\begin{center}
+	\begin{tabular}{ ||C|M|M|M|| } 
+		\hline
+		Decision Algorithm & Compatibility & Size & Compiler \\
+		\hline
+		DLL & Completely compatible and recommended by the API & Small enough that it can be sent to tournament sponsors & It can be compiled by the chosen platform \\ 
+		\hline
+		EXE & Compatible with tournament rules and can be used by the API & Larger than dll on average, still okay for sending & It can be compiled by the chosen platform \\ 
+		\hline
+		JAR & Not compatible with tournament rules or the API (Java should output to dll) &Not compatible with the system at all & It can be compiled by the chosen platform with configuration \\ 
+		\hline
+	\end{tabular}
+\end{center}
+\subsubsection{Discussion}
+The program should compile down to the DLL format. It is the recommended format by the chosen API, and has the least problems with all other rulings. An exe could be used, but there already exists a standard used by many with BWAPI.
+\subsubsection{Selection}
+We will be compiling down to a DLL for use by the game.
 
 \section{Conclusion}
 \subsection{General Findings}
@@ -361,7 +484,7 @@ The technologies we will be using are what we consider to be best suited for our
 Our client has expressed a desire for this software to be designed in a manner that is flexible and mobile. This is in large-part why we chose the modular programming paradigm. Additionally, we wanted a low-level language that was compatible with our API which is how we arrived at C++. Furthermore, it is widely suggested development with the BWAPI be done in Visual Studio and we have familiarity with this IDE.
 
 \subsection{API}
-The BWAPI is the premier API for AI programming with regards to Starcraft. Not only is it extensive, but the documentation is useful and includes functionality that will prove useful for future developers who plan to develop machine learning algorithms.
+The BWAPI is the premier API for AI programming with regards to Starcraft Brood War. Not only is it extensive, but the documentation is useful and includes functionality that will prove useful for future developers who plan to develop machine learning algorithms.
 
 \subsection{Extensions and compilation}
 There are several extensions to the BWAPI which should be considered and while we have chosen one that is most applicable, extensions are more likely to be used once our project is passed onto future developers. Furthermore, in choosing Visual Studio as our IDE, we have chosen our compilation environment. Visual Studio's compilation in the form of a solution is fairly heavy but will not be an issue for project.
