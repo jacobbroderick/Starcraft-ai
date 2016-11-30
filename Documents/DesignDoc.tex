@@ -74,16 +74,30 @@
 \section{Design concerns}
 	The design concerns of the future students are that the code is well documented and organized. 
 	
-	
 \section{Design Views}
-	The code is well documented if it has concise comments and includes functional headers. In order for the code to be organized, it must be modularized into simple functions and further separated into header files containing functions with similar purposes. The functions also need to be listed in order of complexity with the most complex functions requiring the highest amount of dependencies is located at the bottom.
+	The code is well documented if it has concise comments and includes functional header comments. In order for the code to be organized, it must be modularized into simple functions and further separated into header files containing functions with similar purposes. The functions also need to be listed in order of complexity with the most complex functions requiring the highest amount of dependencies is located at the bottom.
 	
 \section{Design Viewpoints}
-	The viewpoint used for commenting 
-\section{Design Elements}
+\subsection{Pattern}
+	The pattern viewpoint covers the design for the commenting of the code. Commenting in the program will require reuse of function header comments to describe the function's purpose. Functional header comments will follow a specified template of describing the name, process, inputs, outputs, and requirements of a function. In-line comments must be included for any variable declarations, loops, and function calls as well as any ambiguous declarations. The parts of the functional header comment must directly associate with code in the function. For example, the inputs are the parameters of a function and the outputs are the returned values. This viewpoint will be supported using the UML composite structure diagram.
+	
+\subsection{Composition}
+	The composition viewpoint is used for the design of modular functions and files. Composition will help to localize and simplify blocks of code into functions. Functions will then be localized into separate files based on their purpose. Most functions will be decomposed into modules with a singular purpose while their will be a few functions that control the system and call upon the simpler modules. The HIPO diagram will be used to supplement this viewpoint.
+
+\subsection{Dependency}
+	The dependency viewpoint designs the order of the functions in each file. The design of each file will follow the order of least complex function with least dependencies on top while more complex functions that use other functions are on the bottom of the file. A UML component diagram will be used to show the dependencies.
+
 
 \section{Design Overlays}
 
 \section{Design Rationale}
+\subsection{Commenting}
+	Adding function header comments and using a template will help future students to quickly and easily find the information they need about the function. In-line comments will also help future students follow the process in the function.
+
+\subsection{Modular functions and files}
+	Keeping functions modular and organized into separate files will help future students to easily navigate the code. It will also help them use the code as the can take separate modules or files easily.
+
+\subsection{Ordered functions}
+	Ordering functions by complexity will help the future students navigate as they can quickly find simple functions to use. They will also be able to physically see the use of simple functions to support larger more complex functions.
 
 \end{document}
