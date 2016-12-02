@@ -76,11 +76,16 @@
 	The design concerns of the future students are that the code is well documented and organized. 
 \subsection{Modularity}
 	In order for the code to be transferable, it should be broken into modular pieces focused on specific functionality accessible through the BWAPI.
+\subsection{Decision Making}
+	The best path to a successful bot that plays Starcraft is to have proper decision making. The decision making must be good enough that there is a chance for success.
+	
 \section{Design Views}
 \subsection{Documentation View}
 	The code is well documented if it has concise comments and includes functional header comments. In order for the code to be organized, it must be modularized into simple functions and further separated into header files containing functions with similar purposes. The functions also need to be listed in order of complexity with the most complex functions requiring the highest amount of dependencies is located at the bottom.
 \subsection{Modularity}
 	The code will be modular with respect to the functionality of the BWAPI. Creating stand-alone modules that perform necessary Starcraft game actions will improve the learning process for student developers who use the code, and will enable them to produce AI agents more quickly even with limited or no experience with AI software design. Furthermore, the modules should have limited or no dependency on other modules. This allows for simple transferability into a developer's code. 
+\subsection{Decision Making}
+The AI is able to decide what strategy to implement based on the state of the game. Multiple strategies will exist that determine the behavior of the AI. Certain buildings and units will be created depending on the strategy chosen. What the units do will be determined by the strategy, but the way they move will be determined by a movement module. The strategy will work for a specific race within the game, and would be catered to fit that specific strategy. Many different strategies can be implemented and tested, and should just require specific calls from the system.
 \section{Design Viewpoints}
 \subsection{Documentation}
 \subsubsection{Pattern}
@@ -95,7 +100,13 @@
 \subsubsection{Structure}
 	The design concerns of modularity are code transferability, and understandability. Transferability refers to a student developer's ability to move code from one project to another with little or no required code edits. Understandability refers to the level of effort a student developer would have to invest in order to understand what a module is doing. Modularity of the library will be categorized with respect to individual classes or small groups of classes relevant to a desired functionality. The BWAPI classes are already broken into categories for interacting with the AI agent and game. This library will access functions relevant to specific actions based on functionality of the module. This design convention makes learning easier by providing concise examples for developers to use and study.
 	An example would be pulling game state information with regards to in-game resources. This will be important for many of the logic modules created. These modules will organize the functions that pull the appropriate data and can send it to other modules for further algorithm-based actions. In this example of resource collection, modularity makes it easier for students to separate the logic of data gathering from the other categories of functionality. Additionally, it makes modules more transferable to other AI agents without disrupting other systems within the overall body of code. 
-	
+\subsection{Decision Making}
+\subsubsection{Strategies}
+	The strategy viewpoint covers a scripted strategy that will accomplish a single thing. For the race Terran, this could be a strategy that involves spending all available resources on the marine unit. These strategies will also determine how and when the AI will take certain actions such as attack/defend. These strategies will be based around timings that are used to determine when the best possible time to do certain actions.
+\subsubsection{Strategy Choice}
+	The choice of different strategy will depend on the state of the game. If the opponent is playing aggressively, a defensive strategy can be chosen. It also can determine when to upgrade units, or choose different units to build. If the enemy has numerous air units, switching to an anti-air option would be more successful than continuing with a non anti-air unit. 
+\subsubsection{Modularity of Strategies}
+	These strategies should be modular, so that they can be tested and removed as needed. This will allow for optimization of the AI when playing many games with other AIs. This will also allow us to test our bot against itself, with different configurations.
 \section{Design Overlays}
 \subsection{Modularity}
 	As mentioned in the Requirements Document, we will be breaking categories into micro and macro game actions. Micro actions are tactical and more unit-specific while macro actions are resource gathering and base construction focused. Also, these categories are broken into AI decision-making modules that pull game data and algorithmically decide what should be done and communicate with action modules that act on the AI's decision making. This is applicable to the modularity design concerns as it provides student developers easier code sharing and transferability when developing competitive AI's with other student developers. 
@@ -112,4 +123,7 @@
 \subsection{Modularity}
 \subsubsection{Categorization of Modules}
 	Categorizing the library modules first based on the functionality they serve with respect to the game, then micro and macro game actions, and finally AI decision-making or action will make library components concise, easier to understand, and more transferable across AI agents.
+\subsection{Decision Making}
+\subsubsection{Choosing Strategies}
+	Multiple strategies will be required in order to ensure that the AI has the highest chance of success. It will gather data from the data module that will assist in discovering the best option on how to proceed. 
 \end{document}
