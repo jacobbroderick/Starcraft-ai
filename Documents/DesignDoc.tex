@@ -49,24 +49,15 @@
 12/4/2016
 \subsection{Scope}
 	This document will provide details on the design of the documentation, modularity, and the strategy implementation of the Starcraft AI project.
-\subsection{Issuing organization}
-
+	
 \subsection{Authorship}
 Brandon Chatham - Modularity
 
 Kristen Patterson - Documentation
 
 Jacob Broderick - Decision Making
-\subsection{References}
-
-\subsection{Context}
-
 \subsection{Design languages}
-	The design language will be C++
-
-\subsection{Body}
-
-\subsection{Summary}
+	The design language used will be a UML diagram.
 
 \subsection{Glossary}
 	AI - Artificial intelligence
@@ -133,12 +124,6 @@ The AI is able to decide what strategy to implement based on the state of the ga
 	The dependency viewpoint designs the order of the functions in each file. The design of each file will follow the order of least complex function with least dependencies on top while more complex functions that use other functions are on the bottom of the file. A UML component diagram will be used to show the dependencies.
 \subsection{Modularity}
 \subsubsection{Structure}
-	The design concerns of modularity for this library are code reusability, transferability, and understandability. Modularity of the library will be categorized with respect to individual classes or small groups of classes relevant to the desired functionality. The API classes are already broken into categories for interacting with the AI agent and game. This library will access functions relevant to specific actions based on functionality of the module. This design convention makes learning easier by providing concise examples for developers to use and study.
-	An example would be pulling game state information with regards to in-game resources. This will be important for many of the logic modules created. These modules will organize the functions that pull the appropriate data and can send it to other modules for further algorithm-based actions. In this example of resource collection, modularity makes it easier for students to separate the logic of data gathering from the other categories of functionality. Additionally, it makes modules more reusable and transferable without disrupting other systems within the overall body of code.
-
-\section{Design Overlays}
-\subsection{Modularity}
-	As mentioned in the Requirements Document, categories will be broken into micro and macro game actions. Micro actions are tactical and more unit-specific while macro actions are resource gathering and base construction focused. Also, these categories are broken into decision-making modules that pull game data and algorithmically decide what should be done and communicate with action modules that act on the decision making. This is applicable to the modularity design concerns as it provides developers easier code sharing and transferability when developing competitive AI's with other developers. 
 	The design concerns of modularity are code transferability, and understandability. Transferability refers to a student developer's ability to move code from one project to another with little or no required code edits. Understandability refers to the level of effort a student developer would have to invest in order to understand what a module is doing. Modularity of the library will be categorized with respect to individual classes or small groups of classes relevant to a desired functionality. The BWAPI classes are already broken into categories for interacting with the AI agent and game. This library will access functions relevant to specific actions based on functionality of the module. This design convention makes learning easier by providing concise examples for developers to use and study.
 	An example would be pulling game state information with regards to in-game resources. This will be important for many of the logic modules created. These modules will organize the functions that pull the appropriate data and can send it to other modules for further algorithm-based actions. In this example of resource collection, modularity makes it easier for students to separate the logic of data gathering from the other categories of functionality. Additionally, it makes modules more transferable to other AI agents without disrupting other systems within the overall body of code. 
 \subsection{Decision Making}
@@ -146,6 +131,10 @@ The AI is able to decide what strategy to implement based on the state of the ga
 	The strategy viewpoint covers a scripted strategy that will accomplish a single thing. For the race Terran, this could be a strategy that involves spending all available resources on the marine unit. These strategies will also determine how and when the AI will take certain actions such as attack/defend. These strategies will be based around timings that are used to determine when the best possible time to do certain actions.
 \subsubsection{Strategy Choice}
 	The choice of different strategy will depend on the state of the game. If the opponent is playing aggressively, a defensive strategy can be chosen. It also can determine when to upgrade units, or choose different units to build. If the enemy has numerous air units, switching to an anti-air option would be more successful than continuing with a non anti-air unit. 
+
+\section{Design Overlays}
+\subsection{Modularity}
+	As mentioned in the Requirements Document, categories will be broken into micro and macro game actions. Micro actions are tactical and more unit-specific while macro actions are resource gathering and base construction focused. Also, these categories are broken into decision-making modules that pull game data and algorithmically decide what should be done and communicate with action modules that act on the decision making. This is applicable to the modularity design concerns as it provides developers easier code sharing and transferability when developing competitive AI's with other developers. 
 \subsubsection{Modularity of Strategies}
 	These strategies should be modular, so that they can be tested and removed as needed. This will allow for optimization of the AI when playing many games with other AIs. This will also allow us to test our bot against itself, with different configurations.
 \section{Design Overlays}
