@@ -9,5 +9,5 @@ public:
 	static void BuildingConstruction::buildGas(BWAPI::Unit base);
 	static void BuildingConstruction::buildBarracks(BWAPI::Unit base);
 	static void BuildingConstruction::buildGateway(BWAPI::Unit base);
-	static void BuildingConstruction::buildHatchery(BWAPI::Unit base);
+	static void BuildingConstruction::buildSpawningPool(BWAPI::Unit base);
 };

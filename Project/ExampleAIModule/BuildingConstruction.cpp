@@ -200,8 +200,7 @@ Input: Resource depot.
 Process: Build Zerg Spawning Pool if the input is of Zerg type.
 Output: None.
 */
-//Not sure how to set this up as I don't know how the zerg build system works. Need to research before building function.
-void BuildingConstruction::buildHatchery(BWAPI::Unit base)
+void BuildingConstruction::buildSpawningPool(BWAPI::Unit base)
 {
 	UnitType zergType = UnitTypes::Zerg_Spawning_Pool;
 	Unit spawningPoolBuilder = base->getClosestUnit(GetType == zergType.whatBuilds().first && (IsIdle || IsGatheringMinerals) && IsOwned);
