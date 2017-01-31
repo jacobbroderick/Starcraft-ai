@@ -4,6 +4,8 @@
 class BuildingConstruction
 {
 public:
+	int expansionCount = 0;
 	static void BuildingConstruction::buildSupply(BWAPI::Unit base);
 	static void BuildingConstruction::buildGas(BWAPI::Unit base);
+	static void BuildingConstruction::buildBarracks(BWAPI::Unit base);
 };

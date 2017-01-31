@@ -8,7 +8,6 @@
 
 
 // Remember not to use "Broodwar" in any global class constructor!
-
 class ExampleAIModule : public BWAPI::AIModule
 {
 public:

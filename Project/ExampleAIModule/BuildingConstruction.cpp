@@ -120,3 +120,13 @@ void BuildingConstruction::buildGas(BWAPI::Unit base)
 		}
 	}
 }
+
+/*
+Input: None.
+Process: Build barracks based on .
+Output: None.
+*/
+void BuildingConstruction::buildBarracks(BWAPI::Unit base)
+{
+
+}

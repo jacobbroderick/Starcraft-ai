@@ -27,3 +27,4 @@ bool UnitAction::checkUnitState(BWAPI::Unit unit)
 	//Return true if no cases are found true.
 	return true;
 }
+
