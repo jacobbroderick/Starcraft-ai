@@ -5,9 +5,6 @@
 #include "BuildingConstruction.h"
 #include "UnitAction.h"
 
-
-
-
 // Remember not to use "Broodwar" in any global class constructor!
 class ExampleAIModule : public BWAPI::AIModule
 {

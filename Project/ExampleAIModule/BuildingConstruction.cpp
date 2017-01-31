@@ -9,8 +9,8 @@ Input: Resource depot.
 Process: Uses type of resource depot to determine race. Selects a worker to perform construction of an expansion.
 Output: None.
 */
-void BuildingConstruction::buildCenter(BWAPI::Unit base){
-
+void BuildingConstruction::buildCenter(BWAPI::Unit base)
+{
 	// Retrieve a unit that is capable of constructing the supply needed
 	UnitType centerProviderType = base->getType().getRace().getCenter();
 	Unit centerBuilder = base->getClosestUnit(GetType == centerProviderType.whatBuilds().first && (IsIdle || IsGatheringMinerals) && IsOwned);
@@ -34,12 +34,7 @@ void BuildingConstruction::buildCenter(BWAPI::Unit base){
 			// Order the builder to construct the supply structure
 			centerBuilder->build(centerProviderType, targetBuildLocation);
 			BuildingConstruction::expansionCount++;
-		}
-		}
-		else
-		{
-		// Train the supply provider (Overlord) if the provider is not a structure
-		centerBuilder->train(centerProviderType);
+			}
 		}
 	}
 }
