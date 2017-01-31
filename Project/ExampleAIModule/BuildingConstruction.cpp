@@ -4,6 +4,45 @@
 using namespace BWAPI;
 using namespace Filter;
 
+/*
+Input: Resource depot.
+Process: Uses type of resource depot to determine race. Selects a worker to perform construction of an expansion.
+Output: None.
+*/
+void BuildingConstruction::buildCenter(BWAPI::Unit base){
+
+	// Retrieve a unit that is capable of constructing the supply needed
+	UnitType centerProviderType = center->getType().getRace().getCenter();
+	Unit centerBuilder = center->getClosestUnit(GetType == centerProviderType.whatBuilds().first && (IsIdle || IsGatheringMinerals) && IsOwned);
+
+	// If a unit was found
+	if (centerBuilder)
+	{
+		if (centerProviderType.isBuilding())
+		{
+			TilePosition targetBuildLocation = Broodwar->getBuildLocation(centerProviderType, centerBuilder->getTilePosition());
+			if (targetBuildLocation)
+			{
+				// Register an event that draws the target build location
+				Broodwar->registerEvent([targetBuildLocation, centerProviderType](Game*)
+				{
+					Broodwar->drawBoxMap(Position(targetBuildLocation), Position(targetBuildLocation + centerProviderType.tileSize()), Colors::Blue);
+				},
+				nullptr,  // condition
+				centerProviderType.buildTime() + 100);  // frames to run
+
+			// Order the builder to construct the supply structure
+			centerBuilder->build(centerProviderType, targetBuildLocation);
+			BuildingConstruction::expansionCount++;
+		}
+		}
+		else
+		{
+		// Train the supply provider (Overlord) if the provider is not a structure
+		centerBuilder->train(centerProviderType);
+		}
+	}
+}
 
 /*
 Input: Resource depot.
