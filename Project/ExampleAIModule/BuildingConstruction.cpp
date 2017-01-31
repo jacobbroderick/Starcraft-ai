@@ -122,11 +122,38 @@ void BuildingConstruction::buildGas(BWAPI::Unit base)
 }
 
 /*
-Input: None.
-Process: Build barracks based on .
+Input: Resource depot.
+Process: Build barracks based on the type of resource depot input.
 Output: None.
 */
 void BuildingConstruction::buildBarracks(BWAPI::Unit base)
 {
+	UnitType barracksType = UnitTypes::Terran_Barracks;
+	Unit barracksBuilder = base->getClosestUnit(GetType == barracksType.whatBuilds().first && (IsIdle || IsGatheringMinerals) && IsOwned);
 
+	if (barracksBuilder)
+	{
+		if (barracksType.isBuilding())
+		{
+			TilePosition targetBuildLocation = Broodwar->getBuildLocation(barracksType, barracksBuilder->getTilePosition());
+			if (targetBuildLocation)
+			{
+				// Register an event that draws the target build location
+				Broodwar->registerEvent([targetBuildLocation, barracksType](Game*)
+				{
+					Broodwar->drawBoxMap(Position(targetBuildLocation), Position(targetBuildLocation + barracksType.tileSize()), Colors::Blue);
+				},
+					nullptr,  // condition
+					barracksType.buildTime() + 100);  // frames to run
+
+														 // Order the builder to construct the supply structure
+				barracksBuilder->build(barracksType, targetBuildLocation);
+			}
+		}
+		else
+		{
+			// Train the supply provider (Overlord) if the provider is not a structure
+			barracksBuilder->train(barracksType);
+		}
+	}
 }
