@@ -123,37 +123,112 @@ void BuildingConstruction::buildGas(BWAPI::Unit base)
 
 /*
 Input: Resource depot.
-Process: Build barracks based on the type of resource depot input.
+Process: Build Terran Barracks if the input is of Terran type.
 Output: None.
 */
 void BuildingConstruction::buildBarracks(BWAPI::Unit base)
 {
-	UnitType barracksType = UnitTypes::Terran_Barracks;
-	Unit barracksBuilder = base->getClosestUnit(GetType == barracksType.whatBuilds().first && (IsIdle || IsGatheringMinerals) && IsOwned);
+	UnitType terranType = UnitTypes::Terran_Barracks;
+	Unit barracksBuilder = base->getClosestUnit(GetType == terranType.whatBuilds().first && (IsIdle || IsGatheringMinerals) && IsOwned);
 
 	if (barracksBuilder)
 	{
-		if (barracksType.isBuilding())
+		if (terranType.isBuilding())
 		{
-			TilePosition targetBuildLocation = Broodwar->getBuildLocation(barracksType, barracksBuilder->getTilePosition());
+			TilePosition targetBuildLocation = Broodwar->getBuildLocation(terranType, barracksBuilder->getTilePosition());
 			if (targetBuildLocation)
 			{
 				// Register an event that draws the target build location
-				Broodwar->registerEvent([targetBuildLocation, barracksType](Game*)
+				Broodwar->registerEvent([targetBuildLocation, terranType](Game*)
 				{
-					Broodwar->drawBoxMap(Position(targetBuildLocation), Position(targetBuildLocation + barracksType.tileSize()), Colors::Blue);
+					Broodwar->drawBoxMap(Position(targetBuildLocation), Position(targetBuildLocation + terranType.tileSize()), Colors::Blue);
 				},
 					nullptr,  // condition
-					barracksType.buildTime() + 100);  // frames to run
+					terranType.buildTime() + 100);  // frames to run
 
 														 // Order the builder to construct the supply structure
-				barracksBuilder->build(barracksType, targetBuildLocation);
+				barracksBuilder->build(terranType, targetBuildLocation);
 			}
 		}
 		else
 		{
 			// Train the supply provider (Overlord) if the provider is not a structure
-			barracksBuilder->train(barracksType);
+			barracksBuilder->train(terranType);
+		}
+	}
+}
+
+/*
+Input: Resource depot.
+Process: Build Protoss Gateway if the input is of Protoss type.
+Output: None.
+*/
+void BuildingConstruction::buildGateway(BWAPI::Unit base)
+{
+	UnitType protossType = UnitTypes::Protoss_Gateway;
+	Unit gatewayBuilder = base->getClosestUnit(GetType == protossType.whatBuilds().first && (IsIdle || IsGatheringMinerals) && IsOwned);
+
+	if (gatewayBuilder)
+	{
+		if (protossType.isBuilding())
+		{
+			TilePosition targetBuildLocation = Broodwar->getBuildLocation(protossType, gatewayBuilder->getTilePosition());
+			if (targetBuildLocation)
+			{
+				// Register an event that draws the target build location
+				Broodwar->registerEvent([targetBuildLocation, protossType](Game*)
+				{
+					Broodwar->drawBoxMap(Position(targetBuildLocation), Position(targetBuildLocation + protossType.tileSize()), Colors::Blue);
+				},
+					nullptr,  // condition
+					protossType.buildTime() + 100);  // frames to run
+
+													  // Order the builder to construct the supply structure
+				gatewayBuilder->build(protossType, targetBuildLocation);
+			}
+		}
+		else
+		{
+			// Train the supply provider (Overlord) if the provider is not a structure
+			gatewayBuilder->train(protossType);
+		}
+	}
+}
+
+/*
+Input: Resource depot.
+Process: Build Zerg Spawning Pool if the input is of Zerg type.
+Output: None.
+*/
+//Not sure how to set this up as I don't know how the zerg build system works. Need to research before building function.
+void BuildingConstruction::buildHatchery(BWAPI::Unit base)
+{
+	UnitType zergType = UnitTypes::Zerg_Spawning_Pool;
+	Unit spawningPoolBuilder = base->getClosestUnit(GetType == zergType.whatBuilds().first && (IsIdle || IsGatheringMinerals) && IsOwned);
+
+	if (spawningPoolBuilder)
+	{
+		if (zergType.isBuilding())
+		{
+			TilePosition targetBuildLocation = Broodwar->getBuildLocation(zergType, spawningPoolBuilder->getTilePosition());
+			if (targetBuildLocation)
+			{
+				// Register an event that draws the target build location
+				Broodwar->registerEvent([targetBuildLocation, zergType](Game*)
+				{
+					Broodwar->drawBoxMap(Position(targetBuildLocation), Position(targetBuildLocation + zergType.tileSize()), Colors::Blue);
+				},
+					nullptr,  // condition
+					zergType.buildTime() + 100);  // frames to run
+
+													 // Order the builder to construct the supply structure
+				spawningPoolBuilder->build(zergType, targetBuildLocation);
+			}
+		}
+		else
+		{
+			// Train the supply provider (Overlord) if the provider is not a structure
+			spawningPoolBuilder->train(zergType);
 		}
 	}
 }
