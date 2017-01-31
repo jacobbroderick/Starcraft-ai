@@ -2,6 +2,7 @@
 #include <BWAPI.h>
 #include <vector>
 #include "ResourceGathering.h"
+#include "BuildingConstruction.h"
 #include "UnitAction.h"
 
 

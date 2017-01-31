@@ -12,8 +12,8 @@ Output: None.
 void BuildingConstruction::buildCenter(BWAPI::Unit base){
 
 	// Retrieve a unit that is capable of constructing the supply needed
-	UnitType centerProviderType = center->getType().getRace().getCenter();
-	Unit centerBuilder = center->getClosestUnit(GetType == centerProviderType.whatBuilds().first && (IsIdle || IsGatheringMinerals) && IsOwned);
+	UnitType centerProviderType = base->getType().getRace().getCenter();
+	Unit centerBuilder = base->getClosestUnit(GetType == centerProviderType.whatBuilds().first && (IsIdle || IsGatheringMinerals) && IsOwned);
 
 	// If a unit was found
 	if (centerBuilder)
@@ -92,7 +92,7 @@ void BuildingConstruction::buildSupply(BWAPI::Unit base)
 
 			// Order the builder to construct the supply structure
 			supplyBuilder->build(supplyProviderType, targetBuildLocation);
-		}
+			}
 		}
 		else
 		{
@@ -152,11 +152,6 @@ void BuildingConstruction::buildGas(BWAPI::Unit base)
 				gasBuilder->build(gasProviderType, targetBuildLocation);
 			}
 		}
-		else
-		{
-			// Train the supply provider (Overlord) if the provider is not a structure
-			gasBuilder->train(gasProviderType);
-		}
 	}
 }
 
@@ -189,11 +184,6 @@ void BuildingConstruction::buildBarracks(BWAPI::Unit base)
 				barracksBuilder->build(terranType, targetBuildLocation);
 			}
 		}
-		else
-		{
-			// Train the supply provider (Overlord) if the provider is not a structure
-			barracksBuilder->train(terranType);
-		}
 	}
 }
 
@@ -225,11 +215,6 @@ void BuildingConstruction::buildGateway(BWAPI::Unit base)
 													  // Order the builder to construct the supply structure
 				gatewayBuilder->build(protossType, targetBuildLocation);
 			}
-		}
-		else
-		{
-			// Train the supply provider (Overlord) if the provider is not a structure
-			gatewayBuilder->train(protossType);
 		}
 	}
 }

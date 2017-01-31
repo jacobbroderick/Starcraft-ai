@@ -4,6 +4,51 @@
 using namespace BWAPI;
 using namespace Filter;
 
+/*
+Input: Resource depot.
+Process: Uses type of resource depot to determine race. Selects a worker to perform construction of an expansion.
+Output: None.
+*/
+void BuildingConstruction::buildCenter(BWAPI::Unit base){
+
+	// Retrieve a unit that is capable of constructing the supply needed
+	UnitType centerProviderType = base->getType().getRace().getCenter();
+	Unit centerBuilder = base->getClosestUnit(GetType == centerProviderType.whatBuilds().first && (IsIdle || IsGatheringMinerals) && IsOwned);
+
+	// If a unit was found
+	if (centerBuilder)
+	{
+		if (centerProviderType.isBuilding())
+		{
+			TilePosition targetBuildLocation = Broodwar->getBuildLocation(centerProviderType, centerBuilder->getTilePosition());
+			if (targetBuildLocation)
+			{
+				// Register an event that draws the target build location
+				Broodwar->registerEvent([targetBuildLocation, centerProviderType](Game*)
+				{
+					Broodwar->drawBoxMap(Position(targetBuildLocation), Position(targetBuildLocation + centerProviderType.tileSize()), Colors::Blue);
+				},
+				nullptr,  // condition
+				centerProviderType.buildTime() + 100);  // frames to run
+
+			// Order the builder to construct the supply structure
+			centerBuilder->build(centerProviderType, targetBuildLocation);
+			BuildingConstruction::expansionCount++;
+		}
+		}
+		else
+		{
+		// Train the supply provider (Overlord) if the provider is not a structure
+		centerBuilder->train(centerProviderType);
+		}
+	}
+}
+
+/*
+Input: Resource depot.
+Process: Uses type of resource depot to determine race. Selects a worker to perform construction of supply structure.
+Output: None.
+*/
 void BuildingConstruction::buildSupply(BWAPI::Unit base)
 {
 	/*
@@ -47,7 +92,7 @@ void BuildingConstruction::buildSupply(BWAPI::Unit base)
 
 			// Order the builder to construct the supply structure
 			supplyBuilder->build(supplyProviderType, targetBuildLocation);
-		}
+			}
 		}
 		else
 		{
@@ -57,6 +102,11 @@ void BuildingConstruction::buildSupply(BWAPI::Unit base)
 	}
 }
 
+/*
+Input: Resource depot.
+Process: Uses type of resource depot to determine race. Selects a worker to perform construction of gas structure.
+Output: None.
+*/
 void BuildingConstruction::buildGas(BWAPI::Unit base)
 {
 	/*
@@ -102,10 +152,106 @@ void BuildingConstruction::buildGas(BWAPI::Unit base)
 				gasBuilder->build(gasProviderType, targetBuildLocation);
 			}
 		}
+	}
+}
+
+/*
+Input: Resource depot.
+Process: Build Terran Barracks if the input is of Terran type.
+Output: None.
+*/
+void BuildingConstruction::buildBarracks(BWAPI::Unit base)
+{
+	UnitType terranType = UnitTypes::Terran_Barracks;
+	Unit barracksBuilder = base->getClosestUnit(GetType == terranType.whatBuilds().first && (IsIdle || IsGatheringMinerals) && IsOwned);
+
+	if (barracksBuilder)
+	{
+		if (terranType.isBuilding())
+		{
+			TilePosition targetBuildLocation = Broodwar->getBuildLocation(terranType, barracksBuilder->getTilePosition());
+			if (targetBuildLocation)
+			{
+				// Register an event that draws the target build location
+				Broodwar->registerEvent([targetBuildLocation, terranType](Game*)
+				{
+					Broodwar->drawBoxMap(Position(targetBuildLocation), Position(targetBuildLocation + terranType.tileSize()), Colors::Blue);
+				},
+					nullptr,  // condition
+					terranType.buildTime() + 100);  // frames to run
+
+														 // Order the builder to construct the supply structure
+				barracksBuilder->build(terranType, targetBuildLocation);
+			}
+		}
+	}
+}
+
+/*
+Input: Resource depot.
+Process: Build Protoss Gateway if the input is of Protoss type.
+Output: None.
+*/
+void BuildingConstruction::buildGateway(BWAPI::Unit base)
+{
+	UnitType protossType = UnitTypes::Protoss_Gateway;
+	Unit gatewayBuilder = base->getClosestUnit(GetType == protossType.whatBuilds().first && (IsIdle || IsGatheringMinerals) && IsOwned);
+
+	if (gatewayBuilder)
+	{
+		if (protossType.isBuilding())
+		{
+			TilePosition targetBuildLocation = Broodwar->getBuildLocation(protossType, gatewayBuilder->getTilePosition());
+			if (targetBuildLocation)
+			{
+				// Register an event that draws the target build location
+				Broodwar->registerEvent([targetBuildLocation, protossType](Game*)
+				{
+					Broodwar->drawBoxMap(Position(targetBuildLocation), Position(targetBuildLocation + protossType.tileSize()), Colors::Blue);
+				},
+					nullptr,  // condition
+					protossType.buildTime() + 100);  // frames to run
+
+													  // Order the builder to construct the supply structure
+				gatewayBuilder->build(protossType, targetBuildLocation);
+			}
+		}
+	}
+}
+
+/*
+Input: Resource depot.
+Process: Build Zerg Spawning Pool if the input is of Zerg type.
+Output: None.
+*/
+void BuildingConstruction::buildSpawningPool(BWAPI::Unit base)
+{
+	UnitType zergType = UnitTypes::Zerg_Spawning_Pool;
+	Unit spawningPoolBuilder = base->getClosestUnit(GetType == zergType.whatBuilds().first && (IsIdle || IsGatheringMinerals) && IsOwned);
+
+	if (spawningPoolBuilder)
+	{
+		if (zergType.isBuilding())
+		{
+			TilePosition targetBuildLocation = Broodwar->getBuildLocation(zergType, spawningPoolBuilder->getTilePosition());
+			if (targetBuildLocation)
+			{
+				// Register an event that draws the target build location
+				Broodwar->registerEvent([targetBuildLocation, zergType](Game*)
+				{
+					Broodwar->drawBoxMap(Position(targetBuildLocation), Position(targetBuildLocation + zergType.tileSize()), Colors::Blue);
+				},
+					nullptr,  // condition
+					zergType.buildTime() + 100);  // frames to run
+
+													 // Order the builder to construct the supply structure
+				spawningPoolBuilder->build(zergType, targetBuildLocation);
+			}
+		}
 		else
 		{
 			// Train the supply provider (Overlord) if the provider is not a structure
-			gasBuilder->train(gasProviderType);
+			spawningPoolBuilder->train(zergType);
 		}
 	}
 }

@@ -12,6 +12,7 @@ vector <BWAPI::Unit> *resourceDepots;
 void ExampleAIModule::onStart()
 {
 	workers = new vector<BWAPI::Unit>();
+	BuildingConstruction::expansionCount = 0;
 
 	for (auto &unit : Broodwar->self()->getUnits())
 	{
