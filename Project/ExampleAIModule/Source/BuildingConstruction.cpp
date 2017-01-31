@@ -4,12 +4,6 @@
 using namespace BWAPI;
 using namespace Filter;
 
-
-/*
-Input: Resource depot.
-Process: Uses type of resource depot to determine race. Selects a worker to perform construction of supply structure.
-Output: None.
-*/
 void BuildingConstruction::buildSupply(BWAPI::Unit base)
 {
 	/*
@@ -63,11 +57,6 @@ void BuildingConstruction::buildSupply(BWAPI::Unit base)
 	}
 }
 
-/*
-Input: Resource depot.
-Process: Uses type of resource depot to determine race. Selects a worker to perform construction of gas structure.
-Output: None.
-*/
 void BuildingConstruction::buildGas(BWAPI::Unit base)
 {
 	/*

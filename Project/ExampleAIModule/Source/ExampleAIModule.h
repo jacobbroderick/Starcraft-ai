@@ -1,6 +1,9 @@
 #pragma once
 #include <BWAPI.h>
+#include <vector>
 #include "ResourceGathering.h"
+#include "UnitAction.h"
+
 
 
 

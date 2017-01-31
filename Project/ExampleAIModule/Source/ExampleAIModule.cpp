@@ -1,53 +1,34 @@
 #include "ExampleAIModule.h"
 #include <iostream>
 
+
 using namespace BWAPI;
 using namespace Filter;
+using namespace std;
+
+vector <BWAPI::Unit> *workers;
+vector <BWAPI::Unit> *resourceDepots;
 
 void ExampleAIModule::onStart()
-{/*
-	// Hello World!
-  Broodwar->sendText("Hello world!");
+{
+	workers = new vector<BWAPI::Unit>();
 
-  // Print the map name.
-  // BWAPI returns std::string when retrieving a string, don't forget to add .c_str() when printing!
-  Broodwar << "The map is " << Broodwar->mapName() << "!" << std::endl;
+	for (auto &unit : Broodwar->self()->getUnits())
+	{
+		if (!UnitAction::checkUnitState(unit))
+			continue;
 
-  // Enable the UserInput flag, which allows us to control the bot and type messages.
-  Broodwar->enableFlag(Flag::UserInput);
+		//Start performing actions
+		// If the unit is a worker unit
+		if (unit->getType().isWorker())
+			workers->push_back(unit);
 
-  // Uncomment the following line and the bot will know about everything through the fog of war (cheat).
-  //Broodwar->enableFlag(Flag::CompleteMapInformation);
+		//Store a pointer to refer to our resource dpots 
+		//NOTE: This will only have 1 depot for the time being
+		if (unit->getType().isResourceDepot())
+			resourceDepots->push_back(unit);
 
-  // Set the command optimization level so that common commands can be grouped
-  // and reduce the bot's APM (Actions Per Minute).
-  Broodwar->setCommandOptimizationLevel(2);
-
-  // Check if this is a replay
-  if ( Broodwar->isReplay() )
-  {
-
-    // Announce the players in the replay
-    Broodwar << "The following players are in this replay:" << std::endl;
-    
-    // Iterate all the players in the game using a std:: iterator
-    Playerset players = Broodwar->getPlayers();
-    for(auto p : players)
-    {
-      // Only print the player if they are not an observer
-      if ( !p->isObserver() )
-        Broodwar << p->getName() << ", playing as " << p->getRace() << std::endl;
-    }
-
-  }
-  else // if this is not a replay
-  {
-    // Retrieve you and your enemy's races. enemy() will just return the first enemy.
-    // If you wish to deal with multiple enemies then you must use enemies().
-    if ( Broodwar->enemy() ) // First make sure there is an enemy
-      Broodwar << "The matchup is " << Broodwar->self()->getRace() << " vs " << Broodwar->enemy()->getRace() << std::endl;
-  }
-  */
+	}
 }
 
 void ExampleAIModule::onEnd(bool isWinner)
