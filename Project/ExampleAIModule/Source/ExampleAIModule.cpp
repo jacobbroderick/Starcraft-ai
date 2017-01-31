@@ -15,9 +15,6 @@ void ExampleAIModule::onStart()
 
 	for (auto &unit : Broodwar->self()->getUnits())
 	{
-		if (!UnitAction::checkUnitState(unit))
-			continue;
-
 		//Start performing actions
 		// If the unit is a worker unit
 		if (unit->getType().isWorker())
@@ -42,50 +39,35 @@ void ExampleAIModule::onEnd(bool isWinner)
 
 void ExampleAIModule::onFrame()
 {
-  // Called once every game frame
-  // Display the game frame rate as text in the upper left area of the screen
-  Broodwar->drawTextScreen(200, 0,  "FPS: %d", Broodwar->getFPS() );
-  Broodwar->drawTextScreen(200, 20, "Average FPS: %f", Broodwar->getAverageFPS() );
+	// Called once every game frame.
+	// Display the game frame rate as text in the upper left area of the screen.
+	Broodwar->drawTextScreen(200, 0,  "FPS: %d", Broodwar->getFPS() );
+	Broodwar->drawTextScreen(200, 20, "Average FPS: %f", Broodwar->getAverageFPS() );
 
-  // Return if the game is a replay or is paused
-  if ( Broodwar->isReplay() || Broodwar->isPaused() || !Broodwar->self() )
-    //return;
+	// Return if the game is a replay or is paused.
+	if ( Broodwar->isReplay() || Broodwar->isPaused() || !Broodwar->self() )
+	//return;
+	// Prevent spamming by only running our onFrame once every number of latency frames.
+	// Latency frames are the number of frames before commands are processed.
+	if ( Broodwar->getFrameCount() % Broodwar->getLatencyFrames() != 0 )
+		return;
 
-  // Prevent spamming by only running our onFrame once every number of latency frames.
-  // Latency frames are the number of frames before commands are processed.
-  if ( Broodwar->getFrameCount() % Broodwar->getLatencyFrames() != 0 )
-    return;
+	// Iterate through all the units that we own.
+	for (auto &unit : Broodwar->self()->getUnits())
+	{
+		if (!UnitAction::checkUnitState(unit))
+			continue;
 
-  // Iterate through all the units that we own
-  for (auto &unit : Broodwar->self()->getUnits())
-  {
-    // Ignore the unit if it no longer exists
-    // Make sure to include this block when handling any Unit pointer!
-    if ( !unit->exists() )
-      continue;
-
-    // Ignore the unit if it has one of the following status ailments
-    if ( unit->isLockedDown() || unit->isMaelstrommed() || unit->isStasised() )
-      continue;
-
-    // Ignore the unit if it is in one of the following states
-    if ( unit->isLoaded() || !unit->isPowered() || unit->isStuck() )
-      continue;
-
-    // Ignore the unit if it is incomplete or busy constructing
-    if ( !unit->isCompleted() || unit->isConstructing() )
-      continue;
-
-	//Start performing actions
-    // If the unit is a worker unit
-    if ( unit->getType().isWorker() )
-    {
-		ResourceGathering::workerGather(unit);
-    }
-    else if ( unit->getType().isResourceDepot() ) // A resource depot is a Command Center, Nexus, or Hatchery
-    {
-		ResourceGathering::buildWorker(unit);
-    }
-  }
+		//Start performing actions with unit.
+		// If the unit is a worker unit.
+		if ( unit->getType().isWorker() )
+		{
+			ResourceGathering::workerGather(unit);
+		}
+		else if ( unit->getType().isResourceDepot() ) // A resource depot is a Command Center, Nexus, or Hatchery
+		{
+			ResourceGathering::buildWorker(unit);
+		}
+	}
 }
 
