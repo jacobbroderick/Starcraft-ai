@@ -54,6 +54,9 @@ void ResourceGathering::workerGather(BWAPI::Unit worker)
 					// If the call fails, then print the last error message
 					Broodwar << Broodwar->getLastError() << std::endl;
 				}
+				else{
+					ResourceGathering::currentMineralGatherers += 1;
+				}
 			}
 		} // closure: has no powerup
 	} // closure: if idle

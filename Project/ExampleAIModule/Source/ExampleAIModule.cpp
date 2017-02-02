@@ -13,6 +13,7 @@ void ExampleAIModule::onStart()
 {
 	workers = new vector<BWAPI::Unit>();
 	BuildingConstruction::expansionCount = 0;
+	BuildingConstruction::barrackCount = 0;
 
 	for (auto &unit : Broodwar->self()->getUnits())
 	{
@@ -58,16 +59,36 @@ void ExampleAIModule::onFrame()
 	{
 		if (!UnitAction::checkUnitState(unit))
 			continue;
+		
+		/* The following section has some code for my opinion on 
+		how to do things if you have a better idea or disagree feel
+		free to modify this is more of a sketch up of possible handles*/
 
 		//Start performing actions with unit.
 		// If the unit is a worker unit.
 		if ( unit->getType().isWorker() )
 		{
 			ResourceGathering::workerGather(unit);
+
+
+			//Builds first Barracks at 10 supply
+			if(Broodwar->self()->supplyUsed() >= 10 && BuildingConstruction::barrackCount == 0){
+				//checks for adequate minerals
+				if(ResourceGathering::getMineralCount() >= 150){
+					BuildingConstruction::buildBarracks(unit);
+				}
+			}
 		}
 		else if ( unit->getType().isResourceDepot() ) // A resource depot is a Command Center, Nexus, or Hatchery
 		{
-			ResourceGathering::buildWorker(unit);
+			//ResourceGathering::buildWorker(unit);
+			
+
+			//This may be better to handle creation of workers
+			//Complicated but just means at 10 supply stop spending resources to save to build a barracks
+			if(ResourceGathering::currentMineralGatherers < ResourceGathering::optimumMineralGatherers && !(Broodwar->self()->supplyUsed() == 10 && BuildingConstruction::barrackCount == 0)){
+				ResourceGathering::buildWorker(unit); //how should I select the base? 
+			}
 		}
 	}
 }

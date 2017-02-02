@@ -177,6 +177,7 @@ void BuildingConstruction::buildBarracks(BWAPI::Unit base)
 
 														 // Order the builder to construct the supply structure
 				barracksBuilder->build(terranType, targetBuildLocation);
+				BuildingConstruction::barrackCount += 1;
 			}
 		}
 	}
