@@ -5,9 +5,8 @@
 class ResourceGathering
 {
 	public:
-		//these values are placeholders
-		int optimumMineralGatherers = 13;
-		int optimumGasGatherers = 3;
+		int optimumMineralGatherers = 0;
+		int optimumGasGatherers = 0;
 		int currentMineralGatherers = 0;
 		int currentGasGatherers = 0;
 		static void ResourceGathering::buildWorker(BWAPI::Unit base);

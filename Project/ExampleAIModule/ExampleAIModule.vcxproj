@@ -92,6 +92,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BuildingConstruction.cpp" />
+    <ClCompile Include="MapTools.cpp" />
     <ClCompile Include="ResourceGathering.cpp" />
     <ClCompile Include="Source\Dll.cpp" />
     <ClCompile Include="Source\ExampleAIModule.cpp" />
@@ -99,6 +100,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BuildingConstruction.h" />
+    <ClInclude Include="MapTools.h" />
     <ClInclude Include="ResourceGathering.h" />
     <ClInclude Include="Source\ExampleAIModule.h" />
     <ClInclude Include="UnitAction.h" />

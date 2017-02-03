@@ -4,7 +4,6 @@
 class BuildingConstruction
 {
 public:
-	static int BuildingConstruction::barrackCount;
 	static int BuildingConstruction::expansionCount;
 	static void BuildingConstruction::buildCenter(BWAPI::Unit base);
 	static void BuildingConstruction::buildSupply(BWAPI::Unit base);
