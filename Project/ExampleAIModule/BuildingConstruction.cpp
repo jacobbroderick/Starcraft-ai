@@ -33,7 +33,6 @@ void BuildingConstruction::buildCenter(BWAPI::Unit base)
 
 			// Order the builder to construct the supply structure
 			centerBuilder->build(centerProviderType, targetBuildLocation);
-			BuildingConstruction::expansionCount++;
 			}
 		}
 	}
