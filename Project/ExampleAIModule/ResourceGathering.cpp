@@ -11,23 +11,20 @@ Process: If the resource depot is idle and fails to construct a worker more supp
 Output: None.
 */
 void ResourceGathering::buildWorker(BWAPI::Unit base)
+{
+
+	//Get mineral count
+	if (getMineralCount() >= 50)
 	{
-		
-		//Get mineral count
-		if (getMineralCount() >= 50)
+		//If the base is not building anything AND the attempt to build a worker fails 
+		//OR
+		//the supply used is marginally close to the supply total AND can afford to increase supply AND 3 minutes into game
+		if ((base->isIdle() && !(base->train(base->getType().getRace().getWorker()))) || ((Broodwar->self()->supplyUsed() + 4 >= Broodwar->self()->supplyTotal()) && getMineralCount() > 100) && (Broodwar->elapsedTime() < 180))
 		{
-			//If the base is not building anything AND the attempt to build a worker fails 
-			//OR
-			//the supply used is marginally close to the supply total AND can afford to increase supply AND 3 minutes into game
-			if (base->isIdle() && !base->train(base->getType().getRace().getWorker() || ((Broodwar->self()->supplyUsed() + 4 >= Broodwar->self()->supplyTotal()) && getMineralCount() > 100) && (Broodwar->elapsedTime() < 180)))
-			{
-				// If that fails, draw the error at the location so that you can visibly see what went wrong!
-				// However, drawing the error once will only appear for a single frame
-				// so create an event that keeps it on the screen for some frames
-				BuildingConstruction::buildSupply(base);
-			}
+			BuildingConstruction::buildSupply(base);
 		}
 	}
+}
 
 /*
 Input: Resource depot.

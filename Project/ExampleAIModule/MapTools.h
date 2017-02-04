@@ -1,7 +1,7 @@
 #pragma once
 #include <BWAPI.h>
 #include <BWTA.h>
-#include <Windows.h>
+#include <windows.h>
 #include <algorithm>
 
 class MapTools
