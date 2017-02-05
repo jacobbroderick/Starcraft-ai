@@ -27,4 +27,19 @@ bool UnitAction::checkUnitState(BWAPI::Unit unit)
 	//Return true if no cases are found true.
 	return true;
 }
+/*
+Input: Barracks to train marines.
+Process: Starts process to train marines.
+Output: N/A
+*/
+void UnitAction::trainMarines(BWAPI::Unit unit)
+{
+	if (ResourceGathering::getMineralCount >= 50){	//checks if there is sufficient minerals to train
+		//checks if barracks is idle and cannot train marines or if more supply is needed
+		if ((unit->isIdle() && !(unit->train(BWAPI::UnitTypes::Terran_Marine))) || ((Broodwar->self()->supplyUsed() + 4 >= Broodwar->self()->supplyTotal()) && getMineralCount() > 100))
+		{
+			BuildingConstruction::buildSupply(base);
+		}
+	}
+}
 
