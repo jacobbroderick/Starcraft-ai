@@ -1,5 +1,7 @@
 #pragma once
 #include <BWAPI.h>
+#include "ResourceGathering.h"
+
 class UnitAction
 {
 public:

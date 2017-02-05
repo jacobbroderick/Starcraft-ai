@@ -34,11 +34,12 @@ Output: N/A
 */
 void UnitAction::trainMarines(BWAPI::Unit unit)
 {
-	if (ResourceGathering::getMineralCount >= 50){	//checks if there is sufficient minerals to train
+	if (ResourceGathering::getMineralCount() >= 50)
+	{	//checks if there is sufficient minerals to train
 		//checks if barracks is idle and cannot train marines or if more supply is needed
-		if ((unit->isIdle() && !(unit->train(UnitTypes::Terran_Marine))) || ((Broodwar->self()->supplyUsed() + 4 >= Broodwar->self()->supplyTotal()) && getMineralCount() > 100))
+		if ((unit->isIdle() && !(unit->train(BWAPI::UnitTypes::Terran_Marine))) || ((BWAPI::Broodwar->self()->supplyUsed() + 4 >= BWAPI::Broodwar->self()->supplyTotal()) && ResourceGathering::getMineralCount() > 100))
 		{
-			BuildingConstruction::buildSupply(base);
+			BuildingConstruction::buildSupply(unit);
 		}
 	}
 }
@@ -49,8 +50,10 @@ Output: N/A
 */
 void UnitAction::selectArmy()
 {
-	for (auto &unit : Broodwar->self()->getUnits()){
-		if (unit == UnitTypes::Terran_Marine){
+	for (auto &unit : BWAPI::Broodwar->self()->getUnits())
+	{
+		if (unit->getType() == BWAPI::UnitTypes::Terran_Marine)
+		{
 			//send to vector
 		}
 	}
