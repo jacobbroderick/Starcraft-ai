@@ -42,4 +42,16 @@ void UnitAction::trainMarines(BWAPI::Unit unit)
 		}
 	}
 }
-
+/*
+Input: N/A
+Process: Selects all marines.
+Output: N/A
+*/
+void UnitAction::selectArmy()
+{
+	for (auto &unit : Broodwar->self()->getUnits()){
+		if (unit == UnitTypes::Terran_Marine){
+			//send to vector
+		}
+	}
+}
