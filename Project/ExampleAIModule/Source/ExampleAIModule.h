@@ -17,4 +17,5 @@ public:
   virtual void onEnd(bool isWinner);
   virtual void onFrame();
   void ExampleAIModule::drawTerrainData();
+  void ExampleAIModule::onSendText(std::string text);
 };

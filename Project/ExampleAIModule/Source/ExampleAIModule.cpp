@@ -20,6 +20,20 @@ DWORD WINAPI AnalyzeThread()
 	return 0;
 }
 
+void ExampleAIModule::onSendText(std::string text)
+{
+	if (text == "/analyze") {
+		if (analyzed == false) {
+			Broodwar << "Analyzing map... this may take a minute" << std::endl;;
+			CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)AnalyzeThread, NULL, 0, NULL);
+		}
+	}
+	else {
+		// Send the text to the game if it is not being processed.
+		Broodwar->sendText("%s", text.c_str());
+	}
+}
+
 void ExampleAIModule::drawTerrainData()
 {
 	//we will iterate through all the base locations, and draw their outlines.

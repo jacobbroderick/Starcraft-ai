@@ -4,6 +4,14 @@
 using namespace BWAPI;
 using namespace Filter;
 
+ResourceGathering::ResourceGathering()
+{
+	int optimumMineralGatherers = 54;
+	int optimumGasGatherers = 6;
+	int currentMineralGatherers = 5;
+	int currentGasGatherers = 0;
+}
+
 /*
 Input: Resource depot.
 Process: If the resource depot is idle and fails to construct a worker more supply will be built. 

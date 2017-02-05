@@ -5,10 +5,11 @@
 class ResourceGathering
 {
 	public:
-		int optimumMineralGatherers = 0;
-		int optimumGasGatherers = 0;
-		int currentMineralGatherers = 0;
-		int currentGasGatherers = 0;
+		int optimumMineralGatherers;
+		int optimumGasGatherers;
+		int currentMineralGatherers;
+		int currentGasGatherers;
+		ResourceGathering::ResourceGathering();
 		static void ResourceGathering::buildWorker(BWAPI::Unit base);
 		static void ResourceGathering::workerGather(BWAPI::Unit worker);
 		static bool ResourceGathering::gatherGas(BWAPI::Unit worker);
