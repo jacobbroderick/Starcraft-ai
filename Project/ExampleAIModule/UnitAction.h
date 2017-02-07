@@ -5,7 +5,7 @@
 class UnitAction
 {
 public:
-	static bool UnitAction::checkUnitState(BWAPI::Unit unit);
-	static void UnitAction::trainMarines(BWAPI::Unit unit);
-	static void UnitAction::selectArmy();
+	static bool checkUnitState(BWAPI::Unit unit);
+	static void trainMarines(BWAPI::Unit unit);
+	static void selectArmy();
 };

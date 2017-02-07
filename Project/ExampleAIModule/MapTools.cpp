@@ -40,16 +40,28 @@ BWAPI::TilePosition MapTools::getNextExpansion()
 	//Will hold the current closest base considered.
 	BWTA::BaseLocation *closestBase = NULL;
 	//Distance from the closest base considered thus far.
-	double minDistance = 0;
+	double minDistance = 1000000;
 	//Get the start location.
 	BWAPI::TilePosition homeBase = BWAPI::Broodwar->self()->getStartLocation();
+
+	printf("arraySize: %d\n", BWTA::getBaseLocations().size());
+
+	for (BWTA::BaseLocation *currBase : BWTA::getBaseLocations())
+	{
+		BWAPI::TilePosition currBaseTile = currBase->getTilePosition();
+		//printf("currtile x: %d\n", currBaseTile.x);
+		//printf("currtile y: %d\n", currBaseTile.y);
+	}
 
 	//For each potential expansion location.
 	for (BWTA::BaseLocation *currBase : BWTA::getBaseLocations())
 	{
 		//Check if the base has gas and is not the home base.
-		if (!currBase->isMineralOnly() && !(currBase->getTilePosition() == homeBase))
+		//if (!currBase->isMineralOnly() && !(currBase == BWTA::getStartLocation(BWAPI::Broodwar->self())))
+		if (!currBase->isMineralOnly() && !(currBase == BWTA::getStartLocation(BWAPI::Broodwar->self())))
 		{
+			//BWAPI::Broodwar->printf("%d.\n", minDistance);
+
 			//Get tile position of the current possible expansion.
 			BWAPI::TilePosition currBaseTile = currBase->getTilePosition();
 
@@ -71,7 +83,6 @@ BWAPI::TilePosition MapTools::getNextExpansion()
 					break;
 				}
 			}
-
 			if (buildingInTheWay)
 			{
 				//Skips the remainder of this iteration of the loop.
@@ -79,14 +90,18 @@ BWAPI::TilePosition MapTools::getNextExpansion()
 			}
 
 			//Calculate calculate distance and compare to closest expansion option.
-			double distanceFromHomeBase = MapTools::getAbsoluteTileDistance(homeBase, currBaseTile);
+			double distanceFromHomeBase = homeBase.getDistance(currBaseTile);
+			//double distanceFromHomeBase = MapTools::getAbsoluteTileDistance(homeBase, currBaseTile);
 
-			//currBase is currently pointing at the home base. 
-			//NOTE:I don't think this is needed but keeping it for first round of unit testing.
-			if (distanceFromHomeBase < 0)
+			
+
+			//Base is not connected - continue looping.
+			if (!BWTA::isConnected(homeBase, currBaseTile) || distanceFromHomeBase <= 0)
+			{
 				continue;
+			}
 
-			if (!closestBase || distanceFromHomeBase < minDistance)
+			if (closestBase == NULL || distanceFromHomeBase < minDistance)
 			{
 				//Set new minDistance of the currBase being considered.
 				minDistance = distanceFromHomeBase;
@@ -99,7 +114,8 @@ BWAPI::TilePosition MapTools::getNextExpansion()
 	if (closestBase)
 		return closestBase->getTilePosition();
 	else
-		return BWAPI::TilePositions::None;
+		return homeBase;
+		//return BWAPI::TilePositions::None;
 }
 
 /*
@@ -110,7 +126,7 @@ Output: Distance.
 double MapTools::getAbsoluteTileDistance(BWAPI::TilePosition origin, BWAPI::TilePosition destination)
 {
 	//Distance = pythatgorean Theorem abs(x1 - x2)^2 + abs(y1 - y2)^2 = c^2 --> c = distance. 
-	return sqrt(pow(abs(origin.x - destination.x), 2) + pow(abs(origin.y - destination.y), 2));
+	return sqrt(pow(abs(origin.x/32 - destination.x/32), 2) + pow(abs(origin.y/32 - destination.y/32), 2));
 }
 
 /*

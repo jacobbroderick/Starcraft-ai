@@ -4,10 +4,10 @@
 class BuildingConstruction
 {
 public:
-	static void BuildingConstruction::buildCenter(BWAPI::Unit base);
-	static void BuildingConstruction::buildSupply(BWAPI::Unit base);
-	static void BuildingConstruction::buildGas(BWAPI::Unit base);
-	static void BuildingConstruction::buildBarracks(BWAPI::Unit base);
-	static void BuildingConstruction::buildGateway(BWAPI::Unit base);
-	static void BuildingConstruction::buildSpawningPool(BWAPI::Unit base);
+	static void buildCenter(BWAPI::Unit base, BWAPI::TilePosition buildLocation);
+	static void buildSupply(BWAPI::Unit base);
+	static void buildGas(BWAPI::Unit base);
+	static void buildBarracks(BWAPI::Unit base);
+	static void buildGateway(BWAPI::Unit base);
+	static void buildSpawningPool(BWAPI::Unit base);
 };

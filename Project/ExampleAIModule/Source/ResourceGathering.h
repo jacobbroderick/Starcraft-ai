@@ -9,11 +9,11 @@ class ResourceGathering
 		int optimumGasGatherers;
 		int currentMineralGatherers;
 		int currentGasGatherers;
-		ResourceGathering::ResourceGathering();
-		static void ResourceGathering::buildWorker(BWAPI::Unit base);
-		static void ResourceGathering::workerGather(BWAPI::Unit worker);
-		static bool ResourceGathering::gatherGas(BWAPI::Unit worker);
-		static bool ResourceGathering::gatherMinerals(BWAPI::Unit worker);
-		static int ResourceGathering::getMineralCount();
-		static int ResourceGathering::getGasCount();
+		ResourceGathering();
+		static void buildWorker(BWAPI::Unit base);
+		static void workerGather(BWAPI::Unit worker);
+		static bool gatherGas(BWAPI::Unit worker);
+		static bool gatherMinerals(BWAPI::Unit worker);
+		static int getMineralCount();
+		static int getGasCount();
 };

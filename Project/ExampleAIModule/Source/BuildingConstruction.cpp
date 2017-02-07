@@ -9,7 +9,7 @@ Input: Resource depot.
 Process: Uses type of resource depot to determine race. Selects a worker to perform construction of an expansion.
 Output: None.
 */
-void BuildingConstruction::buildCenter(BWAPI::Unit base)
+void BuildingConstruction::buildCenter(BWAPI::Unit base, BWAPI::TilePosition buildLocation)
 {
 	// Retrieve a unit that is capable of constructing the supply needed
 	UnitType centerProviderType = base->getType().getRace().getCenter();
@@ -20,7 +20,7 @@ void BuildingConstruction::buildCenter(BWAPI::Unit base)
 	{
 		if (centerProviderType.isBuilding())
 		{
-			TilePosition targetBuildLocation = Broodwar->getBuildLocation(centerProviderType, centerBuilder->getTilePosition());
+			TilePosition targetBuildLocation = Broodwar->getBuildLocation(centerProviderType, buildLocation);
 			if (targetBuildLocation)
 			{
 				// Register an event that draws the target build location
