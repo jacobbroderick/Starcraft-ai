@@ -1,0 +1,530 @@
+\documentclass[10pt,letterpaper,onecolumn,draftclsnofoot]{IEEEtran}
+\usepackage[margin=0.75in]{geometry}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{longtable}
+\usepackage{tabu}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+\newcolumntype{L}{>{\centering\arraybackslash}m{6cm}}
+\newcolumntype{C}{>{\centering\arraybackslash}m{3cm}}
+\newcolumntype{B}{>{\centering\arraybackslash}m{1.5cm}}
+\newcolumntype{M}{>{\centering\arraybackslash}m{2.5cm}}
+
+\lstset{frame=tb,
+  language=C,
+  columns=flexible,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=4
+}
+
+\begin{document}
+
+\begin{titlepage}
+
+  \title{CS 461 - Fall 2016 - Technology Review \\ Project DevAI}
+  \author{Jacob Broderick, Kristen Patterson, Brandon Chatham}
+  \date{November 14, 2016}
+  \maketitle
+  \vspace{4cm}
+  \begin{abstract}
+  	\noindent 
+  	  	\noindent
+	The goal of this project is to create an agent to play the game Starcraft Brood War, a real time strategy game created by Blizzard Entertainment. The solution to the project will be a template that future students can use to develop better solutions than those provided in this project. In this document, we will discuss the technologies we will utilize to complete our project. The technologies we choose will help to narrow down ambiguities in our approach as well as inform the client of the environment and supplemental tools we will be using.
+   \end{abstract}
+\end{titlepage}
+
+\tableofcontents
+
+\newpage
+
+\section{Introduction}
+There are many technologies that are required in order to make an artificial intelligence that is capable of interfacing with a game that is closed source like Starcraft Brood War. There is the program itself that would determine how the system is ran, an API to connect to an outside system, and the code that determines how the program actually works. There are many different technologies for each category. This document will outline which technologies have been chosen to complete the cast, and which criteria were used to choose them over other technologies. Kristen Patterson is in charge of the formatting and code used in the project, Brandon Chatham is in charge of the API and how it interfaces with the system, and Jacob Broderick is in charge of how the program is compiled along with how it interacts with external tools. These are all important aspects of determining how an AI can be made for a game that is closed source. Some APIs are not suited for making a scripted program to actually run the game. There are also limitations on which programming languages can even be used for such a task. The game also can only accept certain file types to interface with the program. All of these things are weighed in this document.
+\section{Technologies}
+
+\subsection{Programming paradigm for functions - Kristen Patterson}
+\subsubsection{Options}
+\begin{center}
+\begin{tabular}{ ||C|L|L|| } 
+\hline
+Paradigm & Description & Reason for Selection \\
+ \hline
+ Modular & Paradigm focused on separating functions into independent modules. & Modular has a high focus on independence of functions. \\ 
+ \hline
+ Object Oriented & Paradigm focused on objects such as data and attributes rather than actions. & Objects can help to section off parts of the program. \\ 
+ \hline
+ Recursion & Paradigm focused on solving a larger problem using solution from multiple smaller problems. & The program requires the solution of many smaller sections. \\ 
+ \hline
+\end{tabular}
+\end{center}
+
+\subsubsection{Goals}
+The goal of comparing the chosen programming paradigms for functionalization is to clarify which method of coding is best for our project. It will also help to remind us of how functions need to be set up and whether a section of code needs to be broken down into separate blocks.
+
+\subsubsection{Criteria}
+\paragraph{Independent}
+Functions must be stand alone and should not rely on other functions.
+
+\paragraph{Flexible}
+The functions must be easily changed and modifiable so other programmers can use it.
+
+\paragraph{Easily tested}
+Each function can be tested individually and the results can be easily identified.
+
+\paragraph{Portable}
+A function is portable if it can be taken from our code and applied to another code and work with little to no change.
+
+\paragraph{Simple}
+A function is simple if it has only one purpose.
+
+\subsubsection{Table}
+\begin{center}
+\begin{tabular}{ ||B|M|M|M|M|M|| } 
+\hline
+Paradigm & Independent & Flexible & Easily tested & Portable & Simple \\
+ \hline
+ Modular & Highly independent & Can be changed without major issues in the code & Individual tests can be completed with specific results & Mainly interacts with the API rather than other functions & Only serves one purpose\\ 
+ \hline
+ Object Oriented & Independent classes of functions and attributes & Can change code in objects easily but may cause problems in other code & Requires some handling of the object to test a specific function & Objects protected code can be easily ported & An object can serve a wide variety of purposes\\ 
+ \hline
+ Recursion & Requires dependence on other functions or previous occurrences of itself & Difficult to change as it can require changes to other functions & Errors can be difficult to find  & Difficult to port to other code without including other functions & Has one goal but multiple steps to get to the goal\\ 
+ \hline
+\end{tabular}
+\end{center}
+
+\subsubsection{Discussion}
+After analysis, modular fits all of the criteria. Object oriented comes close but there is some problems it has. Modular also fits the client's specifications and will make coding the project a lot simpler. Recursion is the opposite of what we want in our system so we will not be using it in anyway.
+
+\subsubsection{Selection}
+The client specifically requested that we have our code be modular enough that a coder can grab a function and use it in their program with little to no problem. Keeping the system modular will also help with documenting the code and keeping it well-commented.
+
+\subsection{Programming language - Kristen Patterson}
+\subsubsection{Options}
+\begin{center}
+\begin{tabular}{ ||C|L|L|| } 
+\hline
+Language & Description & Reason for Selection \\
+ \hline
+ C++ & Commonly used programming language with many functionalities derived from C. & It is commonly taught and used and is the recommended language from BWAPI. \\ 
+ \hline
+ Java & Class-based programming language that promotes few implementation dependencies. & It can be run on many different systems.\\ 
+ \hline
+ C Sharp & Programming language derived from C mainly used for object oriented code. & It has a high focus on objects while keeping a lot of the functions of C. \\ 
+ \hline
+\end{tabular}
+\end{center}
+
+\subsubsection{Goals}
+Comparing languages will help to settle the environment as well as the core of our assignment. Choosing a language will also help decide the programming practices and format we will decide on.
+
+\subsubsection{Criteria}
+\paragraph{Performance}
+The program created by the language cannot slow down a game in Starcraft Brood War by 1 frame per 10 seconds.
+
+\paragraph{Easy to comment}
+The language must provide a simple system to accurately and efficiently comment our code.
+
+\paragraph{Large project support}
+The language needs an environment that can increase efficiency and organization to help in the development of a large project.
+
+\paragraph{Commonly used}
+A language is commonly used if it is widely taught, understood, and other coders prefer to use it in projects.
+
+\paragraph{Simple documentation}
+There must be a resource that can adequately describe the functions included in the language and how to interact with them.
+
+\subsubsection{Table}
+\begin{center}
+\begin{tabular}{ ||B|M|M|M|M|M|| } 
+\hline
+Language & Performance & Easy to comment & Large project support & Commonly used & Simple documentation\\
+ \hline
+ C++ & Highest performing language of the three & Provides a way to comment a line or a whole section of code & Allows the use of headers and other source code to further organize projects & Yes & Yes[1]\\ 
+ \hline
+ Java & Has a slight reputation for being slow and having memory leaks & Includes normal commenting plus a way to convert comments to documentation & Uses intricate class and file hierarchy in large projects & Yes & Yes[2]\\ 
+ \hline
+ C Sharp & Like Java is an intermediate language which reduces performance & Includes single line and delimited comments, also includes hotkeys to change lines of code to comments & Searches the whole project for any files specified in the namespace & Yes & Yes[3]\\ 
+ \hline
+\end{tabular}
+\end{center}
+
+\subsubsection{Discussion}
+C++ is an exact fit for what we require from the language. Both Java and C Sharp slow down the program, and while that may be avoided, it is easier to just use a language where that won't be a problem. C++ also is well-known for most computer science majors in Oregon State University which will make it more convenient for future club members that want to use our code.
+
+\subsubsection{Selection}
+Due to the client's request, we will be choosing to work in C++. This language will also help in modularizing our system as well as staying within the tournament's guidelines for performance.
+
+\subsection{Environment and IDEs - Kristen Patterson}
+\subsubsection{Options}
+\begin{center}
+\begin{tabular}{ ||C|L|L|| } 
+\hline
+IDE & Description & Reason for Selection \\
+ \hline
+ Visual Studio[4] & IDE created by Microsoft that can create Windows programs.  & Highly popular IDE for C++ and C Sharp and recommended by BWAPI. \\ 
+ \hline
+ Eclipse[5] & Cross-platform IDE mainly used for Java. Eclipse requires plugins in order to customize the environment. & Popular IDE for both Java and C++ projects. \\ 
+ \hline
+ IntelliJ IDEA[6] & Java integrated IDE that supports cross-platform and was created by JetBrains.
+ & Thorough tools and development centered around Java. \\ 
+ \hline
+\end{tabular}
+\end{center}
+
+\subsubsection{Goals}
+The goal for the comparison of different IDEs is to distinguish a sleek efficient environment for the developers. The IDE must also provide tools to increase the speed of debugging and must work correctly with the language we select to work with.
+
+\subsubsection{Criteria}
+\paragraph{Compatible languages}
+A language is compatible if an IDE can successfully implement and compile that language.
+
+\paragraph{Debugging tools}
+An IDE must have tools that can adequately help a programmer find, assess, and fix any bugs in the program.
+
+\paragraph{Compiling tool}
+An IDE must include a tool to compile the system in a way that the programmer specifies.
+
+\paragraph{Format}
+The format of an IDE must be readable and well organized for any programmer to be able to digest lines of code easily.
+
+\paragraph{Navigation window}
+A navigation window should be included for programmers to be able to access any other source files and header files quickly and seamlessly.
+
+\subsubsection{Table}
+\begin{center}
+\begin{tabular}{ ||B|M|M|M|M|M|| } 
+\hline
+IDE & Compatible languages & Debugging tools & Compiling tool & Format & Navigation window\\
+ \hline
+ Visual Studio[4] & It currently supports C++ and C Sharp. It used to support Java & Has breakpoints, watch windows, and is able to edit source code while program is running & Includes C and C++ compiler and uses a project build system & Can shrink and expand functions and blocks of code for easier reading & Includes navigation window on the side and tabs on top to easily change between files\\ 
+ \hline
+ Eclipse[5] & Supports C++ and Java & Includes breakpoints for line and exceptions and can watch expressions & Built-in compiler, compiles when it is saved & Highly customizable format through extensions & Depends on what extensions are added to customize\\ 
+ \hline
+ IntelliJ IDEA[6] & Only supports Java & Can watch variables and expressions and can use breakpoints & Includes a Java compiler & Can shrink functions & Includes a list of files in a window on the left hand side\\ 
+ \hline
+\end{tabular}
+\end{center}
+
+
+\subsubsection{Discussion}
+Visual Studio is a convenient environment for working on large projects. All the members are also more comfortable with using Visual Studio than the other IDEs. Since IntelliJ's and Eclipse's main focus is Java we may come across problems since we are working with C++.
+
+\subsubsection{Selection}
+Since we are choosing to program in C++, and it is the recommended environment for the BWAPI, we will be working within Visual Studio.
+
+\subsection{APIs - Brandon Chatham}
+\subsubsection{Options}
+\begin{center}
+	\begin{tabular}{ ||C|L|L|| } 
+		\hline
+		API & Description & Reason for Selection \\
+		\hline
+		BWAPI & BWAPI designed to build AI agents. & Includes functionality to automate necessary game mechanics and use information on the current state of the game. \\ 
+		\hline
+		Brood Data API & API focused on data mining for future use in machine-learning algorithms for AI or competitive player training. & Useful for gathering data for design algorithms.\\ 
+		\hline
+		 BW Spectator API & API designed for spectator-mode interface customization with real-time game stats and interaction with units. & Useful for observing performance of AI. \\ 
+		\hline
+	\end{tabular}
+\end{center}
+\subsubsection{Goals}
+	The goal for the selected API is to fit the appropriate needs of the team in development of an AI. Additionally, it should be designed such that in the future, the API will support the desire for machine learning implementations using current game data. Finally, it should be well-documented and ideally have a community that has provided further learning tools such as videos.
+\subsubsection{Criteria}
+	\paragraph{AI Functionality}
+	Allows for interaction with the AI agent in order to automate the game mechanics.
+	\paragraph{Current Game Data}
+	Allows for gathering of current game stats in order to make immediate decisions based on that information.
+	\paragraph{Documentation}
+	Thorough explanations of how the API works and instructional information such as tutorials on how to use it.
+\subsubsection{Table}
+\begin{center}
+	\begin{tabular}{ ||B|M|M|M|| } 
+		\hline
+		API & AI Functionality & Current Game Data & Documentation \\
+		\hline
+		BWAPI & BWAPI supports interfacing with game mechanics for AI agents. & Provides current game data for data mining or machine learning strategies. & Thorough documentation and extensive learning tools created by the community. \\ 
+		\hline
+		Brood Data API & N/A & Excellent data collection functionality. & Provides minimal documentation and learning tools. \\ 
+		\hline
+		BW Spectator API & N/A  & Interface for collecting current data for presenting important game stats to viewers. & Well-documented but minimal additional learning tools. \\ 
+		\hline
+	\end{tabular}
+\end{center}
+\subsubsection{Discussion}
+	Because BWAPI is built to support AI agent functionality, and the others do not, BWAPI is the obvious choice. Furthermore, while Brood Data API is more powerful for data mining for data-driven machine learning algorithms, BWAPI is more well-rounded with learning tools and enough game-data functionality. Lastly, BW Spectator API allows for displaying relevant game stats to viewers but does not provide any functionality to interact directly with an AI agent.
+\subsubsection{Selection}
+	Since BWAPI offers the most versatility of the three options and is the most useful for AI development, BWAPI is the API we will be using. 
+\subsection{Documentation for API - Brandon Chatham}
+\subsubsection{Options}
+\begin{center}
+	\begin{tabular}{ ||C|L|L|| } 
+		\hline
+		Documentation Source & Description & Reason for Selection \\
+		\hline
+		BWAPI Homepage[7]  & The homepage for the BWAPI that provides organized explanations of the libraries included in the API. & Very thorough and well-organized into specific libraries making it easier to find the certain tool you may be looking for. \\ 
+		\hline
+		BWAPI Wiki[8] & Web page with links to BWAPI source code documentations as well as other links to other BWAPI related information such as extensions, tutorials and game fundamentals. & Useful for identifying and explaining all of the tools available to the project. \\ 
+		\hline
+		Source Code Comments[9] & Explanations of code functionality directly within the code. & Concise explanation of code located inside of the code for easy access. \\
+		\hline
+	\end{tabular}
+\end{center}
+\subsubsection{Goals}
+The goal for the selected Documentation source is to find a source that is thorough, well-organized, and authoritative.
+\subsubsection{Criteria}
+	\paragraph{Thorough Information}
+	The documentation should provide information on all of the built-in functionality provided by the API.
+	\paragraph{Organization}
+	The documentation would ideally be organized into subsections for efficiently sorting through material.
+	\paragraph{Authoritative}
+	The documentation should be definitively true and current.
+\subsubsection{Table}
+\begin{center}
+	\begin{tabular}{ ||C|M|M|M|| } 
+		\hline
+		Documentation Source & Thorough Information & Organization & Authoritative \\
+		\hline
+		BWAPI Homepage & The BWAPI homepage provides documentation on the entire API. & The information is organized into subcategories to organize functionality. & It is the most genuine source of information for the BWAPI as it was created by the developer who made the BWAPI. \\ 
+		\hline
+		BWAPI Wiki & Extensive links to resources like the BWAPI Homepage, information on BWAPI extensions, and other learning tools such as instructional videos. & Organized into categories however it does not hose the information, it redirects users to other sources. & Some of the resources may not be good for development consider they are outside developer's work thus, is not authoritative.  \\ 
+		\hline
+		Source Code Comments & Thorough and applicable information for small, modular pieces of API source code. & Paired with the code the comments refer to. & Authoritative because they were written by the developer who created the BWAPI. \\ 
+		\hline
+	\end{tabular}
+\end{center}
+\subsubsection{Discussion}
+While the BWAPI Wiki does have a broad reach of resources, it may not be the best immediate source for development as it merely redirects us to the more applicable BWAPI Homepage. Source code comments are extremely useful, but they are not as descriptive as an entire cite can be like the BWAPI Homepage. The comments sometimes tell users how to use a function, but does not provide a holistic explanation of what it is doing.
+\subsubsection{Selection}
+The BWAPI Homepage is well-organized and provides specific enough information to explain how to use the API while also being the authoritative source and thus, is our choice.
+
+\subsection{Choice algorithm - Brandon Chatham}
+\subsubsection{Options}
+\begin{center}
+	\begin{tabular}{ ||C|L|L|| } 
+		\hline
+		Type & Description & Reason for Selection \\
+		\hline
+		Scripted Tree Selection & Creating a tree with scripted strategies to alternate between in response to game data. & Significantly easier implementation that still provides flexibility between strategies. \\ 
+		\hline
+		Machine Learning - Supervised & AI would base decisions on outcomes of previous instances of decisions and those outcomes. & Identifies patterns in outcomes and can eventually identify the appropriate response based on previous successes or mistakes. \\ 
+		\hline
+		Machine Learning - Reinforcement Learning & Creates a reward system for which the program will attempt to maximize reward by responding to each point of data given. & Powerful when making decisions and evaluating the effectiveness of that decision given the current state of the game. \\ 
+		\hline
+	\end{tabular}
+\end{center}
+\subsubsection{Goals}
+The goal in choosing a choice algorithm is to select something that is moderately flexible while not requiring an extensive amount of time implementing.
+\subsubsection{Criteria}
+\paragraph{Flexibility}
+The choice algorithm should be able to choose between several scripted strategies.
+\paragraph{Efficacy of Decisions}
+The choice algorithm should choose the best option it is aware of based on certain criteria regarding current game and/or previous game data.
+\paragraph{Implementation Time}
+The choice algorithm ideally will be able to be implemented without extensive knowledge in machine learning or mining a significant amount of data from previous games.
+\subsubsection{Table}
+\begin{center}
+	\begin{tabular}{ ||C|M|M|M|| } 
+		\hline
+		Decision Algorithm & Flexibility & Efficacy of Decisions & Implementation Time \\
+		\hline
+		Scripted Tree Selection & Fairly flexible with an unlimited number of possible strategies. & Decisions cannot be evaluated for effectiveness, only if they were the correct decision based on the pre-defined decision algorithm criteria. & Relatively short implementation time. \\ 
+		\hline
+		Machine Learning - Supervised & Very flexible because strategies are fluid, considering all options at all times. & Efficacy is reinforced as the AI attempts to maximize efficacy with each decision based on previous outcomes. & Long implementation time, especially when considering time taken while creating a data pool to use. \\ 
+		\hline
+		 Machine Learning Reinforced & Very flexible but slightly constrained to a predefined reward system that determines what a successful decision was. & Efficacy of decisions is reinforced but entirely based on the definition of success is programmed within the reward system. & Long implementation time required to create logic that constantly considers all options with regards to the reward system. \\ 
+		\hline
+	\end{tabular}
+\end{center}
+\subsubsection{Discussion}
+While both machine learning algorithms would be fantastic to implement and would make for an impressive AI, they are not possible to implement within our projected development schedule. 
+\subsubsection{Selection}
+We will be implementing an algorithm that picks from a tree of scripted strategies. It will decide what the best strategy is based on the current game data.
+
+
+\subsection{Extensions to the API - Jacob Broderick}
+\subsubsection{Options}
+\begin{center}
+	\begin{tabular}{ ||C|L|L|| } 
+		\hline
+		Type & Description & Reason for Selection \\
+		\hline
+		BWTA2 & Second version of the BW terrain analyzer. Analyzes maps in broodwar to give information about possible spawn locations. & Would be useful for determining map based strategies without having to implement it from scratch. \\ 
+		\hline
+		SparCraft & A tool that simulates battles between specified units. Would assist in scripting how the AI would battle other AIs. & It would be useful for testing battle modules in the AI. \\ 
+		\hline
+		Map Editor & A map editor that allows users to put their AIs in unique situations to see how it handles them. & Extremely useful if one would need to test very specific situations over and over again. \\ 
+		\hline
+	\end{tabular}
+\end{center}
+\subsubsection{Goals}
+The goal in choosing an extension is to pick something that is useful, multipurpose, hard to implement from scratch.
+\subsubsection{Criteria}
+\paragraph{Useful}
+Above all the extension has to be useful for the project to require it.
+\paragraph{Multipurpose}
+The chosen extension should allow for multiple different uses so that the project can benefit the most with as little overhead.
+\paragraph{Hard to implement otherwise}
+The extension should be something that would not otherwise be able to be implemented in the time frame. 
+\subsubsection{Table}
+\begin{center}
+	\begin{tabular}{ ||C|M|M|M|| } 
+		\hline
+		Decision Algorithm & Useful & Multipurpose & Hard to implement otherwise \\
+		\hline
+		BWTA2 & API would allow for the AI to analyze maps which is very useful in determining winning moves. & This would allow us to better determine attack and defense around the map. & This would be something that would be relatively difficult to develop for every single map in Brood War. \\ 
+		\hline
+		SparCraft & This API would be a good way to test the battle effectiveness at different unit values with very little effort & This algorithm would only be useful in testing combat effectiveness of the AI. & This would be something that would be very hard to develop within the time given for this project. \\ 
+		\hline
+		Map Editor & This extension is useful because it would allow for testing in many different situations. & Extremely multipurpose since it would allow for any map/situation to be created. & This would take a very long time to implement from scratch because of the fine tuning for use in the Starcraft system. \\ 
+		\hline
+	\end{tabular}
+\end{center}
+\subsubsection{Discussion}
+All of these extensions would be very useful if there was unlimited time to learn and explore with them, unfortunately this project has a very short time line compared to the amount of work that can be done. 
+\subsubsection{Selection}
+The Extension that could be utilized best given the time line would be the Terrain analyzer. It would save us time because there is a lot of work involved with map analysis. It also would not add too much overhead to the project to try to learn and apply it.
+
+\subsection{Compiling environment - Jacob Broderick}
+\subsubsection{Options}
+\begin{center}
+	\begin{tabular}{ ||C|L|L|| } 
+		\hline
+		Type & Description & Reason for Selection \\
+		\hline
+		Visual Studio C++ (G++) & GNU compiler for C++ plugged in to visual studio & Convenient compiler because of the chosen IDE (Visual Studio) \\ 
+		\hline
+		Intel Compiler & Compiler released by intel which has a lot of useful optimizations for things like kernel development. & It could be more optimal than other compilers if the project made use of features that it has to offer. \\ 
+		\hline
+		Java Compiler & Compiler used by java to create programs runnable in the java runtime environment & If the project is written in Java this would be the optimal choice \\ 
+		\hline
+	\end{tabular}
+\end{center}
+\subsubsection{Goals}
+The goals that the proper compiler should meet are: Fast, Compatible, Convenient.
+\subsubsection{Criteria}
+\paragraph{Fast}
+The chosen compiler should not take too long in order to generate a usable program for the system.
+\paragraph{Compatible}
+The chosen compiler should be compatible with the requirements of the system.
+\paragraph{Convenient}
+Ideally the compiler should not add any overhead to the work environment while still being able to perform.
+\subsubsection{Table}
+\begin{center}
+	\begin{tabular}{ ||C|M|M|M|| } 
+		\hline
+		Decision Algorithm & Fast & Compatible & Convenient \\
+		\hline
+		G++ & Very fast and optimized compiler. & This compiler is compatible with the system. & It is available for use within the IDE that has been chosen \\ 
+		\hline
+		Intel Compiler & The intel compiler is the most optimized compiler of the choices, and should outperform them. & The compiler is compatible with the system that has been chosen. & The compiler would have to be configured in addition to working out the system, it would not be very convenient. \\ 
+		\hline
+		Java Compiler & The slowest of the options, this compiler has a lot of overhead because it has to prepare code for the runtime environment. & The compiler is not compatible with our environment. & The compiler would not be convenient because it would require a change to the entire project \\ 
+		\hline
+	\end{tabular}
+\end{center}
+\subsubsection{Discussion}
+The c++ compilers would both be useful within the system. Most compilers can perform the functions that are required for this project, some are just more convenient and compatible with what is required by the project.
+\subsubsection{Selection}
+The visual studio G++ compiler will be the choice for this technology. It is already built in to the tools that will be used to develop this project.
+
+\subsection{Compiling type - Jacob Broderick}
+\subsubsection{Options}
+\begin{center}
+	\begin{tabular}{ ||C|L|L|| } 
+		\hline
+		Type & Description & Reason for Selection \\
+		\hline
+		DLL & A windows library file that can contain information about how to fun a program. It would be a library with how the ai would run & Small compact file that is accepted by the tournament. Recommended by the chosen API \\ 
+		\hline
+		EXE & Windows executable file type. A program output as an EXE can be ran directly & EXE provides flexibility in how the program is ran. \\ 
+		\hline
+		JAR & Java executable program file. Works well for projects using the Java environment & Would be useful with a custom environment that would allow for java files to be ran directly. \\ 
+		\hline
+	\end{tabular}
+\end{center}
+\subsubsection{Goals}
+The goal in choosing the right output is to choose one that is flexible, while also being usable by the API.
+\subsubsection{Criteria}
+\paragraph{Compatibility}
+The chosen output should be compatible with the system that our API chooses.
+\paragraph{Size}
+The chosen output should be compact to allow for transfer and portability.
+\paragraph{Implementation Time}
+\subsubsection{Compiler}
+The chosen output should work with the compiler that our environment uses.
+\begin{center}
+	\begin{tabular}{ ||C|M|M|M|| } 
+		\hline
+		Decision Algorithm & Compatibility & Size & Compiler \\
+		\hline
+		DLL & Completely compatible and recommended by the API & Small enough that it can be sent to tournament sponsors & It can be compiled by the chosen platform \\ 
+		\hline
+		EXE & Compatible with tournament rules and can be used by the API & Larger than dll on average, still okay for sending & It can be compiled by the chosen platform \\ 
+		\hline
+		JAR & Not compatible with tournament rules or the API (Java should output to dll) &Not compatible with the system at all & It can be compiled by the chosen platform with configuration \\ 
+		\hline
+	\end{tabular}
+\end{center}
+\subsubsection{Discussion}
+The program should compile down to the DLL format. It is the recommended format by the chosen API, and has the least problems with all other rulings. An exe could be used, but there already exists a standard used by many with BWAPI.
+\subsubsection{Selection}
+We will be compiling down to a DLL for use by the game.
+
+\section{Conclusion}
+\subsection{General Findings}
+The technologies we will be using are what we consider to be best suited for our goals for this project. While most of these technologies were feasible, a few were not within scope. 
+
+\subsection{Portability and speed}
+Our client has expressed a desire for this software to be designed in a manner that is flexible and mobile. This is in large-part why we chose the modular programming paradigm. Additionally, we wanted a low-level language that was compatible with our API which is how we arrived at C++. Furthermore, it is widely suggested development with the BWAPI be done in Visual Studio and we have familiarity with this IDE.
+
+\subsection{API}
+The BWAPI is the premier API for AI programming with regards to Starcraft Brood War. Not only is it extensive, but the documentation is useful and includes functionality that will prove useful for future developers who plan to develop machine learning algorithms.
+
+\subsection{Extensions and compilation}
+There are several extensions to the BWAPI which should be considered and while we have chosen one that is most applicable, extensions are more likely to be used once our project is passed onto future developers. Nevertheless, we have chosen BWTA2 for map analysis because of strategic positioning advantages in fights and small learning curve. Furthermore, in choosing Visual Studio as our IDE, we have chosen G++ because it is built-in. Lastly, we will be delivering our project as a DLL for our AI competition because that is the suggested format by BWAPI.
+
+
+\newpage
+
+\section{Bibliography}
+[1]"Reference - C++ Reference". Cplusplus.com. N.p., 2016. Web. 14 Nov. 2016. http://www.cplusplus.com/reference/
+
+[2]"Java SE Documentation - Tutorials". Oracle.com. N.p., 2016. Web. 14 Nov. 2016.
+
+http://www.oracle.com/technetwork/java/javase/documentation/tutorials-jsp-138802.html
+
+[3]"CSharp Reference". N.p., 2016. Web. 14 Nov. 2016. https://msdn.microsoft.com/en-us/library/618ayhy6.aspx
+
+[4]Microsoft, "Visual Studio IDE". Visual Studio. N.p., 2016. Web. 14 Nov. 2016. https://www.visualstudio.com/vs/
+
+[5]Eclipse, N.p., 2016. Web. 14 Nov. 2016. https://www.eclipse.org/ide/
+
+[6]JetBrains, "Intellij IDEA The Java IDE". JetBrains. N.p., 2016. Web. 14 Nov. 2016. http://www.jetbrains.com/idea/
+
+[7]"Brood War API." BWAPI: Main Page. N.p., n.d. Web. 14 Nov. 2016. http://bwapi.github.io/index.html
+
+[8]"Main Page." StarCraft AI, the Resource for Custom StarCraft Brood War AIs. N.p., n.d. Web. 14 Nov. 2016. http://www.starcraftai.com/wiki/Main\_Page
+
+[9]Bwapi. "Bwapi/bwapi." GitHub. N.p., 2015. Web. 14 Nov. 2016.  https://github.com/bwapi/bwapi
+
+\section{Revisions}
+\subsection{Programming paradigm for functions - Kristen Patterson}
+\subsubsection{Discussion}
+Upon further inspection, object oriented programming is much simpler to organize and is easier to grab and pick up for new users. The biggest problem with object oriented programming is the dependencies that classes can have. In order to make it simpler for users to select specific sections of our code to use in their code, classes are kept as simple as possible.
+\subsubsection{Selection}
+The choice of paradigm has switched from modular to object oriented classes making the projects well organized. Classes also it is similar coding style as BWAPI, our chosen API to interact with the game.
+
+\subsection{Environment and IDEs - Kristen Patterson}
+\subsubsection{Discussion}
+With further investigation, BWAPI requires Visual Studio Community version 2013 in order to build and compile the AI.
+\subsubsection{Selection}
+The team can use either Visual Studio Community version 2013 or version 2015 with v120 compiler tools.
+
+
+\end{document}
