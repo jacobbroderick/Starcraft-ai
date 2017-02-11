@@ -171,4 +171,15 @@ The focus now is to section classes by functionality and keep dependencies low. 
 \paragraph{Ordered functions}
 With functions being sectioned into classes and files of their own there will be very little need to order functions based on complexity as most will be simple.
 
+\subsection{Design Revisions}
+\subsubsection{Modular Hierarchy}
+\paragraph{Reducing Abstraction}
+As development has progressed, the team has realized an error in the design. Previously, the plan was to abstract the objectives of the game into categories - micro and macro while separating the logic from the modules. Im hindsight, this was foolish. This is a poor design choice for several reasons. First, abstracting the design into more layers might make each layer easier to understand, but as student developers, it is overly ambitious to try and organize a code base like that as it makes it more likely that we will code ourselves into design conflicts. Second and more importantly, this library for students who understand the game best by the strategies and actions the game is already based on. Designing around these concepts makes the library intuitive to users. Lastly, there is no reason to separate logic modules from the API function calls. This might make code slightly cleaner, but it adds more classes than are necessary.
+\paragraph{New Approach}
+Now, development is focused on common actions needed in every AI module that can be easily understood, used, and developed further. Additionally, the team is writing algorithms to optimize these actions. The new design will help developers hit the ground running with a robust foundation for their AI modules. Most importantly, the design should be consistent to allow the code base to be passed on to other students for further development and learning opportunities while already having a design paradigm to continue using. 
+
+
+
+
+
 \end{document}
