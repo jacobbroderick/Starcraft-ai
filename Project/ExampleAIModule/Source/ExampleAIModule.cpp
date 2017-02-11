@@ -77,6 +77,13 @@ void ExampleAIModule::onEnd(bool isWinner)
 
 void ExampleAIModule::onStart()
 {
+
+	//Start map analysis.
+	BWTA::readMap();
+	analyzed = false;
+	analysis_just_finished = false;
+	CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)AnalyzeThread, NULL, 0, NULL);
+
 	workers = new std::vector<BWAPI::Unit>();
 	resourceDepots = new std::vector<BWAPI::Unit>();
 
@@ -93,23 +100,6 @@ void ExampleAIModule::onStart()
 	// Set the command optimization level so that common commands can be grouped
 	// and reduce the bot's APM (Actions Per Minute).
 	Broodwar->setCommandOptimizationLevel(2);
-
-	for (auto &unit : Broodwar->self()->getUnits())
-	{
-		//Start performing actions
-		// If the unit is a worker unit
-		if (unit->getType().isWorker())
-		{
-			workers->push_back(unit);
-		}
-
-		//Store a pointer to refer to our resource dpots 
-		//NOTE: This will only have 1 depot for the time being
-		if (unit->getType().isResourceDepot())
-		{
-			resourceDepots->push_back(unit);
-		}
-	}
 
 	// Check if this is a replay
 	if (Broodwar->isReplay())
@@ -136,10 +126,6 @@ void ExampleAIModule::onStart()
 			Broodwar << "The matchup is " << Broodwar->self()->getRace() << " vs " << Broodwar->enemy()->getRace() << std::endl;
 	}
 
-	//Start map analysis.
-	BWTA::readMap();
-	analyzed = false;
-	analysis_just_finished = false;
 
 }
 
@@ -176,17 +162,9 @@ void ExampleAIModule::onFrame()
 	{
 		if (!UnitAction::checkUnitState(unit))
 			continue;
-		
-		//NOTE: TESTING getNextExpansion().
-		if (unit->getType().isWorker())
-		{
-			unit->move(BWAPI::Position(MapTools::getNextExpansion()), true);
-		}
-		
 
 		//Start performing actions with unit.
 		// If the unit is a worker unit.
-		/* NOTE: NORMAL CODE.
 		if ( unit->getType().isWorker() )
 		{
 		ResourceGathering::workerGather(unit);
@@ -206,7 +184,7 @@ void ExampleAIModule::onSendText(std::string text)
 		if (analyzed == false) 
 		{
 			Broodwar << "Analyzing map... this may take a minute" << std::endl;;
-			CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)AnalyzeThread, NULL, 0, NULL);
+			//CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)AnalyzeThread, NULL, 0, NULL);
 		}
 	}
 	else 

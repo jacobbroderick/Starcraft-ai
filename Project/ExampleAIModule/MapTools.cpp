@@ -44,15 +44,6 @@ BWAPI::TilePosition MapTools::getNextExpansion()
 	//Get the start location.
 	BWAPI::TilePosition homeBase = BWAPI::Broodwar->self()->getStartLocation();
 
-	printf("arraySize: %d\n", BWTA::getBaseLocations().size());
-
-	for (BWTA::BaseLocation *currBase : BWTA::getBaseLocations())
-	{
-		BWAPI::TilePosition currBaseTile = currBase->getTilePosition();
-		//printf("currtile x: %d\n", currBaseTile.x);
-		//printf("currtile y: %d\n", currBaseTile.y);
-	}
-
 	//For each potential expansion location.
 	for (BWTA::BaseLocation *currBase : BWTA::getBaseLocations())
 	{

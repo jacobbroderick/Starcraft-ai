@@ -7,8 +7,6 @@
 #include "BuildingConstruction.h"
 #include "UnitAction.h"
 #include "MapTools.h"
-#include <thread>
-
 
 
 extern bool analyzed;
