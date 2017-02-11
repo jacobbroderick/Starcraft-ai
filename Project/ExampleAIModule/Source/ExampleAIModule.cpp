@@ -173,7 +173,6 @@ void ExampleAIModule::onFrame()
 		{
 		ResourceGathering::buildWorker(unit);
 		}
-		*/
 	}
 }
 
