@@ -14,41 +14,67 @@
 \newcolumntype{M}{>{\centering\arraybackslash}m{2.5cm}}
 
 \lstset{frame=tb,
-  language=C,
-  columns=flexible,
-  numberstyle=\tiny\color{gray},
-  keywordstyle=\color{blue},
-  commentstyle=\color{dkgreen},
-  stringstyle=\color{mauve},
-  breaklines=true,
-  breakatwhitespace=true,
-  tabsize=4
+	language=C,
+	columns=flexible,
+	numberstyle=\tiny\color{gray},
+	keywordstyle=\color{blue},
+	commentstyle=\color{dkgreen},
+	stringstyle=\color{mauve},
+	breaklines=true,
+	breakatwhitespace=true,
+	tabsize=4
 }
 
 \begin{document}
+	
+	\begin{titlepage}
+		
+		\title{CS 461 - Fall 2016 - Progress Report \\ Project DevAI}
+		\author{Jacob Broderick, Kristen Patterson, Brandon Chatham}
+		\date{February 17, 2017}
+		\maketitle
+		\vspace{4cm}
+		\begin{abstract}
+			\noindent 
+			\noindent
+			The goal of this project is to create an agent to play the game Starcraft Brood War, a real time strategy game created by Blizzard Entertainment. The solution to the project will be a template that future students can use to develop better solutions than those provided in this project. In this document, we will discuss what we have completed in our project as well as discuss our process and problems we had. The goal of this document is to reflect on our progress as well as make sure we are on time and on task. Furthermore, this document discusses revisions made to project documentation that reflects any deviations from the original plans during development.
+		\end{abstract}
+	\end{titlepage}
+	
+	\section{Project Development and Document Revisions}
+	
+	\subsection{Current Progress}
+	As of now, we have all the basic functionality of a Starcraft AI implemented and tested. Our library contains functions for resource collection, base expansion, and basic offensive unit production. All of this functionality will be shown in our alpha version demonstration. 
+	
+	\subsection{Technology Review Revisions}
+	The Tech Review had slight alterations made with respect to BWAPI documentation we would be referencing during our development. We did not take into account that there are formidable AI's on Github we can reference as a guideline for our development. 
+	
+	\subsection{Design Document Revisions}
+	During the Fall, we planned to abstract the design of our AI modules to distinguish between macro and micro functionality. We realized this was unnecessary and would make our library modules less intuitive to use. Users are not considering whether a function they need is micro or macro in design decisions. This degree of abstraction may be useful when machine learning is implemented into the library in order to help the AI prioritize certain actions over others, but for our immediate goals, it is not needed.
+	
+	\subsection{Problems}
+	This term has had fewer unforeseen problems than the last. While setting up our development tools, we did run into a crippling case of configuration issues that caused our development and testing to stop for roughly a week as we integrated the Broodwar Terrain Analyzer (BWTA) API into our project. It was a headache for our team, but it would be a mistake to not use such a powerful tool just because it was giving us unusual configuration errors. Eventually, we contacted BWTA developers who helped us debug and resolve our issues. Outside of this, we have had no other noteworthy roadblocks. 
+	
+	\section{Retrospective}
+	\begin{center}
+		\begin{tabular}{ |C|L|L| } 
+			\hline
+			Positives & Deltas & Actions \\
+			\hline
+			Team has worked well together and done a good job finishing tasks assigned to them. & N/A & N/A \\ 
+			\hline
+			Documentation is coming along nicely and the code looks very professional. & N/A & N/A \\ 
+			\hline
+			We still have no each created our own branch however that hasn't caused any issues because we are not working on overlapping pieces of code. & N/A & N/A \\ 
+			\hline
+			We need to meet with Professor Fern more often for constructive feedback. & Our progress has been great but we need to be sure it is exactly what our client wants. & We will try to schedule meeting times with Professor Fern ideally every other week until the end of Winter term. \\
+			\hline
 
-\begin{titlepage}
+		\end{tabular}
+	\end{center}
+	\clearpage
 
-  \title{CS 461 - Fall 2016 - Progress Report \\ Project DevAI}
-  \author{Jacob Broderick, Kristen Patterson, Brandon Chatham}
-  \date{December 7, 2016}
-  \maketitle
-  \vspace{4cm}
-  \begin{abstract}
-  	\noindent 
-  	  	\noindent
-	The goal of this project is to create an agent to play the game Starcraft Brood War, a real time strategy game created by Blizzard Entertainment. The solution to the project will be a template that future students can use to develop better solutions than those provided in this project. In this document, we will discuss what we have completed in our project as well as discuss our process and problems we had. The goal of this document is to reflect on our progress as well as make sure we are on time and on task.
-   \end{abstract}
-\end{titlepage}
-
-\section{Recap of Projects' Purposes and Goals}
-
-\section{Current Progress}
-
-\section{Items Left To Do}
-
-\section{Problems}
-
-\section{Images}
-
+	\section{Final Thoughts}
+	Like last term, our team works very well on the documentation assignments. We have struggled a bit in development as some team members have been bogged down with other classes more than others. Despite this, the product is coming nicely. Our alpha demonstration will show that we are ahead of schedule and are beginning to talk about stretch goal implementations as well as optimizations that will make our library extremely powerful for developing competitive Starcraft AI.
+	
 \end{document}
