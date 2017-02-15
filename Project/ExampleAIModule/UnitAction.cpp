@@ -37,9 +37,12 @@ void UnitAction::trainMarines(BWAPI::Unit unit)
 	if (ResourceGathering::getMineralCount() >= 50)
 	{	//checks if there is sufficient minerals to train
 		//checks if barracks is idle and cannot train marines or if more supply is needed
-		if ((unit->isIdle() && !(unit->train(BWAPI::UnitTypes::Terran_Marine))) || ((BWAPI::Broodwar->self()->supplyUsed() + 4 >= BWAPI::Broodwar->self()->supplyTotal()) && ResourceGathering::getMineralCount() > 100))
+		if (BWAPI::Broodwar->self()->supplyUsed() <= 400)
 		{
-			BuildingConstruction::buildSupply(unit);
+			if ((unit->isIdle() && !(unit->train(BWAPI::UnitTypes::Terran_Marine))) || ((BWAPI::Broodwar->self()->supplyUsed() + 4 >= BWAPI::Broodwar->self()->supplyTotal()) && ResourceGathering::getMineralCount() > 100))
+			{
+				BuildingConstruction::buildSupply(unit);
+			}
 		}
 	}
 }

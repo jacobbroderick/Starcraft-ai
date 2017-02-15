@@ -4,6 +4,8 @@ using namespace BWAPI;
 
 bool analyzed;
 bool analysis_just_finished;
+bool builtBarracks;
+bool builtExpansion;
 BWTA::Region* home;
 BWTA::Region* enemy_base;
 std::vector <BWAPI::Unit> *workers;
@@ -77,6 +79,9 @@ void ExampleAIModule::onEnd(bool isWinner)
 
 void ExampleAIModule::onStart()
 {
+
+	builtBarracks = false;
+	builtExpansion = false;
 
 	//Start map analysis.
 	BWTA::readMap();
@@ -171,7 +176,28 @@ void ExampleAIModule::onFrame()
 		}
 		else if ( unit->getType().isResourceDepot() ) // A resource depot is a Command Center, Nexus, or Hatchery
 		{
-		ResourceGathering::buildWorker(unit);
+			if (BWAPI::Broodwar->self()->supplyUsed() < 20) // Build up to 10 workers for alpha and then stop building them
+			{
+				ResourceGathering::buildWorker(unit);
+			}
+		}
+		//trains marines up to 20 supply
+		else if (unit->getType() == BWAPI::UnitTypes::Terran_Barracks && BWAPI::Broodwar->self()->supplyUsed() < 40) {
+			UnitAction::trainMarines(unit);
+		}
+		//builds barracks after 10 scvs are working
+		if (!builtBarracks && BWAPI::Broodwar->self()->supplyUsed() >= 20)
+		{
+			BuildingConstruction::buildBarracks(unit);
+			builtBarracks = true;
+		}
+		//builds expansion after 10 marines have been made
+		if (!builtExpansion && BWAPI::Broodwar->self()->supplyUsed() >= 40)
+		{
+			//for some reason doesn't compile going to fix this tomorrow
+			//BWAPI::TilePosition newExpoTile = MapTools::getNextExpansion();
+			//BuildingConstruction::buildCenter(unit, newExpoTile);
+			builtExpansion = true;
 		}
 	}
 }
