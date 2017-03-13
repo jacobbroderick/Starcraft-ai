@@ -195,8 +195,8 @@ void ExampleAIModule::onFrame()
 		if (!builtExpansion && BWAPI::Broodwar->self()->supplyUsed() >= 40)
 		{
 			//for some reason doesn't compile going to fix this tomorrow
-			//BWAPI::TilePosition newExpoTile = MapTools::getNextExpansion();
-			//BuildingConstruction::buildCenter(unit, newExpoTile);
+			BWAPI::TilePosition newExpoTile = MapTools::getNextExpansion();
+			BuildingConstruction::buildCenter(unit, newExpoTile);
 			builtExpansion = true;
 		}
 	}

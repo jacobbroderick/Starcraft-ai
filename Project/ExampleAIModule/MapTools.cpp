@@ -1,405 +1,118 @@
 #include "MapTools.h"
 
-
-/*
-Input: None.
-Process: Constructor of MapTools object.
-Output: Pointer to MapTools object.
-*/
-MapTools & MapTools::Instance()
+	/*
+	*/
+	MapTools::MapTools()
 {
-	static MapTools instance;
-	return instance;
+
 }
 
 /*
-Input: None.
-Process: Constructor of MapTools object.
-Output: Pointer to MapTools object.
 */
-MapTools::MapTools()
-	: _rows(BWAPI::Broodwar->mapHeight())
-	, _cols(BWAPI::Broodwar->mapWidth())
+int MapTools::getYExplored()
 {
-	_map = std::vector<bool>(_rows*_cols, false);
-	_units = std::vector<bool>(_rows*_cols, false);
-	_fringe = std::vector<int>(_rows*_cols, 0);
 
-	setBWAPIMapData();
+}
+/*
+*/
+
+int MapTools::getXExplored()
+{
+
 }
 
 /*
-Input: Map width and height.
-Process: Converts 2-D index to 1-D.
-Output: 1-D array index.
-*/
-inline int MapTools::getIndex(int row, int col)
-{
-	return row * _cols + col;
-}
-
-/*
-Input: Boolean map of explored areas and index of location being tested.
-Process: Tests if the index is true or false on the dmap.
-Output: True if dmap at index is unexplored.
-*/
-bool MapTools::unexplored(DistanceMap & dmap, const int index) const
-{
-	return (index != -1) && dmap[index] == -1 && _map[index];
-}
-
-/*
-Input: None.
-Process: Reset fringe and distance vectors.
-Output: None.
-*/
-void MapTools::reset()
-{
-	std::fill(_fringe.begin(), _fringe.end(), 0);
-}
-
-/*
-Input: None.
-Process: Set all map information.
-Output: None.
-*/
-void MapTools::setBWAPIMapData()
-{
-	// for each row and column
-	for (int r(0); r < _rows; ++r)
-	{
-		for (int c(0); c < _cols; ++c)
-		{
-			bool clear = true;
-
-			// check each walk tile within this TilePosition
-			for (int i = 0; i<4; ++i)
-			{
-				for (int j = 0; j<4; ++j)
-				{
-					if (!BWAPI::Broodwar->isWalkable(c * 4 + i, r * 4 + j))
-					{
-						clear = false;
-						break;
-					}
-
-					if (clear)
-					{
-						break;
-					}
-				}
-			}
-
-			// set the map as binary clear or not
-			_map[getIndex(r, c)] = clear;
-		}
-	}
-}
-
-/*
-Input: None.
-Process: Reset fringe vector.
-Output: None.
-*/
-void MapTools::resetFringe()
-{
-	std::fill(_fringe.begin(), _fringe.end(), 0);
-}
-
-/*
-Input: None.
-Process: Calculate ground distance between origin and destination.
-Output: Distance calculated.
-*/
-int MapTools::getGroundDistance(BWAPI::Position origin, BWAPI::Position destination)
-{
-	// if we have too many maps, reset our stored maps in case we run out of memory
-	if (_allMaps.size() > 20)
-	{
-		_allMaps.clear();
-
-		BWAPI::Broodwar->printf("Cleared stored distance map cache");
-	}
-
-	// if we haven't yet computed the distance map to the destination
-	if (_allMaps.find(destination) == _allMaps.end())
-	{
-		// if we have computed the opposite direction, we can use that too
-		if (_allMaps.find(origin) != _allMaps.end())
-		{
-			return _allMaps[origin][destination];
-		}
-
-		// add the map and compute it
-		_allMaps.insert(std::pair<BWAPI::Position, DistanceMap>(destination, DistanceMap()));
-		computeDistance(_allMaps[destination], destination);
-	}
-
-	// get the distance from the map
-	return _allMaps[destination][origin];
-}
-
-/*
-Input: Dmap and origin position.
-Process: Computes walking distance to all other points on the map from p.
-Output: None.
-*/
-void MapTools::computeDistance(DistanceMap & dmap, const BWAPI::Position p)
-{
-	search(dmap, p.y / 32, p.x / 32);
-}
-
-/*
-Input: Distance map, sR, sC.
-Process: Dynamical programming search.
-Output: None.
-*/
-void MapTools::search(DistanceMap & dmap, const int sR, const int sC)
-{
-	// reset the internal variables
-	resetFringe();
-
-	// set the starting position for this search
-	dmap.setStartPosition(sR, sC);
-
-	// set the distance of the start cell to zero
-	dmap[getIndex(sR, sC)] = 0;
-
-	// set the fringe variables accordingly
-	int fringeSize(1);
-	int fringeIndex(0);
-	_fringe[0] = getIndex(sR, sC);
-	dmap.addSorted(getTilePosition(_fringe[0]));
-
-	// temporary variables used in search loop
-	int currentIndex, nextIndex;
-	int newDist;
-
-	// the size of the map
-	int size = _rows*_cols;
-
-	// while we still have things left to expand
-	while (fringeIndex < fringeSize)
-	{
-		// grab the current index to expand from the fringe
-		currentIndex = _fringe[fringeIndex++];
-		newDist = dmap[currentIndex] + 1;
-
-		// search up
-		nextIndex = (currentIndex > _cols) ? (currentIndex - _cols) : -1;
-		if (unexplored(dmap, nextIndex))
-		{
-			// set the distance based on distance to current cell
-			dmap.setDistance(nextIndex, newDist);
-			dmap.setMoveTo(nextIndex, 'D');
-			dmap.addSorted(getTilePosition(nextIndex));
-
-			// put it in the fringe
-			_fringe[fringeSize++] = nextIndex;
-		}
-
-		// search down
-		nextIndex = (currentIndex + _cols < size) ? (currentIndex + _cols) : -1;
-		if (unexplored(dmap, nextIndex))
-		{
-			// set the distance based on distance to current cell
-			dmap.setDistance(nextIndex, newDist);
-			dmap.setMoveTo(nextIndex, 'U');
-			dmap.addSorted(getTilePosition(nextIndex));
-
-			// put it in the fringe
-			_fringe[fringeSize++] = nextIndex;
-		}
-
-		// search left
-		nextIndex = (currentIndex % _cols > 0) ? (currentIndex - 1) : -1;
-		if (unexplored(dmap, nextIndex))
-		{
-			// set the distance based on distance to current cell
-			dmap.setDistance(nextIndex, newDist);
-			dmap.setMoveTo(nextIndex, 'R');
-			dmap.addSorted(getTilePosition(nextIndex));
-
-			// put it in the fringe
-			_fringe[fringeSize++] = nextIndex;
-		}
-
-		// search right
-		nextIndex = (currentIndex % _cols < _cols - 1) ? (currentIndex + 1) : -1;
-		if (unexplored(dmap, nextIndex))
-		{
-			// set the distance based on distance to current cell
-			dmap.setDistance(nextIndex, newDist);
-			dmap.setMoveTo(nextIndex, 'L');
-			dmap.addSorted(getTilePosition(nextIndex));
-
-			// put it in the fringe
-			_fringe[fringeSize++] = nextIndex;
-		}
-	}
-}
-
-/*
-Input: Target postion pos.
-Process: Computes closest times to pos.
-Output: Vector of the tileset.
-*/
-const std::vector<BWAPI::TilePosition> & MapTools::getClosestTilesTo(BWAPI::Position pos)
-{
-	// make sure the distance map is calculated with pos as a destination
-	int a = getGroundDistance(BWAPI::Position(BWAPI::Broodwar->self()->getStartLocation()), pos);
-
-	return _allMaps[pos].getSortedTiles();
-}
-
-/*
-Input: Tile index.
-Process: Converts tile index to tile position.
-Output: The tile position.
-*/
-BWAPI::TilePosition MapTools::getTilePosition(int index)
-{
-	return BWAPI::TilePosition(index % _cols, index / _cols);
-}
-
-/*
-Input: None.
-Process: Helper function to call getNextExpansion on the Broodwar starting location.
-Output: Tile position of next expansion.
 */
 BWAPI::TilePosition MapTools::getNextExpansion()
 {
-	return getNextExpansion(BWAPI::Broodwar->self());
-}
+	//Will hold the current closest base considered.
+	BWTA::BaseLocation *closestBase = NULL;
+	//Distance from the closest base considered thus far.
+	double minDistance = 1000000;
+	//Get the start location.
+	BWAPI::TilePosition homeBase = BWAPI::Broodwar->self()->getStartLocation();
 
-/*
-Input: None.
-Process: Draws the distance map for the starting location.
-Output: None.
-*/
-void MapTools::drawHomeDistanceMap()
-{
-	BWAPI::Position homePosition = BWAPI::Position(BWAPI::Broodwar->self()->getStartLocation());
-	for (int x = 0; x < BWAPI::Broodwar->mapWidth(); ++x)
+	//For each potential expansion location.
+	for (BWTA::BaseLocation *currBase : BWTA::getBaseLocations())
 	{
-		for (int y = 0; y < BWAPI::Broodwar->mapHeight(); ++y)
+		//Check if the base has gas and is not the home base.
+		//if (!currBase->isMineralOnly() && !(currBase == BWTA::getStartLocation(BWAPI::Broodwar->self())))
+		if (!currBase->isMineralOnly() && !(currBase == BWTA::getStartLocation(BWAPI::Broodwar->self())))
 		{
-			BWAPI::Position pos(x * 32, y * 32);
 
-			int dist = getGroundDistance(pos, homePosition);
+			//Get tile position of the current possible expansion.
+			BWAPI::TilePosition currBaseTile = currBase->getTilePosition();
 
-			BWAPI::Broodwar->drawTextMap(pos + BWAPI::Position(16, 16), "%d", dist);
-		}
-	}
-}
+			int baseX1 = currBaseTile.x * 32;
+			int baseY1 = currBaseTile.y * 32;
+			int baseX2 = currBaseTile.x + BWAPI::UnitTypes::Terran_Command_Center.tileWidth() * 32;
+			int baseY2 = currBaseTile.y + BWAPI::UnitTypes::Terran_Command_Center.tileHeight() * 32;
 
-/*
-Input: Player player.
-Process: Caclulates the closest next expansion that is not taken.
-Output: Tile position of next expansion or none if there is no possible expansion.
-*/
-BWAPI::TilePosition MapTools::getNextExpansion(BWAPI::Player player)
-{
-	BWTA::BaseLocation * closestBase = nullptr;
-	double minDistance = 100000;
-
-	BWAPI::TilePosition homeTile = player->getStartLocation();
-
-	// for each base location
-	for (BWTA::BaseLocation * base : BWTA::getBaseLocations())
-	{
-		// if the base has gas
-		if (!base->isMineralOnly() && !(base == BWTA::getStartLocation(player)))
-		{
-			// get the tile position of the base
-			BWAPI::TilePosition tile = base->getTilePosition();
 			bool buildingInTheWay = false;
 
-			for (int x = 0; x < BWAPI::Broodwar->self()->getRace().getCenter().tileWidth(); ++x)
+			//For each unit within the building rectangle.
+			for (BWAPI::Unit unit : BWAPI::Broodwar->getUnitsInRectangle(baseX1, baseY1, baseX2, baseY2))
 			{
-				for (int y = 0; y < BWAPI::Broodwar->self()->getRace().getCenter().tileHeight(); ++y)
+				//Check if it is a building.
+				if (unit->getType().isBuilding())
 				{
-					BWAPI::TilePosition tp(tile.x + x, tile.y + y);
-
-					for (auto & unit : BWAPI::Broodwar->getUnitsOnTile(tp))
-					{
-						if (unit->getType().isBuilding() && !unit->isFlying())
-						{
-							buildingInTheWay = true;
-							break;
-						}
-					}
+					//Set building flag.
+					buildingInTheWay = true;
+					break;
 				}
 			}
-
 			if (buildingInTheWay)
 			{
+				//Skips the remainder of this iteration of the loop.
 				continue;
 			}
 
-			// the base's distance from our main nexus
-			BWAPI::Position myBasePosition(player->getStartLocation());
-			BWAPI::Position thisTile = BWAPI::Position(tile);
-			double distanceFromHome = MapTools::Instance().getGroundDistance(thisTile, myBasePosition);
+			//Calculate calculate distance and compare to closest expansion option.
+			double distanceFromHomeBase = homeBase.getDistance(currBaseTile);
+			//double distanceFromHomeBase = MapTools::getAbsoluteTileDistance(homeBase, currBaseTile);
 
-			// if it is not connected, continue
-			if (!BWTA::isConnected(homeTile, tile) || distanceFromHome < 0)
+
+
+			//Base is not connected - continue looping.
+			if (!BWTA::isConnected(homeBase, currBaseTile) || distanceFromHomeBase <= 0)
 			{
 				continue;
 			}
 
-			if (!closestBase || distanceFromHome < minDistance)
+			if (closestBase == NULL || distanceFromHomeBase < minDistance)
 			{
-				closestBase = base;
-				minDistance = distanceFromHome;
+				//Set new minDistance of the currBase being considered.
+				minDistance = distanceFromHomeBase;
+				closestBase = currBase;
 			}
 		}
-
 	}
 
+	//If a tile position was found, return it. If not, return none.
 	if (closestBase)
-	{
 		return closestBase->getTilePosition();
-	}
 	else
-	{
-		return BWAPI::TilePositions::None;
-	}
+		return homeBase;
+	//return BWAPI::TilePositions::None;
 }
 
 /*
-Input: None.
-Process: Parses the map information from the map file read from C:\\scmaps\\..."
-Output: None.
+Input: Tiles at starting and ending locations.
+Process: Calculates absolute distance not considering terrain.
+Output: Distance.
 */
-void MapTools::parseMap()
+double MapTools::getAbsoluteTileDistance(BWAPI::TilePosition origin, BWAPI::TilePosition destination)
 {
-	BWAPI::Broodwar->printf("Parsing Map Information");
-	std::ofstream mapFile;
-	std::string file = "c:\\scmaps\\" + BWAPI::Broodwar->mapName() + ".txt";
-	mapFile.open(file.c_str());
+	//Distance = pythatgorean Theorem abs(x1 - x2)^2 + abs(y1 - y2)^2 = c^2 --> c = distance. 
+	return sqrt(pow(abs(origin.x / 32 - destination.x / 32), 2) + pow(abs(origin.y / 32 - destination.y / 32), 2));
+}
 
-	mapFile << BWAPI::Broodwar->mapWidth() * 4 << "\n";
-	mapFile << BWAPI::Broodwar->mapHeight() * 4 << "\n";
+/*
+Input: Tiles at starting and ending locations.
+Process: Calculates walking distance between the origin and destination.
+Output: Distance.
+*/
+int MapTools::getGroundDistance(BWAPI::Position origin, BWAPI::Position destination)
+{
 
-	for (int j = 0; j<BWAPI::Broodwar->mapHeight() * 4; j++)
-	{
-		for (int i = 0; i<BWAPI::Broodwar->mapWidth() * 4; i++)
-		{
-			if (BWAPI::Broodwar->isWalkable(i, j))
-			{
-				mapFile << "0";
-			}
-			else
-			{
-				mapFile << "1";
-			}
-		}
-
-		mapFile << "\n";
-	}
-
-	BWAPI::Broodwar->printf(file.c_str());
-
-	mapFile.close();
 }
