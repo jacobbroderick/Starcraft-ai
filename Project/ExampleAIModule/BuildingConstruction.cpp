@@ -261,66 +261,66 @@ void BuildingConstruction::checkConstructionStarted(PlayerInfo* player)
 	//If it is, we know to reset the offset
 	for (auto &unit : Broodwar->self()->getUnits())
 	{
-		if (unit->getType() == UnitTypes::Terran_Academy && unit->isConstructing())
+		if (unit->getType() == UnitTypes::Terran_Academy && unit->isConstructing() && player->buildingAcademy)
 		{
 			player->buildingAcademy = false;
 			player->adjustMineralOffset(-150);
 		}
-		else if (unit->getType() == UnitTypes::Terran_Armory && unit->isConstructing())
+		else if (unit->getType() == UnitTypes::Terran_Armory && unit->isConstructing() && player->buildingArmory)
 		{
 			player->buildingArmory = false;
 			player->adjustMineralOffset(-100);
 			player->adjustGasOffset(-50);
 		}
-		else if (unit->getType() == UnitTypes::Terran_Barracks && unit->isConstructing())
+		else if (unit->getType() == UnitTypes::Terran_Barracks && unit->isConstructing() && player->buildingBarracks)
 		{
 			player->buildingBarracks = false;
 			player->adjustMineralOffset(-150);
 		}
-		else if (unit->getType() == UnitTypes::Terran_Bunker && unit->isConstructing())
+		else if (unit->getType() == UnitTypes::Terran_Bunker && unit->isConstructing() && player->buildingBunker)
 		{
 			player->buildingBunker = false;
 			player->adjustMineralOffset(-150);
 		}
-		else if (unit->getType() == UnitTypes::Terran_Command_Center && unit->isConstructing())
+		else if (unit->getType() == UnitTypes::Terran_Command_Center && unit->isConstructing() && player->buildingCommandCenter)
 		{
 			player->buildingCommandCenter = false;
 			player->adjustMineralOffset(-400);
 		}
-		else if (unit->getType() == UnitTypes::Terran_Engineering_Bay && unit->isConstructing())
+		else if (unit->getType() == UnitTypes::Terran_Engineering_Bay && unit->isConstructing() && player->buildingEngineeringBay)
 		{
 			player->buildingEngineeringBay = false;
 			player->adjustMineralOffset(-125);
 		}
-		else if (unit->getType() == UnitTypes::Terran_Factory && unit->isConstructing())
+		else if (unit->getType() == UnitTypes::Terran_Factory && unit->isConstructing() && player->buildingFactory)
 		{
 			player->buildingFactory = false;
 			player->adjustMineralOffset(-200);
 			player->adjustGasOffset(-100);
 		}
-		else if (unit->getType() == UnitTypes::Terran_Missile_Turret && unit->isConstructing())
+		else if (unit->getType() == UnitTypes::Terran_Missile_Turret && unit->isConstructing() && player->buildingMissileTurret)
 		{
 			player->buildingMissileTurret = false;
 			player->adjustMineralOffset(-75);
 		}
-		else if (unit->getType() == UnitTypes::Terran_Refinery && unit->isConstructing())
+		else if (unit->getType() == UnitTypes::Terran_Refinery && unit->isConstructing() && player->buildingRefinery)
 		{
 			player->buildingRefinery = false;
 			player->adjustMineralOffset(-100);
 		}
-		else if (unit->getType() == UnitTypes::Terran_Science_Facility && unit->isConstructing())
+		else if (unit->getType() == UnitTypes::Terran_Science_Facility && unit->isConstructing() && player->buildingScienceFacility)
 		{
 			player->buildingScienceFacility = false;
 			player->adjustMineralOffset(-100);
 			player->adjustGasOffset(-150);
 		}
-		else if (unit->getType() == UnitTypes::Terran_Starport && unit->isConstructing())
+		else if (unit->getType() == UnitTypes::Terran_Starport && unit->isConstructing() && player->buildingStarport)
 		{
 			player->buildingStarport = false;
 			player->adjustMineralOffset(-150);
 			player->adjustGasOffset(-100);
 		}
-		else if (unit->getType() == UnitTypes::Terran_Supply_Depot && unit->isConstructing())
+		else if (unit->getType() == UnitTypes::Terran_Supply_Depot && unit->isConstructing() && player->buildingSupplyDepot)
 		{
 			player->buildingSupplyDepot = false;
 			player->adjustMineralOffset(-100);
