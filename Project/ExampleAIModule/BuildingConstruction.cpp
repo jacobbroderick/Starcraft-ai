@@ -250,15 +250,81 @@ void BuildingConstruction::buildSpawningPool(BWAPI::Unit base, PlayerInfo* playe
 	}
 }
 
-bool BuildingConstruction::checkConstructionStarted(PlayerInfo* player)
+/*
+Input: Player info object.
+Process: Check construction flags and switch them off accordingly.
+Output: None.
+*/
+void BuildingConstruction::checkConstructionStarted(PlayerInfo* player)
 {
 	//Check if there exists a structure that matches the input structure and check if isConstructing()
 	//If it is, we know to reset the offset
 	for (auto &unit : Broodwar->self()->getUnits())
 	{
 		if (unit->getType() == UnitTypes::Terran_Academy && unit->isConstructing())
-			return true;
+		{
+			player->buildingAcademy = false;
+			player->adjustMineralOffset(-150);
+		}
+		else if (unit->getType() == UnitTypes::Terran_Armory && unit->isConstructing())
+		{
+			player->buildingArmory = false;
+			player->adjustMineralOffset(-100);
+			player->adjustGasOffset(-50);
+		}
+		else if (unit->getType() == UnitTypes::Terran_Barracks && unit->isConstructing())
+		{
+			player->buildingBarracks = false;
+			player->adjustMineralOffset(-150);
+		}
+		else if (unit->getType() == UnitTypes::Terran_Bunker && unit->isConstructing())
+		{
+			player->buildingBunker = false;
+			player->adjustMineralOffset(-150);
+		}
+		else if (unit->getType() == UnitTypes::Terran_Command_Center && unit->isConstructing())
+		{
+			player->buildingCommandCenter = false;
+			player->adjustMineralOffset(-400);
+		}
+		else if (unit->getType() == UnitTypes::Terran_Engineering_Bay && unit->isConstructing())
+		{
+			player->buildingEngineeringBay = false;
+			player->adjustMineralOffset(-125);
+		}
+		else if (unit->getType() == UnitTypes::Terran_Factory && unit->isConstructing())
+		{
+			player->buildingFactory = false;
+			player->adjustMineralOffset(-200);
+			player->adjustGasOffset(-100);
+		}
+		else if (unit->getType() == UnitTypes::Terran_Missile_Turret && unit->isConstructing())
+		{
+			player->buildingMissileTurret = false;
+			player->adjustMineralOffset(-75);
+		}
+		else if (unit->getType() == UnitTypes::Terran_Refinery && unit->isConstructing())
+		{
+			player->buildingRefinery = false;
+			player->adjustMineralOffset(-100);
+		}
+		else if (unit->getType() == UnitTypes::Terran_Science_Facility && unit->isConstructing())
+		{
+			player->buildingScienceFacility = false;
+			player->adjustMineralOffset(-100);
+			player->adjustGasOffset(-150);
+		}
+		else if (unit->getType() == UnitTypes::Terran_Starport && unit->isConstructing())
+		{
+			player->buildingStarport = false;
+			player->adjustMineralOffset(-150);
+			player->adjustGasOffset(-100);
+		}
+		else if (unit->getType() == UnitTypes::Terran_Supply_Depot && unit->isConstructing())
+		{
+			player->buildingSupplyDepot = false;
+			player->adjustMineralOffset(-100);
+		}
 	}
 
-	return false;
 }

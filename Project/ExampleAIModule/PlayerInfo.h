@@ -9,13 +9,13 @@ public:
 	PlayerInfo::PlayerInfo();
 
 	//Flags to indicate what is currently being built and keep offsets current.
-	bool academyBuilding;
-	bool armoryBuilding;
+	bool buildingAcademy;
+	bool buildingArmory;
 	bool buildingBarracks;
 	bool buildingBunker;
 	bool buildingCommandCenter;
-	bool buildingEngeineeringBay;
-	bool buildingTerranFactory;
+	bool buildingEngineeringBay;
+	bool buildingFactory;
 	bool buildingMissileTurret;
 	bool buildingRefinery;
 	bool buildingScienceFacility;
@@ -26,9 +26,9 @@ public:
 	bool mineralsOffset;
 	bool gasOffset;
 	int buildingMineralsOffset;
-	int buildingGasOffset; //Not sure any buildings cost gas.
-	void setMineralOffset(int cost);
-	void setGasOffset(int cost);
+	int buildingGasOffset; 
+	void adjustMineralOffset(int cost);
+	void adjustGasOffset(int cost);
 	void PlayerInfo::resetMinerals();
 	void PlayerInfo::resetGas();
 };
