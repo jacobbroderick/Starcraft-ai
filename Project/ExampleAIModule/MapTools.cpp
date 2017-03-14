@@ -1,8 +1,8 @@
 #include "MapTools.h"
 
-	/*
+/*
 	*/
-	MapTools::MapTools()
+MapTools::MapTools()
 {
 
 }

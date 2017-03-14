@@ -42,6 +42,9 @@
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</LinkIncremental>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IncludePath>C:\Program Files %28x86%29\StarCraft\include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
@@ -93,6 +96,7 @@
   <ItemGroup>
     <ClCompile Include="BuildingConstruction.cpp" />
     <ClCompile Include="MapTools.cpp" />
+    <ClCompile Include="PlayerInfo.cpp" />
     <ClCompile Include="ResourceGathering.cpp" />
     <ClCompile Include="Source\Dll.cpp" />
     <ClCompile Include="Source\ExampleAIModule.cpp" />
@@ -101,6 +105,7 @@
   <ItemGroup>
     <ClInclude Include="BuildingConstruction.h" />
     <ClInclude Include="MapTools.h" />
+    <ClInclude Include="PlayerInfo.h" />
     <ClInclude Include="ResourceGathering.h" />
     <ClInclude Include="Source\ExampleAIModule.h" />
     <ClInclude Include="UnitAction.h" />

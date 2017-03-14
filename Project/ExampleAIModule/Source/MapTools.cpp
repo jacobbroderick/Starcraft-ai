@@ -1,28 +1,19 @@
 #include "MapTools.h"
 
 /*
-
-
-
-*/
+	*/
 MapTools::MapTools()
 {
 
 }
 
 /*
-
-
-
 */
 int MapTools::getYExplored()
 {
 
 }
 /*
-
-
-
 */
 
 int MapTools::getXExplored()
@@ -31,9 +22,6 @@ int MapTools::getXExplored()
 }
 
 /*
-
-
-
 */
 BWAPI::TilePosition MapTools::getNextExpansion()
 {
@@ -44,15 +32,6 @@ BWAPI::TilePosition MapTools::getNextExpansion()
 	//Get the start location.
 	BWAPI::TilePosition homeBase = BWAPI::Broodwar->self()->getStartLocation();
 
-	printf("arraySize: %d\n", BWTA::getBaseLocations().size());
-
-	for (BWTA::BaseLocation *currBase : BWTA::getBaseLocations())
-	{
-		BWAPI::TilePosition currBaseTile = currBase->getTilePosition();
-		//printf("currtile x: %d\n", currBaseTile.x);
-		//printf("currtile y: %d\n", currBaseTile.y);
-	}
-
 	//For each potential expansion location.
 	for (BWTA::BaseLocation *currBase : BWTA::getBaseLocations())
 	{
@@ -60,7 +39,6 @@ BWAPI::TilePosition MapTools::getNextExpansion()
 		//if (!currBase->isMineralOnly() && !(currBase == BWTA::getStartLocation(BWAPI::Broodwar->self())))
 		if (!currBase->isMineralOnly() && !(currBase == BWTA::getStartLocation(BWAPI::Broodwar->self())))
 		{
-			//BWAPI::Broodwar->printf("%d.\n", minDistance);
 
 			//Get tile position of the current possible expansion.
 			BWAPI::TilePosition currBaseTile = currBase->getTilePosition();
@@ -93,7 +71,7 @@ BWAPI::TilePosition MapTools::getNextExpansion()
 			double distanceFromHomeBase = homeBase.getDistance(currBaseTile);
 			//double distanceFromHomeBase = MapTools::getAbsoluteTileDistance(homeBase, currBaseTile);
 
-			
+
 
 			//Base is not connected - continue looping.
 			if (!BWTA::isConnected(homeBase, currBaseTile) || distanceFromHomeBase <= 0)
@@ -114,7 +92,8 @@ BWAPI::TilePosition MapTools::getNextExpansion()
 	if (closestBase)
 		return closestBase->getTilePosition();
 	else
-		return BWAPI::TilePositions::None;
+		return homeBase;
+	//return BWAPI::TilePositions::None;
 }
 
 /*
@@ -125,7 +104,7 @@ Output: Distance.
 double MapTools::getAbsoluteTileDistance(BWAPI::TilePosition origin, BWAPI::TilePosition destination)
 {
 	//Distance = pythatgorean Theorem abs(x1 - x2)^2 + abs(y1 - y2)^2 = c^2 --> c = distance. 
-	return sqrt(pow(abs(origin.x/32 - destination.x/32), 2) + pow(abs(origin.y/32 - destination.y/32), 2));
+	return sqrt(pow(abs(origin.x / 32 - destination.x / 32), 2) + pow(abs(origin.y / 32 - destination.y / 32), 2));
 }
 
 /*
@@ -137,4 +116,3 @@ int MapTools::getGroundDistance(BWAPI::Position origin, BWAPI::Position destinat
 {
 
 }
-

@@ -9,7 +9,7 @@ Input: Resource depot.
 Process: Uses type of resource depot to determine race. Selects a worker to perform construction of an expansion.
 Output: None.
 */
-void BuildingConstruction::buildCenter(BWAPI::Unit base, BWAPI::TilePosition buildLocation)
+void BuildingConstruction::buildCenter(BWAPI::Unit base, BWAPI::TilePosition buildLocation, PlayerInfo* player)
 {
 	// Retrieve a unit that is capable of constructing the supply needed
 	UnitType centerProviderType = base->getType().getRace().getCenter();
@@ -43,7 +43,7 @@ Input: Resource depot.
 Process: Uses type of resource depot to determine race. Selects a worker to perform construction of supply structure.
 Output: None.
 */
-void BuildingConstruction::buildSupply(BWAPI::Unit base)
+void BuildingConstruction::buildSupply(BWAPI::Unit base, PlayerInfo* player)
 {
 	/*
 	/ We can create an error handling function for this if we decide it is necessary
@@ -101,7 +101,7 @@ Input: Resource depot.
 Process: Uses type of resource depot to determine race. Selects a worker to perform construction of gas structure.
 Output: None.
 */
-void BuildingConstruction::buildGas(BWAPI::Unit base)
+void BuildingConstruction::buildGas(BWAPI::Unit base, PlayerInfo* player)
 {
 	/*
 	/ We can create an error handling function for this if we decide it is necessary
@@ -154,7 +154,7 @@ Input: Resource depot.
 Process: Build Terran Barracks if the input is of Terran type.
 Output: None.
 */
-void BuildingConstruction::buildBarracks(BWAPI::Unit base)
+void BuildingConstruction::buildBarracks(BWAPI::Unit base, PlayerInfo* player)
 {
 	UnitType terranType = UnitTypes::Terran_Barracks;
 	Unit barracksBuilder = base->getClosestUnit(GetType == terranType.whatBuilds().first && (IsIdle || IsGatheringMinerals) && IsOwned);
@@ -186,7 +186,7 @@ Input: Resource depot.
 Process: Build Protoss Gateway if the input is of Protoss type.
 Output: None.
 */
-void BuildingConstruction::buildGateway(BWAPI::Unit base)
+void BuildingConstruction::buildGateway(BWAPI::Unit base, PlayerInfo* player)
 {
 	UnitType protossType = UnitTypes::Protoss_Gateway;
 	Unit gatewayBuilder = base->getClosestUnit(GetType == protossType.whatBuilds().first && (IsIdle || IsGatheringMinerals) && IsOwned);
@@ -218,7 +218,7 @@ Input: Resource depot.
 Process: Build Zerg Spawning Pool if the input is of Zerg type.
 Output: None.
 */
-void BuildingConstruction::buildSpawningPool(BWAPI::Unit base)
+void BuildingConstruction::buildSpawningPool(BWAPI::Unit base, PlayerInfo* player)
 {
 	UnitType zergType = UnitTypes::Zerg_Spawning_Pool;
 	Unit spawningPoolBuilder = base->getClosestUnit(GetType == zergType.whatBuilds().first && (IsIdle || IsGatheringMinerals) && IsOwned);
@@ -248,4 +248,17 @@ void BuildingConstruction::buildSpawningPool(BWAPI::Unit base)
 			spawningPoolBuilder->train(zergType);
 		}
 	}
+}
+
+bool BuildingConstruction::checkConstructionStarted(PlayerInfo* player)
+{
+	//Check if there exists a structure that matches the input structure and check if isConstructing()
+	//If it is, we know to reset the offset
+	for (auto &unit : Broodwar->self()->getUnits())
+	{
+		if (unit->getType() == UnitTypes::Terran_Academy && unit->isConstructing())
+			return true;
+	}
+
+	return false;
 }

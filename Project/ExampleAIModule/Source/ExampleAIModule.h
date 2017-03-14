@@ -7,7 +7,7 @@
 #include "BuildingConstruction.h"
 #include "UnitAction.h"
 #include "MapTools.h"
-
+#include "PlayerInfo.h"
 
 extern bool analyzed;
 extern bool analysis_just_finished;
