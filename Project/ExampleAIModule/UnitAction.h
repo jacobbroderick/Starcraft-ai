@@ -1,11 +1,12 @@
 #pragma once
 #include <BWAPI.h>
 #include "ResourceGathering.h"
+#include "PlayerInfo.h"
 
 class UnitAction
 {
 public:
 	static bool checkUnitState(BWAPI::Unit unit);
-	static void trainMarines(BWAPI::Unit unit);
+	static void trainMarines(BWAPI::Unit unit, PlayerInfo* player);
 	static void selectArmy();
 };

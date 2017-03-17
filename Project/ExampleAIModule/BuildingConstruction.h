@@ -1,6 +1,7 @@
 #pragma once
 #include <BWAPI.h>
 #include "PlayerInfo.h"
+#include "ResourceGathering.h"
 
 class BuildingConstruction
 {

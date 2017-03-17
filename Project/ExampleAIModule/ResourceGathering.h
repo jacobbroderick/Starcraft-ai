@@ -1,6 +1,9 @@
 #pragma once
 #include <BWAPI.h>
 #include "BuildingConstruction.h"
+#include "PlayerInfo.h"
+
+using namespace BWAPI;
 
 class ResourceGathering
 {
@@ -10,10 +13,10 @@ class ResourceGathering
 		int currentMineralGatherers;
 		int currentGasGatherers;
 		ResourceGathering();
-		static void buildWorker(BWAPI::Unit base);
-		static void workerGather(BWAPI::Unit worker);
-		static bool gatherGas(BWAPI::Unit worker);
-		static bool gatherMinerals(BWAPI::Unit worker);
+		static void buildWorker(Unit base, PlayerInfo* player);
+		static void workerGather(Unit worker);
+		static bool gatherGas(Unit worker);
+		static bool gatherMinerals(Unit worker);
 		static int getMineralCount();
 		static int getGasCount();
 };

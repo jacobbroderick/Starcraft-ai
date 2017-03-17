@@ -1,5 +1,7 @@
 #pragma once
 //#include "Base.h"
+#include <BWAPI.h>
+
 
 class PlayerInfo
 {
@@ -22,9 +24,13 @@ public:
 	bool buildingStarport;
 	bool buildingSupplyDepot;
 
+	//Structure Counts
+	int barracksCount;
+	int expansionCount;
+
 	//Offset flags and values for costs incurred by building events.
-	bool mineralsOffset;
-	bool gasOffset;
+	bool mineralsOffsetFlag;
+	bool gasOffsetFlag;
 	int buildingMineralsOffset;
 	int buildingGasOffset; 
 	void adjustMineralOffset(int cost);

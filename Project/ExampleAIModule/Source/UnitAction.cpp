@@ -32,16 +32,16 @@ Input: Barracks to train marines.
 Process: Starts process to train marines.
 Output: N/A
 */
-void UnitAction::trainMarines(BWAPI::Unit unit)
+void UnitAction::trainMarines(BWAPI::Unit unit, PlayerInfo* player)
 {
-	if (ResourceGathering::getMineralCount() >= 50)
+	if (ResourceGathering::getMineralCount() + player->buildingMineralsOffset >= 50)
 	{	//checks if there is sufficient minerals to train
 		//checks if barracks is idle and cannot train marines or if more supply is needed
 		if (BWAPI::Broodwar->self()->supplyUsed() <= 400)
 		{
 			if ((unit->isIdle() && !(unit->train(BWAPI::UnitTypes::Terran_Marine))) || ((BWAPI::Broodwar->self()->supplyUsed() + 4 >= BWAPI::Broodwar->self()->supplyTotal()) && ResourceGathering::getMineralCount() > 100))
 			{
-				BuildingConstruction::buildSupply(unit);
+				BuildingConstruction::buildSupply(unit, player);
 			}
 		}
 	}

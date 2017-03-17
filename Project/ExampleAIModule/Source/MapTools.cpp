@@ -13,9 +13,9 @@ int MapTools::getYExplored()
 {
 
 }
+
 /*
 */
-
 int MapTools::getXExplored()
 {
 

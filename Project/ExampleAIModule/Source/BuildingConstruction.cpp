@@ -11,28 +11,32 @@ Output: None.
 */
 void BuildingConstruction::buildCenter(BWAPI::Unit base, BWAPI::TilePosition buildLocation, PlayerInfo* player)
 {
-	// Retrieve a unit that is capable of constructing the supply needed
+	// Retrieve a unit that is capable of constructing the supply needed.
 	UnitType centerProviderType = base->getType().getRace().getCenter();
 	Unit centerBuilder = base->getClosestUnit(GetType == centerProviderType.whatBuilds().first && (IsIdle || IsGatheringMinerals) && IsOwned);
-
-	// If a unit was found
-	if (centerBuilder)
+	centerBuilder->move(Position(buildLocation));
+	// If a unit was found.
+	if (centerBuilder && !player->buildingCommandCenter)
 	{
 		if (centerProviderType.isBuilding())
 		{
-			TilePosition targetBuildLocation = Broodwar->getBuildLocation(centerProviderType, buildLocation);
-			if (targetBuildLocation)
+			
+			//TilePosition targetBuildLocation = Broodwar->getBuildLocation(centerProviderType, buildLocation);
+			if (buildLocation)
 			{
-				// Register an event that draws the target build location
-				Broodwar->registerEvent([targetBuildLocation, centerProviderType](Game*)
+				// Register an event that draws the target build location.
+				Broodwar->registerEvent([buildLocation, centerProviderType](Game*)
 				{
-					Broodwar->drawBoxMap(Position(targetBuildLocation), Position(targetBuildLocation + centerProviderType.tileSize()), Colors::Blue);
+					Broodwar->drawBoxMap(Position(buildLocation), Position(buildLocation + centerProviderType.tileSize()), Colors::Blue);
 				},
-				nullptr,  // condition
-				centerProviderType.buildTime() + 100);  // frames to run
-
-			// Order the builder to construct the supply structure
-			centerBuilder->build(centerProviderType, targetBuildLocation);
+				nullptr, 
+				centerProviderType.buildTime() + 100);  // frames to run.
+			
+				// Order the builder to construct the supply structure.
+				centerBuilder->build(centerProviderType, buildLocation);
+				player->buildingCommandCenter = true;
+				player->expansionCount++;
+				player->adjustMineralOffset(-400);
 			}
 		}
 	}
@@ -46,7 +50,7 @@ Output: None.
 void BuildingConstruction::buildSupply(BWAPI::Unit base, PlayerInfo* player)
 {
 	/*
-	/ We can create an error handling function for this if we decide it is necessary
+	/ We can create an error handling function for this if we decide it is necessary.
 	/
 	Position pos = base->getPosition();
 	Error lastErr = Broodwar->getLastError();
@@ -63,34 +67,35 @@ void BuildingConstruction::buildSupply(BWAPI::Unit base, PlayerInfo* player)
 		lastChecked = Broodwar->getFrameCount();
 		*/
 
-	// Retrieve a unit that is capable of constructing the supply needed
+	// Retrieve a unit that is capable of constructing the supply needed.
 	UnitType supplyProviderType = base->getType().getRace().getSupplyProvider();
 	Unit supplyBuilder = base->getClosestUnit(GetType == supplyProviderType.whatBuilds().first && (IsIdle || IsGatheringMinerals) && IsOwned);
 
-		// If a unit was found
-	
-	if (supplyBuilder)
+	// If a unit was found.
+	if (supplyBuilder && !player->buildingSupplyDepot)
 	{
 		if (supplyProviderType.isBuilding())
 		{
 			TilePosition targetBuildLocation = Broodwar->getBuildLocation(supplyProviderType, supplyBuilder->getTilePosition());
 			if (targetBuildLocation)
 			{
-				// Register an event that draws the target build location
+				// Register an event that draws the target build location.
 				Broodwar->registerEvent([targetBuildLocation, supplyProviderType](Game*)
 				{
 					Broodwar->drawBoxMap(Position(targetBuildLocation), Position(targetBuildLocation + supplyProviderType.tileSize()), Colors::Blue);
 				},
-				nullptr,  // condition
-				supplyProviderType.buildTime() + 100);  // frames to run
+				nullptr, 
+				supplyProviderType.buildTime() + 100);  // frames to run.
 
-			// Order the builder to construct the supply structure
+			// Order the builder to construct the supply structure.
 			supplyBuilder->build(supplyProviderType, targetBuildLocation);
+			player->adjustMineralOffset(-100);
+			player->buildingSupplyDepot = true;
 			}
 		}
 		else
 		{
-		// Train the supply provider (Overlord) if the provider is not a structure
+		// Train the supply provider (Overlord) if the provider is not a structure.
 		supplyBuilder->train(supplyProviderType);
 		}
 	}
@@ -159,9 +164,9 @@ void BuildingConstruction::buildBarracks(BWAPI::Unit base, PlayerInfo* player)
 	UnitType terranType = UnitTypes::Terran_Barracks;
 	Unit barracksBuilder = base->getClosestUnit(GetType == terranType.whatBuilds().first && (IsIdle || IsGatheringMinerals) && IsOwned);
 
-	if (barracksBuilder)
+	if (barracksBuilder && ResourceGathering::getMineralCount() + player->buildingMineralsOffset >= 150)
 	{
-		if (terranType.isBuilding())
+		if (terranType.isBuilding() && !player->buildingBarracks)
 		{
 			TilePosition targetBuildLocation = Broodwar->getBuildLocation(terranType, barracksBuilder->getTilePosition());
 			if (targetBuildLocation)
@@ -176,6 +181,9 @@ void BuildingConstruction::buildBarracks(BWAPI::Unit base, PlayerInfo* player)
 
 														 // Order the builder to construct the supply structure
 				barracksBuilder->build(terranType, targetBuildLocation);
+				player->barracksCount++;
+				player->adjustMineralOffset(-150);
+				player->buildingBarracks = true;
 			}
 		}
 	}
@@ -250,15 +258,81 @@ void BuildingConstruction::buildSpawningPool(BWAPI::Unit base, PlayerInfo* playe
 	}
 }
 
-bool BuildingConstruction::checkConstructionStarted(PlayerInfo* player)
+/*
+Input: Player info object.
+Process: Check construction flags and switch them off accordingly.
+Output: None.
+*/
+void BuildingConstruction::checkConstructionStarted(PlayerInfo* player)
 {
 	//Check if there exists a structure that matches the input structure and check if isConstructing()
 	//If it is, we know to reset the offset
 	for (auto &unit : Broodwar->self()->getUnits())
 	{
-		if (unit->getType() == UnitTypes::Terran_Academy && unit->isConstructing())
-			return true;
+		if (unit->getType() == UnitTypes::Terran_Academy && unit->isConstructing() && player->buildingAcademy)
+		{
+			//player->buildingAcademy = false;
+			player->adjustMineralOffset(150);
+		}
+		else if (unit->getType() == UnitTypes::Terran_Armory && unit->isConstructing() && player->buildingArmory)
+		{
+			//player->buildingArmory = false;
+			player->adjustMineralOffset(100);
+			player->adjustGasOffset(50);
+		}
+		else if (unit->getType() == UnitTypes::Terran_Barracks && unit->isConstructing() && player->buildingBarracks)
+		{
+			//player->buildingBarracks = false;
+			player->adjustMineralOffset(150);
+		}
+		else if (unit->getType() == UnitTypes::Terran_Bunker && unit->isConstructing() && player->buildingBunker)
+		{
+			//player->buildingBunker = false;
+			player->adjustMineralOffset(150);
+		}
+		else if (unit->getType() == UnitTypes::Terran_Command_Center && unit->isConstructing() && player->buildingCommandCenter)
+		{
+			//player->buildingCommandCenter = false;
+			player->adjustMineralOffset(400);
+		}
+		else if (unit->getType() == UnitTypes::Terran_Engineering_Bay && unit->isConstructing() && player->buildingEngineeringBay)
+		{
+			//player->buildingEngineeringBay = false;
+			player->adjustMineralOffset(125);
+		}
+		else if (unit->getType() == UnitTypes::Terran_Factory && unit->isConstructing() && player->buildingFactory)
+		{
+			//player->buildingFactory = false;
+			player->adjustMineralOffset(200);
+			player->adjustGasOffset(100);
+		}
+		else if (unit->getType() == UnitTypes::Terran_Missile_Turret && unit->isConstructing() && player->buildingMissileTurret)
+		{
+			//player->buildingMissileTurret = false;
+			player->adjustMineralOffset(75);
+		}
+		else if (unit->getType() == UnitTypes::Terran_Refinery && unit->isConstructing() && player->buildingRefinery)
+		{
+			//player->buildingRefinery = false;
+			player->adjustMineralOffset(100);
+		}
+		else if (unit->getType() == UnitTypes::Terran_Science_Facility && unit->isConstructing() && player->buildingScienceFacility)
+		{
+			//player->buildingScienceFacility = false;
+			player->adjustMineralOffset(100);
+			player->adjustGasOffset(150);
+		}
+		else if (unit->getType() == UnitTypes::Terran_Starport && unit->isConstructing() && player->buildingStarport)
+		{
+			//player->buildingStarport = false;
+			player->adjustMineralOffset(150);
+			player->adjustGasOffset(100);
+		}
+		else if (unit->getType() == UnitTypes::Terran_Supply_Depot && unit->isConstructing() && player->buildingSupplyDepot)
+		{
+			//player->buildingSupplyDepot = false;
+			player->adjustMineralOffset(100);
+		}
 	}
 
-	return false;
 }

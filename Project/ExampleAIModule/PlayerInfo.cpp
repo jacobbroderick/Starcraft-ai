@@ -17,38 +17,42 @@ PlayerInfo::PlayerInfo()
 	buildingSupplyDepot = false;
 
 	//Offset values.
-	mineralsOffset = false;
-	gasOffset = false;
+	mineralsOffsetFlag = false;
+	gasOffsetFlag = false;
 	buildingMineralsOffset = 0;
 	buildingGasOffset = 0;
+
+	//Structure counts.
+	barracksCount = 0;
+	expansionCount = 0;
 }
 
 void PlayerInfo::adjustMineralOffset(int offset)
 {
 	buildingMineralsOffset += offset;
 	if (buildingMineralsOffset != 0)
-		mineralsOffset = true;
+		mineralsOffsetFlag = true;
 	else
-		mineralsOffset = false;
+		mineralsOffsetFlag = false;
 }
 
 void PlayerInfo::adjustGasOffset(int offset)
 {
 	buildingGasOffset += offset;
 	if (buildingGasOffset != 0)
-		gasOffset = true;
+		gasOffsetFlag = true;
 	else
-		gasOffset = false;
+		gasOffsetFlag = false;
 }
 
 void PlayerInfo::resetMinerals()
 {
-	mineralsOffset = false;
+	mineralsOffsetFlag = false;
 	buildingMineralsOffset = 0;
 }
 
 void PlayerInfo::resetGas()
 {
-	gasOffset = false;
+	gasOffsetFlag = false;
 	buildingGasOffset = 0;
 }

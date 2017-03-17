@@ -3,13 +3,13 @@
 PlayerInfo::PlayerInfo()
 {
 	//Building flags.
-	academyBuilding = false;
-	armoryBuilding = false;
+	bool buildingAcademy = false;
+	bool buildingArmory = false;
 	buildingBarracks = false;
 	buildingBunker = false;
 	buildingCommandCenter = false;
-	buildingEngeineeringBay = false;
-	buildingTerranFactory = false;
+	buildingEngineeringBay = false;
+	buildingFactory = false;
 	buildingMissileTurret = false;
 	buildingRefinery = false;
 	buildingScienceFacility = false;
@@ -17,32 +17,42 @@ PlayerInfo::PlayerInfo()
 	buildingSupplyDepot = false;
 
 	//Offset values.
-	mineralsOffset = false;
-	gasOffset = false;
+	mineralsOffsetFlag = false;
+	gasOffsetFlag = false;
 	buildingMineralsOffset = 0;
 	buildingGasOffset = 0;
+
+	//Structure counts.
+	barracksCount = 0;
+	expansionCount = 0;
 }
 
-void PlayerInfo::setMineralOffset(int offset)
+void PlayerInfo::adjustMineralOffset(int offset)
 {
-	buildingMineralsOffset = offset;
-	mineralsOffset = true;
+	buildingMineralsOffset += offset;
+	if (buildingMineralsOffset != 0)
+		mineralsOffsetFlag = true;
+	else
+		mineralsOffsetFlag = false;
 }
 
-void PlayerInfo::setGasOffset(int offset)
+void PlayerInfo::adjustGasOffset(int offset)
 {
-	buildingGasOffset = offset;
-	gasOffset = true;
+	buildingGasOffset += offset;
+	if (buildingGasOffset != 0)
+		gasOffsetFlag = true;
+	else
+		gasOffsetFlag = false;
 }
 
 void PlayerInfo::resetMinerals()
 {
-	mineralsOffset = false;
+	mineralsOffsetFlag = false;
 	buildingMineralsOffset = 0;
 }
 
 void PlayerInfo::resetGas()
 {
-	gasOffset = false;
+	gasOffsetFlag = false;
 	buildingGasOffset = 0;
 }

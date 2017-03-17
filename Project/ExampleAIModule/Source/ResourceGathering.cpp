@@ -18,18 +18,18 @@ Process: If the resource depot is idle and fails to construct a worker more supp
  Also, if supply is within 4 of the maximum supply, the AI has enough minerals, and it is more than 3 minutes into the game, then more supply will be built.
 Output: None.
 */
-void ResourceGathering::buildWorker(BWAPI::Unit base)
+void ResourceGathering::buildWorker(Unit base, PlayerInfo* player)
 {
 
 	//Get mineral count
-	if (getMineralCount() >= 50)
+	if (getMineralCount() + player->buildingMineralsOffset >= 50)
 	{
 		//If the base is not building anything AND the attempt to build a worker fails 
 		//OR
 		//the supply used is marginally close to the supply total AND can afford to increase supply AND 3 minutes into game
-		if ((base->isIdle() && !(base->train(base->getType().getRace().getWorker()))) || ((Broodwar->self()->supplyUsed() + 4 >= Broodwar->self()->supplyTotal()) && getMineralCount() > 100) && (Broodwar->elapsedTime() < 180))
+		if ((base->isIdle() && !(base->train(base->getType().getRace().getWorker()))) || ((Broodwar->self()->supplyUsed()/2 + 4 >= Broodwar->self()->supplyTotal()) && getMineralCount() + player->buildingMineralsOffset >= 100) && (Broodwar->elapsedTime() < 120))
 		{
-			BuildingConstruction::buildSupply(base);
+			BuildingConstruction::buildSupply(base, player);
 		}
 	}
 }
@@ -39,7 +39,7 @@ Input: Resource depot.
 Process: Uses type of resource depot to determine race. Selects a worker to perform construction of supply structure.
 Output: None.
 */
-void ResourceGathering::workerGather(BWAPI::Unit worker)
+void ResourceGathering::workerGather(Unit worker)
 {
 	// if our worker is idle
 	if (worker->isIdle())
@@ -109,4 +109,5 @@ int ResourceGathering::getGasCount()
 {
 	return Broodwar->self()->gas();
 }
+
 
