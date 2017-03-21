@@ -3,11 +3,11 @@
 ## Index
 + [Installation Guide](#installation-guide)
 + [Classes and Functions](#classes-functions)
-  - ResourceGathering
-  - BuildingConstruction
-  - UnitAction
-  - PlayerInfo
-  - MapTools
+  - [ResourceGathering](#RG)
+  - [BuildingConstruction](#BC)
+  - [UnitAction](#UA)
+  - [PlayerInfo](#PI)
+  - [MapTools](#MT)
 + [Importing the AI into the game](#import-ai)
 
 
@@ -37,15 +37,99 @@ For supplementary information go to [this website](http://www.teamliquid.net/blo
 
 ## Classes and Functions <a id="classes-functions"></a>
 ---
-### ResourceGathering
+### ResourceGathering <a id="RG"></a>
+#### Purpose:
+The purpose of the ResourceGathering class is to start the game and have functions pertaining to the economy of the game.
+The class contains basic functions and variables to keep the gathering of minerals and gasses efficient.
 
-### Building Construction
+#### Functions:
+##### buildWorker
+###### Input
+Command Center
+###### Processes
+If the Command Center is idle and fails to construct a worker more supply will be built. 
+Also, if supply is within 4 of the maximum supply, the AI has enough minerals, and it is more than 3 minutes into the game, then more supply will be built.
+###### Output
+Either a worker is made, a supply depot is made, or nothing happens.
 
-### UnitAction
+##### workerGather
+###### Input
+Command Center
+###### Processes
+Uses type of Command Center to determine race. Selects a worker to perform construction of supply structure.
+###### Output
+Worker is selected to be able to perform processes.
 
-### PlayerInfo
+##### gatherGas
+###### Input
+Worker
+###### Processes
+Commands the worker to gather gas.
+###### Output
+Returns true if the worker is correctly directed to gather gas and false otherwise.
 
-### MapTools
+##### gatherMinerals
+###### Input
+Worker
+###### Processes
+Commands the worker to gather minerals.
+###### Output
+Returns true if the worker is correctly directed to gather minerals and false otherwise.
+
+##### getMineralCount
+###### Input
+None
+###### Processes
+Gets in-game amount of minerals.
+###### Output
+Count of minerals.
+
+##### getGasCount
+###### Input
+None
+###### Processes
+Get in-game amount of gas.
+###### Output
+Count of gas.
+
+#### Variables:
+The only variables for the class is optimum gatherers for both minerals and gas and the current gatherers for minerals and gas.
+
+### Building Construction <a id="BC"></a>
+#### Purpose:
+The purpose of this class is to build any buildings necessary to play StarCraft. Any other buildings can be included in this class following this same pattern
+
+#### Functions:
+
+#### Variables:
+None
+
+### UnitAction <a id="UA"></a>
+#### Purpose:
+The purpose of this class is to be able to control units individually to perform actions. This includes buildings as well as other movable units.
+
+#### Functions:
+
+#### Variables:
+None
+
+### PlayerInfo <a id="PI"></a>
+#### Purpose:
+The purpose of this class is to store variables to keep track of the game state that would otherwise be a global variable.
+
+#### Functions:
+
+#### Variables:
+Flags to store what buildings are being built, counts of our current barracks and expansions, and offsets in the resource counts for planned buildings.
+
+### MapTools <a id="MT"></a>
+#### Purpose:
+The purpose of this class is to convert the map being played into data for the AI to interpret and use.
+
+#### Functions:
+
+#### Variables:
+None
 
 ## Importing the AI into the game <a id="import-ai"></a>
 ---
