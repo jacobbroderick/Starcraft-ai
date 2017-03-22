@@ -100,6 +100,61 @@ The only variables for the class is optimum gatherers for both minerals and gas 
 The purpose of this class is to build any buildings necessary to play StarCraft. Any other buildings can be included in this class following this same pattern
 
 #### Functions:
+#### buildCenter
+##### Input
+Command Center, Building location(optional), player flag
+##### Processes
+Uses type of Command Center to determine race. Selects a worker to perform construction of an expansion.
+##### Output
+Command Center is built.
+
+#### buildSupply
+##### Input
+Command Center, player flag
+##### Processes
+Uses type of Command Center to determine race. Selects a worker to perform construction of supply structure.
+##### Output
+Supply depot is built
+
+#### buildGas
+##### Input
+Command Center, player flag
+##### Processes
+Uses type of Command Center to determine race. Selects a worker to perform construction of gas structure.
+##### Output
+Gas structure is built.
+
+#### buildBarracks
+##### Input
+Command Center, player flag
+##### Processes
+Build Terran Barracks if the input is of Terran type.
+##### Output
+Barracks is built.
+
+#### buildGateway
+##### Input
+Command Center, player flag
+##### Processes
+Build Protoss Gateway if the input is of Protoss type.
+##### Output
+Gateway is built.
+
+#### buildSpawningPool
+##### Input
+Command Center, player flag
+##### Processes
+Build Zerg Spawning Pool if the input is of Zerg type.
+##### Output
+Spawning Pool is built.
+
+#### checkConstructionStarted
+##### Input
+Player flag
+##### Processes
+Check construction flags and switch them off accordingly.
+##### Output
+Construction status is checked.
 
 #### Variables:
 None
@@ -109,6 +164,29 @@ None
 The purpose of this class is to be able to control units individually to perform actions. This includes buildings as well as other movable units.
 
 #### Functions:
+#### checkUnitState
+##### Input
+Unit whose state is being validated.
+##### Processes
+Checks the state of the input unit.
+##### Output
+True if unit is not dead, being constructed, disabled
+
+#### trainMarines
+##### Input
+Barracks to train marines, player flag
+##### Processes
+Starts process to train marines.
+##### Output
+Marines are trained.
+
+#### selectArmy
+##### Input
+None
+##### Processes
+Selects all marines.
+##### Output
+Marines are store in a queue.
 
 #### Variables:
 None
@@ -118,6 +196,37 @@ None
 The purpose of this class is to store variables to keep track of the game state that would otherwise be a global variable.
 
 #### Functions:
+#### adjustMineralOffset
+##### Input
+player flag
+##### Processes
+Adjusts the mineral offset to store the process of building until it is actually built.
+##### Output
+Minerals are adjusted.
+
+#### adjustGasOffset
+##### Input
+player flag
+##### Processes
+Adjusts the gas offset to store the process of building until it is actually built.
+##### Output
+Gas is adjusted.
+
+#### resetMinerals
+##### Input
+player flag
+##### Processes
+Reset the mineral offset to zero.
+##### Output
+Offset is reset.
+
+#### resetGas
+##### Input
+player flag
+##### Processes
+Reset the mineral offset to zero.
+##### Output
+Offset is reset.
 
 #### Variables:
 Flags to store what buildings are being built, counts of our current barracks and expansions, and offsets in the resource counts for planned buildings.
@@ -127,6 +236,21 @@ Flags to store what buildings are being built, counts of our current barracks an
 The purpose of this class is to convert the map being played into data for the AI to interpret and use.
 
 #### Functions:
+#### getNextExpansion
+##### Input
+None
+##### Processes
+Finds next resource location to build an expansion.
+##### Output
+The tile position to build the base.
+
+#### getAbsoluteTileDistance
+##### Input
+Tiles at starting and ending locations.
+##### Processes
+Calculates absolute distance not considering terrain.
+##### Output
+Distance
 
 #### Variables:
 None
