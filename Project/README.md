@@ -43,53 +43,53 @@ The purpose of the ResourceGathering class is to start the game and have functio
 The class contains basic functions and variables to keep the gathering of minerals and gasses efficient.
 
 #### Functions:
-##### buildWorker
-###### Input
+#### buildWorker
+##### Input
 Command Center
-###### Processes
+##### Processes
 If the Command Center is idle and fails to construct a worker more supply will be built. 
 Also, if supply is within 4 of the maximum supply, the AI has enough minerals, and it is more than 3 minutes into the game, then more supply will be built.
-###### Output
+##### Output
 Either a worker is made, a supply depot is made, or nothing happens.
 
-##### workerGather
-###### Input
+#### workerGather
+##### Input
 Command Center
-###### Processes
+##### Processes
 Uses type of Command Center to determine race. Selects a worker to perform construction of supply structure.
-###### Output
+##### Output
 Worker is selected to be able to perform processes.
 
-##### gatherGas
-###### Input
+#### gatherGas
+##### Input
 Worker
-###### Processes
+##### Processes
 Commands the worker to gather gas.
-###### Output
+##### Output
 Returns true if the worker is correctly directed to gather gas and false otherwise.
 
-##### gatherMinerals
-###### Input
+#### gatherMinerals
+##### Input
 Worker
-###### Processes
+##### Processes
 Commands the worker to gather minerals.
-###### Output
+##### Output
 Returns true if the worker is correctly directed to gather minerals and false otherwise.
 
-##### getMineralCount
-###### Input
+#### getMineralCount
+##### Input
 None
-###### Processes
+##### Processes
 Gets in-game amount of minerals.
-###### Output
+##### Output
 Count of minerals.
 
-##### getGasCount
-###### Input
+#### getGasCount
+##### Input
 None
-###### Processes
+##### Processes
 Get in-game amount of gas.
-###### Output
+##### Output
 Count of gas.
 
 #### Variables:
