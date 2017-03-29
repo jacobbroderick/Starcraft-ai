@@ -2,11 +2,6 @@
 import requests 
 from BeautifulSoup import BeautifulSoup
 import urllib2
-import mysql.connector
-
-#Connect to MySql
-connection = mysql.connector.connect(host='oniddb.cws.oregonstate.edu', 
-						password='sMIlEhpLXriUXHbo')
 
 #Get all replay ID's from gosugamers.net
 def getReplayLinks():
@@ -39,4 +34,5 @@ replayLinks = []
 replayLinks = getReplayLinks();
 
 #test line
-downloadReplay(replayLinks[0]['data-href'])
+for row in replayLinks:
+	downloadReplay(row['data-href'])
