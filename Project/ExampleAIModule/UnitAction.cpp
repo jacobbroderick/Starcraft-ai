@@ -61,3 +61,34 @@ void UnitAction::selectArmy()
 		}
 	}
 }
+
+/*
+Input: Scout unit.
+Process: Checks all possible base starting locations starting with furthest first.
+Output: Reference to the scout.
+*/
+void scoutStartLocations(BWAPI::Unit unit)
+{
+	//vector <BWAPI::TilePosition>* sortedStartLocations = new vector <BWAPI::TilePosition>();
+	double distanceFromScout = 0;
+	BWAPI::Position* targetBase = NULL;
+
+	for (BWTA::BaseLocation *currBase : BWTA::getBaseLocations())
+	{
+		//Check if the base has gas, if it doesn't, it cannot be a starting location.
+		if (currBase->isMineralOnly() && !(currBase == BWTA::getStartLocation(BWAPI::Broodwar->self())))
+		{
+			int currDistanceFromScout = unit->getTilePosition().getDistance(currBase->getTilePosition());
+
+			if (currDistanceFromScout > distanceFromScout)
+			{
+				distanceFromScout = currDistanceFromScout;
+				targetBase = &currBase->getPosition();
+			}
+		}
+	}
+
+	//Sends the unit to the target base location.
+	if (targetBase != NULL)
+		unit->move(*targetBase);
+}

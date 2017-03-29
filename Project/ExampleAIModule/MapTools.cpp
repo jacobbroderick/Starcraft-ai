@@ -22,6 +22,9 @@ int MapTools::getXExplored()
 }
 
 /*
+Input: N/A
+Process: Checks the distance of all expansion locations that are known to not be in use.
+Output: TilePosition of the closest expansion location.
 */
 BWAPI::TilePosition MapTools::getNextExpansion()
 {
