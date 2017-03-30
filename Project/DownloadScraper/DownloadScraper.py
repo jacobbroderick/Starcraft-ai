@@ -2,20 +2,43 @@
 import requests 
 from BeautifulSoup import BeautifulSoup
 import urllib2
+import sys
+#Syntax for compiling program:
+#
+#DownloadScraper .py <StarcraftRace>
+#
 
 #Get all replay ID's from gosugamers.net
-def getReplayLinks():
+def downloadReplays(race):
 	url = 'http://www.gosugamers.net/starcraft/replays-archive'
 	response = requests.get(url)
-	html = response.content
+	pageHtml = response.content
 
-	soup = BeautifulSoup(html)
+	soup = BeautifulSoup(pageHtml)
 	replayLinkTable = []
 	#Get all the table rows that have the link stored in the data-href value.
 	replayLinkTable = soup.findAll('tr', {"data-href" : lambda L: L and L.startswith('replays/')})
+	for row in replayLinkTable:
+		visitDownloadPage(row['data-href'])
 
-	return replayLinkTable;
+	return;
 
+#Visit the page to check replay details.
+def visitDownloadPage(replayString):
+	url = 'http://www.gosugamers.net/starcraft/'
+	url += replayString
+	response = requests.get(url)
+	pageHtml = response.content
+	
+	soup = BeautifulSoup(pageHtml)
+	replayRaces = []
+	#Get all src tags with title Terran
+	replayRaces = soup.findAll('img', title='Terran')
+	if replayRaces:
+		downloadReplay(replayString);
+	
+	return;
+	
 #Downloads the replay using the replay ID.
 def downloadReplay(replayID):
 	replayID = replayID.replace("replays/", "")
@@ -29,10 +52,24 @@ def downloadReplay(replayID):
 	
 	return;
 
-#main code	
-replayLinks = []
-replayLinks = getReplayLinks();
-
-#test line
-for row in replayLinks:
-	downloadReplay(row['data-href'])
+def main():
+	if len(sys.argv) != 2:
+		print 'Usage. Please use the following syntax: DownloadScraper.py <StarcraftRace>'
+		return;
+	else:
+	
+		print 'Downloading replays... This may take some time...'
+		downloadReplays(sys.argv[1]);	
+	
+if __name__ == "__main__": main()
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
