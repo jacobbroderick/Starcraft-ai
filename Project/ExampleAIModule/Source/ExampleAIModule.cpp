@@ -166,8 +166,8 @@ void ExampleAIModule::onFrame()
 	//Check for building flags if minerals/gas offset flag(s) are set and we need to check if the offset needs to be reversed.
 	if(player->mineralsOffsetFlag || player->gasOffsetFlag)
 		BuildingConstruction::checkConstructionStarted(player);
-	Broodwar->printf("%d", player->buildingMineralsOffset);
-	Broodwar->printf("%d", Broodwar->self()->supplyUsed()/2);
+	//Broodwar->printf("%d", player->buildingMineralsOffset);
+	//Broodwar->printf("%d", Broodwar->self()->supplyUsed()/2);
 
 	// Iterate through all the units that we own.
 	for (auto &unit : Broodwar->self()->getUnits())
@@ -177,16 +177,18 @@ void ExampleAIModule::onFrame()
 
 		if (unit->getType().isWorker())
 		{
-			ResourceGathering::workerGather(unit);
+			//ResourceGathering::workerGather(unit);
+			UnitAction::scoutStartLocations(unit);
+			//unit->move(Position(MapTools::getNextExpansion()));
 		}
 
-
+		/*
 		if (unit->getType().isResourceDepot() && ResourceGathering::getMineralCount() > 400)
 		{
 			TilePosition newExpoTile = MapTools::getNextExpansion();
 			BuildingConstruction::buildCenter(unit, newExpoTile, player);
 		}
-
+		*/
 		/*
 		//Start performing actions with unit.
 		// If the unit is a worker unit.

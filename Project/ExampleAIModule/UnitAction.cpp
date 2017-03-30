@@ -1,5 +1,7 @@
 #include "UnitAction.h"
 
+using namespace BWAPI;
+
 /*
 Input: Unit whose state is being validated.
 Process: Checks the state of the input unit.
@@ -67,28 +69,51 @@ Input: Scout unit.
 Process: Checks all possible base starting locations starting with furthest first.
 Output: Reference to the scout.
 */
-void scoutStartLocations(BWAPI::Unit unit)
+void UnitAction::scoutStartLocations(BWAPI::Unit unit)
 {
-	//vector <BWAPI::TilePosition>* sortedStartLocations = new vector <BWAPI::TilePosition>();
-	double distanceFromScout = 0;
-	BWAPI::Position* targetBase = NULL;
+	std::deque <BWAPI::TilePosition> sortedStartLocations;
+	std::deque <long double> distances;
 
 	for (BWTA::BaseLocation *currBase : BWTA::getBaseLocations())
 	{
 		//Check if the base has gas, if it doesn't, it cannot be a starting location.
-		if (currBase->isMineralOnly() && !(currBase == BWTA::getStartLocation(BWAPI::Broodwar->self())))
+		if (currBase->isMineralOnly() && !(currBase == BWTA::getStartLocation(BWAPI::Broodwar->self())) && Broodwar->isWalkable(currBase->getTilePosition().x, currBase->getTilePosition().y))
 		{
-			int currDistanceFromScout = unit->getTilePosition().getDistance(currBase->getTilePosition());
+			long double currDistanceFromScout = unit->getTilePosition().getDistance(currBase->getTilePosition());
+			sortedStartLocations.push_front(currBase->getTilePosition());
+			distances.push_front(currDistanceFromScout);
 
-			if (currDistanceFromScout > distanceFromScout)
+			for (unsigned int i = 0; i < distances.size() - 1; i++)
 			{
-				distanceFromScout = currDistanceFromScout;
-				targetBase = &currBase->getPosition();
+				if (distances[i] < distances[i + 1])
+				{
+					//Reverse bubble sort distances (shortest in the back).
+					long double tempDistance = distances[i];
+					distances[i] = distances[i + 1];
+					distances[i + 1] = tempDistance;
+					//Move TilePositions vector to match the distances vector changes.
+					BWAPI::TilePosition tempTilePosition = sortedStartLocations[i];
+					sortedStartLocations[i] = sortedStartLocations[i + 1];
+					sortedStartLocations[i + 1] = tempTilePosition;
+				}
+				else
+					break;
 			}
 		}
 	}
 
-	//Sends the unit to the target base location.
-	if (targetBase != NULL)
-		unit->move(*targetBase);
+	//Broodwar->printf("deque size: %d", distances.size());
+	//Broodwar->printf("Nearly finished scout function.");
+	//Sends the unit to explore furthest possible enemy base location.
+	//unit->move(BWAPI::Position(sortedStartLocations[0]).makeValid());
+
+	//Sends the unit to explore the rest of the possible bases but adds them to a deque.
+	//If statement catches stange instances when nothing is added to the sortedStartLocations deque. Will do more work to figure this out and clean it up.
+	for (unsigned int i = 0; i < sortedStartLocations.size(); i++)
+	{	
+		if (i == 0)
+			unit->move(BWAPI::Position(sortedStartLocations[i].makeValid()));
+		else
+			unit->move(BWAPI::Position(sortedStartLocations[i].makeValid()), true);
+	}
 }

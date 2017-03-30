@@ -14,7 +14,7 @@ void BuildingConstruction::buildCenter(BWAPI::Unit base, BWAPI::TilePosition bui
 	// Retrieve a unit that is capable of constructing the supply needed.
 	UnitType centerProviderType = base->getType().getRace().getCenter();
 	Unit centerBuilder = base->getClosestUnit(GetType == centerProviderType.whatBuilds().first && (IsIdle || IsGatheringMinerals) && IsOwned);
-	centerBuilder->move(Position(buildLocation));
+
 	// If a unit was found.
 	if (centerBuilder && !player->buildingCommandCenter)
 	{
@@ -32,7 +32,7 @@ void BuildingConstruction::buildCenter(BWAPI::Unit base, BWAPI::TilePosition bui
 				nullptr, 
 				centerProviderType.buildTime() + 100);  // frames to run.
 			
-				// Order the builder to construct the supply structure.
+				// Order the builder to construct the center structure.
 				centerBuilder->build(centerProviderType, buildLocation);
 				player->buildingCommandCenter = true;
 				player->expansionCount++;
@@ -179,7 +179,7 @@ void BuildingConstruction::buildBarracks(BWAPI::Unit base, PlayerInfo* player)
 					nullptr,  // condition
 					terranType.buildTime() + 100);  // frames to run
 
-														 // Order the builder to construct the supply structure
+				// Order the builder to construct the barracks structure
 				barracksBuilder->build(terranType, targetBuildLocation);
 				player->barracksCount++;
 				player->adjustMineralOffset(-150);
@@ -214,7 +214,7 @@ void BuildingConstruction::buildGateway(BWAPI::Unit base, PlayerInfo* player)
 					nullptr,  // condition
 					protossType.buildTime() + 100);  // frames to run
 
-													  // Order the builder to construct the supply structure
+				// Order the builder to construct the gateway structure
 				gatewayBuilder->build(protossType, targetBuildLocation);
 			}
 		}
@@ -246,7 +246,7 @@ void BuildingConstruction::buildSpawningPool(BWAPI::Unit base, PlayerInfo* playe
 					nullptr,  // condition
 					zergType.buildTime() + 100);  // frames to run
 
-													 // Order the builder to construct the supply structure
+				// Order the builder to construct the spawning pool structure
 				spawningPoolBuilder->build(zergType, targetBuildLocation);
 			}
 		}

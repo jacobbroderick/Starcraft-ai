@@ -1,6 +1,7 @@
 #pragma once
 #include <BWAPI.h>
-#include<BWTA.h>
+#include <BWTA.h>
+#include <deque>
 #include "ResourceGathering.h"
 #include "PlayerInfo.h"
 
