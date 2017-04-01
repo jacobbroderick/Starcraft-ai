@@ -13,14 +13,19 @@ def downloadReplays(race):
 	url = 'http://www.gosugamers.net/starcraft/replays-archive'
 	response = requests.get(url)
 	pageHtml = response.content
-
-	soup = BeautifulSoup(pageHtml)
-	replayLinkTable = []
-	#Get all the table rows that have the link stored in the data-href value.
-	replayLinkTable = soup.findAll('tr', {"data-href" : lambda L: L and L.startswith('replays/')})
-	for row in replayLinkTable:
-		visitDownloadPage(row['data-href'])
-
+	for i in range(2, 257):
+		soup = BeautifulSoup(pageHtml)
+		replayLinkTable = []
+		#Get all the table rows that have the link stored in the data-href value.
+		replayLinkTable = soup.findAll('tr', {"data-href" : lambda L: L and L.startswith('replays/')})
+		for row in replayLinkTable:
+			visitDownloadPage(row['data-href'])
+			
+		url = 'http://www.gosugamers.net/starcraft/replays-archive?page='
+		url += str(i)
+		response = requests.get(url)
+		pageHtml = response.content
+		
 	return;
 
 #Visit the page to check replay details.
