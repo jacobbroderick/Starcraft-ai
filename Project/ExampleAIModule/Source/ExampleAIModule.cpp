@@ -166,8 +166,6 @@ void ExampleAIModule::onFrame()
 	//Check for building flags if minerals/gas offset flag(s) are set and we need to check if the offset needs to be reversed.
 	if(player->mineralsOffsetFlag || player->gasOffsetFlag)
 		BuildingConstruction::checkConstructionStarted(player);
-	//Broodwar->printf("%d", player->buildingMineralsOffset);
-	//Broodwar->printf("%d", Broodwar->self()->supplyUsed()/2);
 
 	// Iterate through all the units that we own.
 	for (auto &unit : Broodwar->self()->getUnits())
@@ -175,11 +173,16 @@ void ExampleAIModule::onFrame()
 		if (!UnitAction::checkUnitState(unit))
 			continue;
 
-		if (unit->getType().isWorker())
+		if (unit->getType().isWorker() && unit != player->scoutingUnit)
 		{
-			//ResourceGathering::workerGather(unit);
-			UnitAction::scoutStartLocations(unit);
-			//unit->move(Position(MapTools::getNextExpansion()));
+			if (!player->unitScouting && player->enemyBase == BWAPI::TilePositions::None && analyzed)
+			{
+				UnitAction::scoutStartLocations(unit);
+				player->unitScouting = true;
+				player->scoutingUnit = unit;
+			}
+			else
+				ResourceGathering::workerGather(unit);
 		}
 
 		/*
@@ -269,6 +272,13 @@ void ExampleAIModule::onNukeDetect(BWAPI::Position target)
 
 void ExampleAIModule::onUnitDiscover(BWAPI::Unit unit)
 {
+	if (unit->getType().isResourceDepot() && Broodwar->self()->isEnemy(unit->getPlayer()))
+	{
+		player->unitScouting = false;
+		player->scoutingUnit->move(Position(Broodwar->self()->getStartLocation()));
+		player->enemyBase = unit->getTilePosition();
+		player->scoutingUnit = NULL;
+	}
 }
 
 void ExampleAIModule::onUnitEvade(BWAPI::Unit unit)
@@ -328,8 +338,7 @@ void ExampleAIModule::onSaveGame(std::string gameName)
 
 void ExampleAIModule::onUnitComplete(BWAPI::Unit unit)
 {
-	Broodwar->printf("unit completed!");
-
+	//Building flag adjustments.
 	if (unit->getType() == UnitTypes::Terran_Academy)
 		player->buildingAcademy = false;
 	else if (unit->getType() == UnitTypes::Terran_Armory)

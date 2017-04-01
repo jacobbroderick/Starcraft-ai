@@ -1,10 +1,9 @@
 #pragma once
 #include <BWAPI.h>
 #include <BWTA.h>
-#include <vector>
+#include <deque>
 #include "ResourceGathering.h"
 #include "PlayerInfo.h"
-
 
 class UnitAction
 {

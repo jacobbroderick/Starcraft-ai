@@ -64,6 +64,7 @@ void ResourceGathering::workerGather(Unit worker)
 	} // closure: if idle
 }
 
+
 /*
 Input: Worker.
 Process: Commands the worker to gather gas.

@@ -2,6 +2,7 @@
 
 PlayerInfo::PlayerInfo()
 {
+
 	//Building flags.
 	bool buildingAcademy = false;
 	bool buildingArmory = false;
@@ -16,6 +17,10 @@ PlayerInfo::PlayerInfo()
 	buildingStarport = false;
 	buildingSupplyDepot = false;
 
+	//Scouting flag
+	unitScouting = false;
+	scoutingUnit = NULL;
+
 	//Offset values.
 	mineralsOffsetFlag = false;
 	gasOffsetFlag = false;
@@ -25,6 +30,9 @@ PlayerInfo::PlayerInfo()
 	//Structure counts.
 	barracksCount = 0;
 	expansionCount = 0;
+
+	//Enemy info.
+	enemyBase = BWAPI::TilePositions::None;
 }
 
 void PlayerInfo::adjustMineralOffset(int offset)

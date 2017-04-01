@@ -1,5 +1,6 @@
 #include "UnitAction.h"
 
+
 using namespace BWAPI;
 
 /*
@@ -77,12 +78,14 @@ void UnitAction::scoutStartLocations(BWAPI::Unit unit)
 	for (BWTA::BaseLocation *currBase : BWTA::getBaseLocations())
 	{
 		//Check if the base has gas, if it doesn't, it cannot be a starting location.
-		if (currBase->isMineralOnly() && !(currBase == BWTA::getStartLocation(BWAPI::Broodwar->self())) && Broodwar->isWalkable(currBase->getTilePosition().x, currBase->getTilePosition().y))
+		if (!currBase->isMineralOnly() && currBase != BWTA::getStartLocation(BWAPI::Broodwar->self()) /*&& (Broodwar->isWalkable(currBase->getTilePosition().x, currBase->getTilePosition().y)*/)
 		{
 			long double currDistanceFromScout = unit->getTilePosition().getDistance(currBase->getTilePosition());
 			sortedStartLocations.push_front(currBase->getTilePosition());
 			distances.push_front(currDistanceFromScout);
 
+
+			//Eventually change this to go to the bases closes to the corners of the map. Usually maps are designed to have start locations there.
 			for (unsigned int i = 0; i < distances.size() - 1; i++)
 			{
 				if (distances[i] < distances[i + 1])
@@ -102,18 +105,13 @@ void UnitAction::scoutStartLocations(BWAPI::Unit unit)
 		}
 	}
 
-	//Broodwar->printf("deque size: %d", distances.size());
-	//Broodwar->printf("Nearly finished scout function.");
-	//Sends the unit to explore furthest possible enemy base location.
-	//unit->move(BWAPI::Position(sortedStartLocations[0]).makeValid());
-
-	//Sends the unit to explore the rest of the possible bases but adds them to a deque.
-	//If statement catches stange instances when nothing is added to the sortedStartLocations deque. Will do more work to figure this out and clean it up.
+	//Sends the unit to explore the possible bases but adds them to a queue of locations to visit.
 	for (unsigned int i = 0; i < sortedStartLocations.size(); i++)
 	{	
+		Broodwar->printf("i: %d.", i);
 		if (i == 0)
-			unit->move(BWAPI::Position(sortedStartLocations[i].makeValid()));
+			unit->move(BWAPI::Position(sortedStartLocations[i]));
 		else
-			unit->move(BWAPI::Position(sortedStartLocations[i].makeValid()), true);
+			unit->move(BWAPI::Position(sortedStartLocations[i]), true);
 	}
 }

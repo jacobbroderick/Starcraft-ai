@@ -1,7 +1,7 @@
 #include "MapTools.h"
 
 /*
-	*/
+*/
 MapTools::MapTools()
 {
 
@@ -31,7 +31,7 @@ BWAPI::TilePosition MapTools::getNextExpansion()
 	//Will hold the current closest base considered.
 	BWTA::BaseLocation *closestBase = NULL;
 	//Distance from the closest base considered thus far.
-	double minDistance = 1000000;
+	long double minDistance = 1000000;
 	//Get the start location.
 	BWAPI::TilePosition homeBase = BWAPI::Broodwar->self()->getStartLocation();
 
@@ -70,7 +70,7 @@ BWAPI::TilePosition MapTools::getNextExpansion()
 			}
 
 			//Calculate calculate distance and compare to closest expansion option.
-			double distanceFromHomeBase = homeBase.getDistance(currBaseTile);
+			long double distanceFromHomeBase = homeBase.getDistance(currBaseTile);
 
 			//Base is not connected - continue looping.
 			if (!BWTA::isConnected(homeBase, currBaseTile) || distanceFromHomeBase <= 0)
@@ -99,7 +99,7 @@ Input: Tiles at starting and ending locations.
 Process: Calculates absolute distance not considering terrain.
 Output: Distance.
 */
-double MapTools::getAbsoluteTileDistance(BWAPI::TilePosition origin, BWAPI::TilePosition destination)
+long double MapTools::getAbsoluteTileDistance(BWAPI::TilePosition origin, BWAPI::TilePosition destination)
 {
 	//Distance = pythatgorean Theorem abs(x1 - x2)^2 + abs(y1 - y2)^2 = c^2 --> c = distance. 
 	return sqrt(pow(abs(origin.x / 32 - destination.x / 32), 2) + pow(abs(origin.y / 32 - destination.y / 32), 2));

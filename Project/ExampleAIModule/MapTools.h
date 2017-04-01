@@ -11,6 +11,6 @@ public:
 	static int MapTools::getYExplored();
 	static int MapTools::getXExplored();
 	static BWAPI::TilePosition MapTools::getNextExpansion();
-	static double MapTools::getAbsoluteTileDistance(BWAPI::TilePosition origin, BWAPI::TilePosition destination);
+	static long double MapTools::getAbsoluteTileDistance(BWAPI::TilePosition origin, BWAPI::TilePosition destination);
 	static int MapTools::getGroundDistance(BWAPI::Position origin, BWAPI::Position destination);
 };

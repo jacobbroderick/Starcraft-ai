@@ -6,7 +6,6 @@
 class PlayerInfo
 {
 public:
-	
 	//Constructor.
 	PlayerInfo::PlayerInfo();
 
@@ -24,9 +23,17 @@ public:
 	bool buildingStarport;
 	bool buildingSupplyDepot;
 
+	//Scouting info.
+	bool unitScouting;
+	BWAPI::Unit scoutingUnit;
+
 	//Structure Counts
 	int barracksCount;
 	int expansionCount;
+
+	//Enemy info.
+	BWAPI::TilePosition enemyBase;
+
 
 	//Offset flags and values for costs incurred by building events.
 	bool mineralsOffsetFlag;
