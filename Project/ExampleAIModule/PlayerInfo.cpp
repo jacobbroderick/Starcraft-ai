@@ -17,7 +17,8 @@ PlayerInfo::PlayerInfo()
 	buildingStarport = false;
 	buildingSupplyDepot = false;
 
-	//Scouting flag
+	//Scouting info
+	scoutManager = new ScoutManager();
 	unitScouting = false;
 	scoutingUnit = NULL;
 

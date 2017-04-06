@@ -1,6 +1,7 @@
 #pragma once
 //#include "Base.h"
 #include <BWAPI.h>
+#include "ScoutManager.h"
 
 
 class PlayerInfo
@@ -24,8 +25,7 @@ public:
 	bool buildingSupplyDepot;
 
 	//Scouting info.
-	bool unitScouting;
-	BWAPI::Unit scoutingUnit;
+	ScoutManager* scoutManager;
 
 	//Structure Counts
 	int barracksCount;

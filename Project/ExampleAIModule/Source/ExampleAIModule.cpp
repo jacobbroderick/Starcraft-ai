@@ -173,13 +173,13 @@ void ExampleAIModule::onFrame()
 		if (!UnitAction::checkUnitState(unit))
 			continue;
 
-		if (unit->getType().isWorker() && unit != player->scoutingUnit)
+		if (unit->getType().isWorker() && unit != player->scoutManager->scoutingUnit)
 		{
-			if (!player->unitScouting && player->enemyBase == BWAPI::TilePositions::None && analyzed)
+			if (!player->scoutManager->unitScouting && player->enemyBase == BWAPI::TilePositions::None && analyzed)
 			{
-				UnitAction::scoutStartLocations(unit);
-				player->unitScouting = true;
-				player->scoutingUnit = unit;
+				ScoutManager::scoutStartLocations(unit);
+				player->scoutManager->unitScouting = true;
+				player->scoutManager->scoutingUnit = unit;
 			}
 			else
 				ResourceGathering::workerGather(unit);
@@ -274,10 +274,10 @@ void ExampleAIModule::onUnitDiscover(BWAPI::Unit unit)
 {
 	if (unit->getType().isResourceDepot() && Broodwar->self()->isEnemy(unit->getPlayer()))
 	{
-		player->unitScouting = false;
-		player->scoutingUnit->move(Position(Broodwar->self()->getStartLocation()));
+		player->scoutManager->unitScouting = false;
+		player->scoutManager->scoutingUnit->move(Position(Broodwar->self()->getStartLocation()));
 		player->enemyBase = unit->getTilePosition();
-		player->scoutingUnit = NULL;
+		player->scoutManager->scoutingUnit = NULL;
 	}
 }
 

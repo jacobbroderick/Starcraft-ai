@@ -8,6 +8,7 @@
 #include "UnitAction.h"
 #include "MapTools.h"
 #include "PlayerInfo.h"
+#include "ScoutManager.h"
 
 extern bool analyzed;
 extern bool analysis_just_finished;

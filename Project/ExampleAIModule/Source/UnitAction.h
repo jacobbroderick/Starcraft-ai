@@ -11,5 +11,4 @@ public:
 	static bool checkUnitState(BWAPI::Unit unit);
 	static void trainMarines(BWAPI::Unit unit, PlayerInfo* player);
 	static void selectArmy();
-	static void scoutStartLocations(BWAPI::Unit unit);
 };
