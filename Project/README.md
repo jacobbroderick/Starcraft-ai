@@ -8,7 +8,9 @@
   - [UnitAction](#UA)
   - [PlayerInfo](#PI)
   - [MapTools](#MT)
+  - [ScoutManager](#SM)
 + [Importing the AI into the game](#import-ai)
++ [Download Scraper](#scraper)
 
 
 
@@ -255,6 +257,31 @@ Distance
 #### Variables:
 None
 
+### ScoutManager <a id="SM"></a>
+#### Purpose:
+The purpose of this class is to send out units to scout and be have units attack enemies that are seen.
+
+#### Functions:
+#### scoutStartLocations
+##### Input
+Unit that will be sent to scout.
+##### Processes
+Checks all possible base starting locations starting with the furthest away from your starting base.
+##### Output
+Reference to the scout.
+
+#### attackTarget
+##### Input
+Unit that was sent to scout and the target to attack
+##### Processes
+Attacks the target with the scouting unit.
+##### Output
+Unit attacks target.
+
+#### Variables:
+Flag to see if the unit is scouting and the unit that is scouting.
+
+
 ## Importing the AI into the game <a id="import-ai"></a>
 ---
 After everything is downloaded and code has been implemented it is required to compile and import the data into the game.
@@ -267,3 +294,7 @@ Inside the AI folder paste the copied file ExampleAIModule.dll and start up Chao
 In ChaosLauncher make sure BWAPI Injector(1.16.1)RELEASE is checked and highlighted then select config.
 In the config menu make sure the path for ai goes to the path where you pasted the .dll file.
 Now go back to the ChaosLauncher and click Start then create a custom game and it should be set.
+
+## Download Scraper <a id="scraper"></a>
+---
+The download scraper downloads the replays off of the gosugamers.net webpage. The usage is to send a command "DownloadScraper.py <StarcraftRace>" where <StarcraftRace> is the replay ID of the video.
