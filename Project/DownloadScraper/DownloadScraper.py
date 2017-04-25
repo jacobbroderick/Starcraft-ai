@@ -9,7 +9,7 @@ import sys
 #
 
 #Get all replay ID's from gosugamers.net
-def downloadReplays(race):
+def replayIterator(race):
 	url = 'http://www.gosugamers.net/starcraft/replays-archive'
 	response = requests.get(url)
 	pageHtml = response.content
@@ -19,7 +19,7 @@ def downloadReplays(race):
 		#Get all the table rows that have the link stored in the data-href value.
 		replayLinkTable = soup.findAll('tr', {"data-href" : lambda L: L and L.startswith('replays/')})
 		for row in replayLinkTable:
-			visitDownloadPage(row['data-href'])
+			visitDownloadPage(row['data-href'], race)
 			
 		url = 'http://www.gosugamers.net/starcraft/replays-archive?page='
 		url += str(i)
@@ -29,7 +29,7 @@ def downloadReplays(race):
 	return;
 
 #Visit the page to check replay details.
-def visitDownloadPage(replayString):
+def visitDownloadPage(replayString, race):
 	url = 'http://www.gosugamers.net/starcraft/'
 	url += replayString
 	response = requests.get(url)
@@ -38,7 +38,7 @@ def visitDownloadPage(replayString):
 	soup = BeautifulSoup(pageHtml)
 	replayRaces = []
 	#Get all src tags with title Terran
-	replayRaces = soup.findAll('img', title='Terran')
+	replayRaces = soup.findAll('img', title=race)
 	if replayRaces:
 		downloadReplay(replayString);
 	
@@ -64,7 +64,7 @@ def main():
 	else:
 	
 		print 'Downloading replays... This may take some time...'
-		downloadReplays(sys.argv[1]);	
+		replayIterator(sys.argv[1]);	
 	
 if __name__ == "__main__": main()
 	
