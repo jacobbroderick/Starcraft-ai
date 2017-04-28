@@ -36,6 +36,7 @@ Below is a list of the required programs to be installed:
 + BWTA 1.7.1
 
 For supplementary information go to [this website](http://www.teamliquid.net/blogs/485544-intro-to-scbw-ai-development)
+Important! Blizzard has taken down their installer for the original game without any patches and replaced it with version 1.18 included which does NOT support this API. As of late, there is no official installer that can be used to get version 1.16.1.
 
 ## Classes and Functions <a id="classes-functions"></a>
 ---
