@@ -19,8 +19,6 @@ PlayerInfo::PlayerInfo()
 
 	//Scouting info
 	scoutManager = new ScoutManager();
-	unitScouting = false;
-	scoutingUnit = NULL;
 
 	//Offset values.
 	mineralsOffsetFlag = false;
