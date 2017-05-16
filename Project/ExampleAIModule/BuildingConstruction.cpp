@@ -12,9 +12,9 @@ Output: None.
 void BuildingConstruction::buildCenter(BWAPI::Unit base, BWAPI::TilePosition buildLocation, PlayerInfo* player)
 {
 	// Retrieve a unit that is capable of constructing the supply needed.
-	UnitType centerProviderType = base->getType().getRace().getCenter();
+	UnitType centerProviderType = UnitTypes::Terran_Barracks;
 	Unit centerBuilder = base->getClosestUnit(GetType == centerProviderType.whatBuilds().first && (IsIdle || IsGatheringMinerals) && IsOwned);
-
+	Broodwar << "Building" << std::endl;
 	// If a unit was found.
 	if (centerBuilder && !player->buildingCommandCenter)
 	{
@@ -24,18 +24,14 @@ void BuildingConstruction::buildCenter(BWAPI::Unit base, BWAPI::TilePosition bui
 			//TilePosition targetBuildLocation = Broodwar->getBuildLocation(centerProviderType, buildLocation);
 			if (buildLocation)
 			{
-				// Register an event that draws the target build location.
-				Broodwar->registerEvent([buildLocation, centerProviderType](Game*)
-				{
-					Broodwar->drawBoxMap(Position(buildLocation), Position(buildLocation + centerProviderType.tileSize()), Colors::Blue);
-				},
-				nullptr, 
-				centerProviderType.buildTime() + 100);  // frames to run.
-			
+				
+				//centerBuilder->move(BWAPI::Position(65, 15));
+				Broodwar << "Building" << std::endl;
 				// Order the builder to construct the center structure.
-				centerBuilder->build(centerProviderType, buildLocation);
-				player->buildingCommandCenter = true;
-				player->expansionCount++;
+				TilePosition shift(-20, -20); 
+				centerBuilder->build(UnitTypes::Terran_Command_Center, buildLocation + shift);
+				//player->buildingCommandCenter = true;
+				//player->expansionCount++;
 				player->adjustMineralOffset(-400);
 			}
 		}
@@ -130,6 +126,8 @@ void BuildingConstruction::buildGas(BWAPI::Unit base, PlayerInfo* player)
 	UnitType gasProviderType = base->getType().getRace().getRefinery();
 	Unit gasBuilder = base->getClosestUnit(GetType == gasProviderType.whatBuilds().first && (IsIdle || IsGatheringMinerals) && IsOwned);
 
+
+
 	// If a unit was found
 
 	if (gasBuilder)
@@ -180,6 +178,7 @@ void BuildingConstruction::buildBarracks(BWAPI::Unit base, PlayerInfo* player)
 					terranType.buildTime() + 100);  // frames to run
 
 				// Order the builder to construct the barracks structure
+				Broodwar << targetBuildLocation << terranType << std::endl;
 				barracksBuilder->build(terranType, targetBuildLocation);
 				player->barracksCount++;
 				player->adjustMineralOffset(-150);

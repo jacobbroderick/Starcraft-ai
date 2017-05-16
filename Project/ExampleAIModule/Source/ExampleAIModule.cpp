@@ -192,33 +192,40 @@ void ExampleAIModule::onFrame()
 			BuildingConstruction::buildCenter(unit, newExpoTile, player);
 		}
 		*/
-		/*
+
 		//Start performing actions with unit.
 		// If the unit is a worker unit.
 		if (unit->getType().isWorker())
 		{
 			ResourceGathering::workerGather(unit);
 		}
-		else if (unit->getType().isResourceDepot() && Broodwar->self()->supplyUsed() / 2 < 10) // A resource depot is a Command Center, Nexus, or Hatchery
+		else if (unit->getType().isResourceDepot() && !player->expansionCount && ResourceGathering::getMineralCount() + player->buildingMineralsOffset >= 400)
 		{
-			ResourceGathering::buildWorker(unit, player);
+			Broodwar << "Expanding" << std::endl;
+			//player->expansionCount++;
+			player->adjustMineralOffset(-400);
+			TilePosition newExpoTile = MapTools::getNextExpansion();
+			Broodwar << newExpoTile << std::endl;
+			BuildingConstruction::buildCenter(unit, newExpoTile, player);
 		}
-		else if (unit->getType().isResourceDepot() && !player->barracksCount && Broodwar->self()->supplyUsed() / 2 == 10)
+		else if (unit->getType().isResourceDepot() && Broodwar->self()->supplyTotal() * .8 < Broodwar->self()->supplyUsed() && ResourceGathering::getMineralCount() + player->buildingMineralsOffset >= 100) {
+			BuildingConstruction::buildSupply(unit, player);
+		}
+		else if (unit->getType().isResourceDepot() && player->barracksCount < Broodwar->self()->supplyUsed()/6 && ResourceGathering::getMineralCount() + player->buildingMineralsOffset >= 150)
 		{
 			BuildingConstruction::buildBarracks(unit, player);
 		}
-		else if (unit->getType() == UnitTypes::Terran_Barracks && Broodwar->self()->supplyUsed() / 2 < 15)
+		else if (unit->getType() == UnitTypes::Terran_Barracks && Broodwar->self()->supplyUsed() / 2 < 100)
 		{
 			UnitAction::trainMarines(unit, player);
 		}
-		else if (unit->getType().isResourceDepot() && !player->expansionCount && Broodwar->self()->supplyUsed()/2 == 15 && ResourceGathering::getMineralCount() + player->buildingMineralsOffset >= 400)
+		else if (unit->getType().isResourceDepot() && Broodwar->self()->supplyUsed() / 2 < 16) // A resource depot is a Command Center, Nexus, or Hatchery
 		{
-			player->expansionCount++;
-			player->adjustMineralOffset(-400);
-			TilePosition newExpoTile = MapTools::getNextExpansion();
-			BuildingConstruction::buildCenter(unit, newExpoTile, player);
+			ResourceGathering::buildWorker(unit, player);
 		}
-		*/
+
+		
+		
 	}
 }
 
