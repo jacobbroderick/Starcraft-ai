@@ -94,6 +94,57 @@ BWAPI::TilePosition MapTools::getNextExpansion()
 		return BWAPI::TilePositions::None;
 }
 
+BWAPI::Position MapTools::getClosestChoke(BWAPI::Unit unit)
+{
+	//Will hold the current closest base considered.
+	BWAPI::Position *closestChoke = NULL;
+	//Distance from the closest base considered thus far.
+	long double minDistance = 1000000;
+
+	//For each potential expansion location.
+	for (BWTA::Chokepoint *currChoke : BWTA::getChokepoints())
+	{
+
+		//Get tile position of the current possible expansion.
+		BWAPI::Position currChokePos = currChoke->getCenter();
+
+		bool buildingInTheWay = false;
+
+		for (int x = 0; x < BWAPI::Broodwar->self()->getRace().getCenter().tileWidth(); ++x)
+		{
+			for (int y = 0; y < BWAPI::Broodwar->self()->getRace().getCenter().tileHeight(); ++y)
+			{
+				BWAPI::TilePosition tp(currChokePos.x + x, currChokePos.y + y);
+
+				for (auto & unit : BWAPI::Broodwar->getUnitsOnTile(tp))
+				{
+					if (unit->getType().isBuilding() && !unit->isFlying())
+					{
+						buildingInTheWay = true;
+						break;
+					}
+				}
+			}
+		}
+
+		//Calculate calculate distance and compare to closest expansion option.
+		long double distanceFromUnit = BWTA::getGroundDistance(unit->getTilePosition(), BWAPI::TilePosition(currChokePos));
+
+		if (closestChoke == NULL || distanceFromUnit < minDistance)
+		{
+			//Set new minDistance of the currBase being considered.
+			minDistance = distanceFromUnit;
+			closestChoke = &currChokePos;
+		}
+	}
+
+	//If a tile position was found, return it. If not, return none.
+	if (closestChoke)
+		return *closestChoke;
+	else
+		return BWAPI::Positions::None;
+}
+
 /*
 Input: Tiles at starting and ending locations.
 Process: Calculates absolute distance not considering terrain.
