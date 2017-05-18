@@ -108,25 +108,6 @@ BWAPI::Position MapTools::getClosestChoke(BWAPI::Unit unit)
 		//Get tile position of the current possible expansion.
 		BWAPI::Position currChokePos = currChoke->getCenter();
 
-		bool buildingInTheWay = false;
-
-		for (int x = 0; x < BWAPI::Broodwar->self()->getRace().getCenter().tileWidth(); ++x)
-		{
-			for (int y = 0; y < BWAPI::Broodwar->self()->getRace().getCenter().tileHeight(); ++y)
-			{
-				BWAPI::TilePosition tp(currChokePos.x + x, currChokePos.y + y);
-
-				for (auto & unit : BWAPI::Broodwar->getUnitsOnTile(tp))
-				{
-					if (unit->getType().isBuilding() && !unit->isFlying())
-					{
-						buildingInTheWay = true;
-						break;
-					}
-				}
-			}
-		}
-
 		//Calculate calculate distance and compare to closest expansion option.
 		long double distanceFromUnit = BWTA::getGroundDistance(unit->getTilePosition(), BWAPI::TilePosition(currChokePos));
 
