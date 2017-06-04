@@ -1,0 +1,53 @@
+
+\begin{figure}[h]
+\begin{center}
+
+\begin{ganttchart}[y unit title=0.4cm,
+y unit chart=1.2cm,
+vgrid,hgrid, 
+title label anchor/.style={below=-1.6ex},
+title left shift=.05,
+title right shift=-.05,
+title top shift = -.25,
+title height=1,
+bar/.style={fill=gray!50},
+bar incomplete/.style={fill=red},
+progress label text={},
+bar height=0.7,
+group right shift=0,
+group top shift=.6,
+group height=.3,
+group peaks height=.2]
+{1}{30}
+%labels
+\gantttitle{Terms}{30} \\
+\gantttitle{Fall 2016}{10} 
+\gantttitle{Winter 2017}{10} 
+\gantttitle{Spring 2017}{10} 
+%tasks
+\ganttset{bar height=.4}
+\ganttbar{Problem Statement}{3}{5} \\
+\ganttbar{Requirements Document}{4}{6} \\
+\ganttbar{Technical Document}{5}{8} \\
+\ganttbar{Design Document}{5}{8} \\
+\ganttbar{Learn BWAPI}{7}{10} \\
+\ganttbar{Implementation}{11}{26} \\
+\ganttbar{Stretch Goals}{23}{26} \\
+\ganttbar{Prepare for Expo}{26}{27} \\
+\ganttbar{Expo}{27}{28}
+%relations
+\ganttlink{elem0}{elem1}
+\ganttlink{elem1}{elem2}
+\ganttlink{elem1}{elem3}
+\ganttlink{elem2}{elem5}
+\ganttlink{elem3}{elem5}
+\ganttlink{elem4}{elem5}
+\ganttlink{elem5}{elem6}
+\ganttlink{elem5}{elem7}
+\ganttlink{elem6}{elem7}
+\ganttlink{elem7}{elem8}
+
+\end{ganttchart}
+\end{center}
+\caption{Final Gantt Chart}
+\end{figure}

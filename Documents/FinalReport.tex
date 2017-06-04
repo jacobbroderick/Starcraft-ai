@@ -4,6 +4,7 @@
 \usepackage{color}
 \usepackage{longtable}
 \usepackage{tabu}
+\usepackage{pgfgantt}
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \definecolor{gray}{rgb}{0.5,0.5,0.5}
 \definecolor{mauve}{rgb}{0.58,0,0.82}
@@ -48,19 +49,280 @@
 \section{Original Requirements Document}
 
 \section{Changes from Original Requirements Document}
-
+\subsection{Final Gantt Chart}
+\include{FinalGantt}
 \section{Design Document}
 
 \section{Tech Review}
 
 \section{Weekly Blog Posts}
-
+\include{KristenWeeklyReport}
 \section{Final Poster}
 
 \newpage
 
 \section{Project Documentation}
+\subsection{Project Walkthrough}
+The project is sectioned off into many classes for a library described below as well as an AI module. This AI module is the main location where the interaction with the game occurs. It has a startup phase where it converts the play map into data for the AI to use. After the initial startup phase the AI starts a nested for loop where it goes through each individual unit and gives it command. The worker is in charge of gathering materials, constructing buildings, and scouting. The Command Center is in charge of training workers. The barracks are in charge of training military. The marines are in charge of moving to a choke point and attacking the enemy. It does this loop each frame until a victor is decided. A victor is decided when on of the players buildings and enemies are all destroyed.
+\subsection{Installation}
+In order to install this project all that is needed are the supplementary programs described below and cloning from our repo.
+\subsection{Running Project}
+After everything is downloaded and code has been implemented it is required to compile and import the data into the game. In order to compile the game you need to go into ExampleAIModule in the Project folder. Then you need to run ExampleAIModule.vcxproj. When the project loads up change the solution configuration to Release not Debug In the Solution Explorer window, right click ExampleAIModule and select Build and check to see it was built correctly. Go back to the Project folder and go into the Release folder. Here you will find ExampleAIModule.dll, copy it. Go to where StarCraft Brood War is installed and find or create a folder called bwapi-data and inside it find or create a folder called AI. Inside the AI folder paste the copied file ExampleAIModule.dll and start up ChaosLauncher found in BWAPI. Make sure to run ChaosLauncher as administrator. In ChaosLauncher make sure BWAPI Injector(1.16.1)RELEASE is checked and highlighted then select config. In the config menu make sure the path for ai goes to the path where you pasted the .dll file. Now go back to the ChaosLauncher and click Start then create a custom game and it should be set.
+\subsection{Requirements}
+In order to install the project and correctly use it it is necessary to download other supporting software as well. It is also preferable to be working on a device running at least Windows 7. Below is a list of the required programs to be installed:\\
+\\
+StarCraft Brood War\\
+Must be updated to version 1.16.1\\
+Visual Studio Community 2013\\
+Can also be Visual Studio Community 2015 with 2013 compiler tools\\
+BWAPI 4.1.2\\
+BWTA 1.7.1\\
+\\
+Important! Blizzard has taken down their installer for the original game without any patches and replaced it with version 1.18 included which does NOT support this API. As of late, there is no official installer that can be used to get version 1.16.1.
+\subsection{API}
+\subsubsection{ResourceGathering}
+Purpose:\\
+The purpose of the ResourceGathering class is to start the game and have functions pertaining to the economy of the game. The class contains basic functions and variables to keep the gathering of minerals and gasses efficient.\\
+\\
+Functions:\\
+buildWorker\\
+Input\\
+Command Center\\
+Processes\\
+If the Command Center is idle and fails to construct a worker more supply will be built. Also, if supply is within 4 of the maximum supply, the AI has enough minerals, and it is more than 3 minutes into the game, then more supply will be built.\\
+Output\\
+Either a worker is made, a supply depot is made, or nothing happens.\\
+\\
+workerGather\\
+Input\\
+Command Center\\
+Processes\\
+Uses type of Command Center to determine race. Selects a worker to perform construction of supply structure.\\
+Output\\
+Worker is selected to be able to perform processes.\\
+\\
+gatherGas\\
+Input\\
+Worker\\
+Processes\\
+Commands the worker to gather gas.\\
+Output\\
+Returns true if the worker is correctly directed to gather gas and false otherwise.\\
+\\
+gatherMinerals\\
+Input\\
+Worker\\
+Processes\\
+Commands the worker to gather minerals.\\
+Output\\
+Returns true if the worker is correctly directed to gather minerals and false otherwise.\\
+\\
+getMineralCount\\
+Input\\
+None\\
+Processes\\
+Gets in-game amount of minerals.\\
+Output\\
+Count of minerals.\\
+\\
+getGasCount\\
+Input\\
+None\\
+Processes\\
+Get in-game amount of gas.\\
+Output\\
+Count of gas.\\
+\\
+Variables:\\
+The only variables for the class is optimum gatherers for both minerals and gas and the current gatherers for minerals and gas.
 
+\subsubsection{Building Construction}
+Purpose:\\
+The purpose of this class is to build any buildings necessary to play StarCraft. Any other buildings can be included in this class following this same pattern.\\
+\\
+Functions:\\
+buildCenter\\
+Input\\
+Command Center, Building location(optional), player flag\\
+Processes\\
+Uses type of Command Center to determine race. Selects a worker to perform construction of an expansion.\\
+Output\\
+Command Center is built.\\
+\\
+buildSupply\\
+Input\\
+Command Center, player flag\\
+Processes\\
+Uses type of Command Center to determine race. Selects a worker to perform construction of supply structure.\\
+Output\\
+Supply depot is built\\
+\\
+buildGas\\
+Input\\
+Command Center, player flag\\
+Processes\\
+Uses type of Command Center to determine race. Selects a worker to perform construction of gas structure.\\
+Output\\
+Gas structure is built.\\
+\\
+buildBarracks\\
+Input\\
+Command Center, player flag\\
+Processes\\
+Build Terran Barracks if the input is of Terran type.\\
+Output\\
+Barracks is built.\\
+\\
+buildGateway\\
+Input\\
+Command Center, player flag\\
+Processes\\
+Build Protoss Gateway if the input is of Protoss type.\\
+Output\\
+Gateway is built.\\
+\\
+buildSpawningPool\\
+Input\\
+Command Center, player flag\\
+Processes\\
+Build Zerg Spawning Pool if the input is of Zerg type.\\
+Output\\
+Spawning Pool is built.\\
+\\
+checkConstructionStarted\\
+Input\\
+Player flag\\
+Processes\\
+Check construction flags and switch them off accordingly.\\
+Output\\
+Construction status is checked.\\
+\\
+Variables:\\
+None\\
+\\
+\subsubsection{UnitAction}
+Purpose:\\
+The purpose of this class is to be able to control units individually to perform actions. This includes buildings as well as other movable units.\\
+\\
+Functions:\\
+checkUnitState\\
+Input\\
+Unit whose state is being validated.\\
+Processes\\
+Checks the state of the input unit.\\
+Output\\
+True if unit is not dead, being constructed, disabled\\
+\\
+trainMarines\\
+Input\\
+Barracks to train marines, player flag\\
+Processes\\
+Starts process to train marines.\\
+Output\\
+Marines are trained.\\
+\\
+selectArmy\\
+Input\\
+None\\
+Processes\\
+Selects all marines.\\
+Output\\
+Marines are store in a queue.\\
+\\
+Variables:\\
+None\\
+
+\subsubsection{PlayerInfo}
+Purpose:\\
+The purpose of this class is to store variables to keep track of the game state that would otherwise be a global variable.\\
+\\
+Functions:\\
+adjustMineralOffset\\
+Input\\
+player flag\\
+Processes\\
+Adjusts the mineral offset to store the process of building until it is actually built.\\
+Output\\
+Minerals are adjusted.\\
+\\
+adjustGasOffset\\
+Input\\
+player flag\\
+Processes\\
+Adjusts the gas offset to store the process of building until it is actually built.\\
+Output\\
+Gas is adjusted.\\
+\\
+resetMinerals\\
+Input\\
+player flag\\
+Processes\\
+Reset the mineral offset to zero.\\
+Output\\
+Offset is reset.\\
+\\
+resetGas\\
+Input\\
+player flag\\
+Processes\\
+Reset the mineral offset to zero.\\
+Output\\
+Offset is reset.\\
+\\
+Variables:\\
+Flags to store what buildings are being built, counts of our current barracks and expansions, and offsets in the resource counts for planned buildings.\\
+
+\subsubsection{MapTools}
+Purpose:\\
+The purpose of this class is to convert the map being played into data for the AI to interpret and use.\\
+\\
+Functions:\\
+getNextExpansion\\
+Input\\
+None\\
+Processes\\
+Finds next resource location to build an expansion.\\
+Output\\
+The tile position to build the base.\\
+\\
+getAbsoluteTileDistance\\
+Input\\
+Tiles at starting and ending locations.\\
+Processes\\
+Calculates absolute distance not considering terrain.\\
+Output\\
+Distance\\
+\\
+Variables:\\
+None\\
+
+\subsubsection{ScoutManager}
+Purpose:\\
+The purpose of this class is to send out units to scout and be have units attack enemies that are seen.\\
+\\
+Functions:\\
+scoutStartLocations\\
+Input\\
+Unit that will be sent to scout.\\
+Processes\\
+Checks all possible base starting locations starting with the furthest away from your starting base.\\
+Output\\
+Reference to the scout.\\
+\\
+attackTarget\\
+Input\\
+Unit that was sent to scout and the target to attack\\
+Processes\\
+Attacks the target with the scouting unit.\\
+Output\\
+Unit attacks target.\\
+\\
+Variables:\\
+Flag to see if the unit is scouting and the unit that is scouting.\\
+\\
+Below is a website providing a tutorial and documentation for BWAPI:\\
+http://www.teamliquid.net/blogs/485544-intro-to-scbw-ai-development\\
+https://bwapi.github.io/annotated.html
 \section{New Technology}
 	This project helped us familiarize ourselves with new API's and the process of developing a library for other developers. Usually in an academic setting, no one else is using your code. This gave us a new perspective. We were not writing code to just solve a problem, but instead helping solve a problem in an easy to understand way as well as design it such that it may be useful to solve even greater problems. We had to think of what a developer might want to do with our API before we even considered how we would write wrappers for the other API's. 
 	The primary resource used was: http://www.starcraftai.com/wiki/Main\_Page. This web page encapsulated nearly everything the team needed with links to all of the tools we used. Additionally, when choosing our development tools and language, we consulted this page because it provides information on different technologies to use when interacting with Starcraft AI. From here, the team was able to determine what best fit the needs of the project and made it easy to know what tools were available that should be considered as the project progressed.
@@ -74,4 +336,11 @@ Project work is difficult. I found myself going through periods of not being abl
 Project management requires you to wear many hats. You need to plan for the future while ensuring the current tasks are being taken care of. Furthermore, you need to understand the situations of your teammates who are working on the project and evaluate what is actually realistic considering their workload, personal life, etc.. 
 Working in teams is nothing new for me. Playing 20 years of organized sports has given me one of my best skills: seamlessly coming into a team and doing my best to find my fit while applying my skill set as effectively as I can without intruding on others. My first intention is to work hard and communicate effectively. If a leadership role arises and it fits me like it did on this project, I'm happy to take it. This was another opportunity to develop my skills in this area.
 If I could do it all over, I would spend more time trying to figure out how to create a basic neural network for our library. That would be have been an outstanding tool for new developers to familiarize themselves with and would have been awesome to explain to employers how we did it.
+\subsection{Kristen Patterson}
+The technical information I learned is developing a library for a large project, how to properly organize and document a large project, and the intricacies of machine learning. It also put a great importance on time management as even setting up the environment to program was such a lengthy task it could much more time than I originally thought. Since we were building a library, I also had to frequently search through documentation and try and decipher what each function use was and check to see if there was a more efficient alternative. The practice in machine learning also helped me to realize the numerous amount of conditionals that could be found when trying to replace a human with an agent.
+The non-technical information I learned was the experience i have taken away for a project as big as this. I have not really worked on projects as large as this and a lot of it was easily translated into other fields. Since I had worked on this project for so long and talked about it continually for months on end I was able to describe it in any level of complexity. This translates well in being able to talk about any project or have confidence in any of my methods. In order to be able to answer quickly and show that I understand my field clearly I need to just spend time to voice my projects and actions.
+Group work and project work require a large amount of time and dedication. When working on projects and in a group it is important to spend time organizing and try to make a schedule and keep it. It is also important to be able to designate time and resources appropriately before any work even begins. I have also realized that projects require a level of compromise and being able to give features and functions a priority based on how necessary they are to a projects success.
+Managing a team and project can be fairly difficult. Not only do problems show up in the form of bugs or realizing functions will not be able to be delivered, but they can also be in the form of lack of time to complete certain functions and not being able to accurately distribute resources to parts of a project. It also requires being able to understand the group's strengths and where they are best utilized.
+Interaction with teammates can be slightly hectic. As an individual apart of a team it is important to be able to show empathy and understanding for any misgivings that may occur in a teammates life. It is also important to not try to burden teammates with large workloads due to issues on your end. While rough, it is also important to try and keep the group on task and motivate them or provide help with their work.
+If I could redo this whole experience I would have mainly tried to focus more on the core requirements of the project before focusing on the stretch goals. I would have also liked to give myself more free time to work on the project in the winter by taking a lighter class load. If I had more time I would have been able to start on the actual artificial intelligence portion of the code as that would have made our project more attractive.
 \end{document}
