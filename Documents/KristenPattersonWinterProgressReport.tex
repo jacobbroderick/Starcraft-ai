@@ -1,0 +1,81 @@
+\documentclass[10pt,letterpaper,onecolumn,draftclsnofoot]{IEEEtran}
+\usepackage[margin=0.75in]{geometry}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{longtable}
+\usepackage{tabu}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+\newcolumntype{P}{>{\centering\arraybackslash}m{6cm}}
+
+\lstset{frame=tb,
+  language=C,
+  columns=flexible,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=4
+}
+
+\begin{document}
+
+\section{Introduction}
+The project our client wanted completed was to create a template artificial intelligence that plays StarCraft Brood War. Our client wanted this template artificial intelligence for future students to use in a club environment. In order to complete this project we need to complete an extensive library of functions that simplify API interactions, a sample script of an artificial intelligence logic, and documentation of the functions and classes used to increase readability. The goal is for other students to be able to use some or all of our code to create their own artificial intelligence.
+
+\section{Individual Pieces}
+The piece I was responsible for during the development process was the documentation of all the functions and classes. The documentation of the project entails going through each function and class and writing down their purpose, parameters, and any dependencies. The documentation also needs any instructions for setting up the environment as well as any additional files that may need to be downloaded. This will all be in a separate markdown file that people can access through our project folder on our Github. I also helped with setting up the artificial intelligence for the alpha as well as creating a couple of functions in the library.
+
+\section{Progress and Problems}
+One of the major problems that our group came across this term is time management. All of the members have had extensive responsibilities to handle outside of this class, and due to the sheer volume of work needed to be completed, some of us found it difficult to find the time to get a large portion completed at one time. Due to time management issues, we also found it difficult to be able to meet up as much as we wanted to to discuss issues we had with our code and portions of code we believed needed to be added to the requirements.
+
+Another main issue we came across during the development process is how to accurately scan and interact with the terrain in game. This problem initially came across when we needed to decide on how we would place an expansion. In simple terms, an expansion is a necessary building in game to store resources, and in order to be more efficient, it needs to be placed correctly. In order to solve this issue, we decided to use an extension to BWAPI that is called BWTA. BWTA is a terrain analyzer that converts the whole map that is being played into data that the agent can use. The first main issue we came across in the terrain analyzer was that it would crash the game anytime it needed to read the map into the converter. After that was fixed, the next major issue was that the information it provided was incorrect. Finally after debugging, we had fixed the issue.
+
+The last two main issues we had is deciding how we will trigger events to happen in our artificial intelligence as well as how we would accurately move our army and attack the enemy. We had many ideas on how to handle the events in the game but some of them have not worked out as effectively as we have wanted. Firstly we tried to use a for loop to go through each unit and assign them a task based on some conditional but since we were not keeping track of the events we were triggering multiple units would try to do the same thing and it would slow down the progress. We then tried to do bit flags to keep track of major events but that also did not work. We are still deciding on how we will make the artificial intelligence work. For attacking and movement of the army, we are still confused on how we will manage this but we have decided that we first need to create a scouting function and most of the logic will be used from that.
+
+Since our last progress report we have had a lot of issue in the coding section. We have tried to make progress and finish the last bit of the library and the agent itself but we are still running into issues. The main progress we have made is in the documentation portion of the code as that does not require extensive testing and does not run into many problems.
+
+\section{Evaluation}
+\subsection{Roles}
+In terms of the development process, each group member had their own individual responsibilities. My main role was documentation of the code, Brandon?s main role was interaction with the API and library building, and Jacob?s main role was building the logic of the artificial intelligence. In terms of leadership, we usually switched who would take the leadership role to whoever understood the portion more at the point of development we were at or whoever had the most time available. Last term I was mainly the leader as we were mostly writing documents while this term Brandon has been the leader as we have mostly been building the library and he understands it the most.
+
+\subsection{Contributions}
+Our contributions vary depending on how much time we have available as we all have varying business based on our classes. For this term, however, Brandon has had the most contribution as this was the section of the project he was most familiar with. I would say my contribution would be slightly less as I was fairly busy, but I did find time to create some functions and setup the alpha. Most of my contribution will be coming towards the end of this term as I will be documenting the code. Jacob has been fairly busy this term with issues inside and outside of school. I would rate his contribution slightly less than mine although he has helped combine and host the presentations for the progress reports as well as discuss a lot of the mechanics that need to be included to our strategy.
+
+\subsection{How well the group functions}
+I believe our group works effectively together even though most of us have a decent amount of time management issues. I also feel we accurately discovered each person?s strong point and assigned them the appropriate task. If each group member had more time this term and we did not have as many issues with during the development process I am sure we would have completed the code and got all of the stretch goals as well.
+
+\section{Retrospective}
+\begin{center}
+	\begin{tabular}{ |p{0.3\linewidth}|p{0.3\linewidth}|p{0.3\linewidth}| } 
+		\hline
+		Positives & Deltas & Actions \\
+		\hline
+		I correctly setup the environment to code. & I needed to start the gathering module. & I needed to familiarize myself with BWAPI. \\
+		\hline
+		We established a timeline for the development process. & I needed to continue working on the economy module. & I needed to distinguish what functions are required. \\
+		\hline
+		We finished the economy and construction modules. & I needed to complete the unit production and control. & We needed to discuss the units and strategies we would use. \\
+		\hline
+		I started the functions for training and selecting marines. & I needed to complete functions for moving and attacking. & We needed to decide how we would traverse the terrain. \\
+		\hline
+		 We completed revisions and the progress report as well as the alpha of our project. & N/A & N/A \\ 
+		\hline
+		We further discussed what needed to be included into our code. & N/A & N/A \\ 
+		\hline
+		We participated in giving an elevator pitch as practice for expo. & I needed to learn how to easily switch between technical and simple speech. & I needed to practice switching my explanations in the middle of giving them. \\ 
+		\hline
+		 I started documentation on functions and classes. & N/A & N/A \\
+		\hline
+		 I continued working on the documentation for functions and classes. & N/A & N/A \\
+		\hline
+	\end{tabular}
+\end{center}
+
+\section{Conclusion}
+The project has gone well and we have had many deliverables. I also feel that this was a great experience to see what a large project is like and give us experience we could use in real life outside of college. The main thing I am looking forward to on this project is finishing it and being able to see the game play itself using our agent. I am also looking forward to our client seeing a video of our agent running and being satisfied with it, and I also hope that the students that end up using our code will be happy with it and find it helpful.
+
+\end{document}
