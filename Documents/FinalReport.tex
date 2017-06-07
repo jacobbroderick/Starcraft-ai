@@ -47,14 +47,15 @@
 	There are three team members: Brandon Chatham, Kristen Patterson, and Jacob Broderick. Brandon primarily focused on code design, implementations, and overall direction of the project to best fit the desires of the client. Kristen focused on documentation. Nearly all of the documentation, even a small bit of the comments you will find in the code, are written by Kristen. Kristen worked closely with Brandon to keep up-to-date on what the newest implementations were in order to keep documentation relevant to the current state of the project. Jacob focused mostly on choosing our development tools in Visual Studios and BWAPI as well as researched other tools that may be valuable to us. BWAPI is the standard API used for Starcraft AI and was an easy choice. Determining what other tools were well-suited to the specifications of the project were slightly more difficult but fairly simple decisions. 
 	Our client for the most part gave us autonomy on the project. While we did meet with him for required check-in's for the project, he allowed us to make our own decisions whether this was for better or for worse. We did consult him on a few occasions but usually made decisions primarily based on what the team felt was best based on what we knew Dr. Fern was most interested in.
 \section{Original Requirements Document}
-
+\include{srs-final}
 \section{Changes from Original Requirements Document}
 \subsection{Final Gantt Chart}
 \include{FinalGantt}
 \section{Design Document}
+\include{DesignDocDraft2-final}
 
 \section{Tech Review}
-
+\include{TechReviewDraft2-final}
 \section{Weekly Blog Posts}
 \subsection{Kristen Patterson}
 Fall 3\\
@@ -223,6 +224,39 @@ Definitely implementing neural networks that make our AI more dynamic. As is, we
 \\
 Speak a little about your expo experience.\\
 Expo was probably my least favorite part of the capstone project. While it was fun explaining the project to interested people, it was a bit of an elongated event in my opinion.
+\subsection{Jacob Broderick}
+Fall 3\\
+Work for last week Last week Brandon and I met with Dr. Fern. We figured out exactly what the project should look like and what the expectations were. We will be building towards a tournament viable agent that a club could build on.\\
+
+Work For this week This week we set up the repository, and got al of the invite sent out. We will work on hammering out details for our project, such as the starting race we would like to use.\\
+Fall 10\\
+Work done this week: Worked on the design document, specifically the decision making portion.\\
+
+Set backs: I had the flu and was unable to attend class.\\
+Spring 7 \\
+If you were to redo the project from Fall term, what would you tell yourself?\\
+Spend more time focusing on strategy so that it could win more.\\
+\\
+What's the biggest skill you've learned?\\
+I learned how to use APIs that can transfer to real world use.\\
+\\
+What skills do you see yourself using in the future?\\
+Being able to talk with other members in a group to ensure everyone is on the same page.\\
+\\
+What did you like about the project, and what did you not?\\
+I wish that we had a little bit more information on what exactly we were supposed to do at times. I did enjoy being able to solve and learn about problems related to artificial intelligence.\\
+\\
+What did you learn from your teammates?\\
+I learned how to work together with other teammates better.
+\\
+If you were the client for this project, would you be satisfied with the work done?\\
+It was what the client had asked for. He would maybe be a little more happy if others could pick up the projects, but it will be good for others to work on it.\\
+\\
+If your project were to be continued next year, what do you think needs to be working on?\\
+The AI needs to win a game, and win more consisitently.\\
+\\
+Speak a little about your expo experience.\\
+I did not enjoy expo. I have a herniated disk and had trouble standing for that period of time. Very few people actually stopped by and most weren't interested in anything except for the fact that it was a project about a video game.
 \section{Final Poster}
 
 \newpage
@@ -509,4 +543,139 @@ Group work and project work require a large amount of time and dedication. When 
 Managing a team and project can be fairly difficult. Not only do problems show up in the form of bugs or realizing functions will not be able to be delivered, but they can also be in the form of lack of time to complete certain functions and not being able to accurately distribute resources to parts of a project. It also requires being able to understand the group's strengths and where they are best utilized.
 Interaction with teammates can be slightly hectic. As an individual apart of a team it is important to be able to show empathy and understanding for any misgivings that may occur in a teammates life. It is also important to not try to burden teammates with large workloads due to issues on your end. While rough, it is also important to try and keep the group on task and motivate them or provide help with their work.
 If I could redo this whole experience I would have mainly tried to focus more on the core requirements of the project before focusing on the stretch goals. I would have also liked to give myself more free time to work on the project in the winter by taking a lighter class load. If I had more time I would have been able to start on the actual artificial intelligence portion of the code as that would have made our project more attractive.
+\subsection{Jacob Broderick}
+I learned how to take an api and convert it into functional code that furthers a goal. The BWAPI was well documented for what each things does, but didn't offer much information on how to actually use it. I spent a lot of time researching what the AI needs to do to be successful. A lot of research was put in to starcraft and what is required to actually play a game of starcraft. There are a lot of little things that are important for figuring it out. I learned a lot about how to fit someone else's code for my purposes. We needed to use tools created by other people to assist with the api. BWTA was a tool that was very helpful for moving the project forward. It caused lots of problems for the project because it was extremely hard to configure. 
+
+I learned how to write documentation about code that I have written. This is a skill that is usually not taught in the classes that I ahve taken. I learned how to express what I mean by a section of code and how to turn requirements into code into documentation. This skill helped when writing all of the individual docuents that were required to move the project forward. During internships I didn't need to write as much because there was a team member who's job was to write the parts that I didn't. Having more exposure to writing has helped me understand what goes into the other parts of the team than just coding.
+
+I learned a lot about balancing projects with this class. I have worked on many different projects for a couple different jobs. I usually didn't have a bigger project alongside them. Juggling this project with work responsibilities actually added a lot more work than I initiallyl thought I would require. This is something I will be able to take further when I work on real world projects full time. It would be helpful to know how to juggle projects when I am given multiple projects to work on.
+
+I learned little about project management with this project. I didn't take a role that helped me manage the other team members. I instead did the work that I was given. I know that project management can be very difficult and it is a skill that I would like to learn. I did learn that I need to be easier to manage. There were times where I didn't do as much work as quickly as needed.
+I learned that working in teams is pretty difficult. Sometimes tasks were completed by team members when others were working on them. It didn't happen often but it did happen. If I were to do this all over I would spend more time on this class. I struggled with depression and it made it difficult to always be available to complete tasks. I let my teammates know about this stuff, but I think it would have been better if I were a good member of the team.
+\newpage
+\section{Appendix 1}
+\subsection{Code Segments}
+Below are some segments of code that are important to our program and how it runs.
+
+\begin{lstlisting}
+void ExampleAIModule::onFrame()
+{
+	// Called once every game frame
+
+	// Display the game frame rate as text in the upper left area of the screen
+	Broodwar->drawTextScreen(200, 0, "FPS: %d", Broodwar->getFPS());
+	Broodwar->drawTextScreen(200, 20, "Average FPS: %f", Broodwar->getAverageFPS());
+
+	// Return if the game is a replay or is paused
+	if (Broodwar->isReplay() || Broodwar->isPaused() || !Broodwar->self())
+		return;
+
+	//BWTA draw
+	if (analyzed)
+	{
+		drawTerrainData();
+	}
+
+	if (analysis_just_finished)
+	{
+		Broodwar << "Finished analyzing map." << std::endl;;
+		analysis_just_finished = false;
+	}
+	// Prevent spamming by only running our onFrame once every number of latency frames.
+	// Latency frames are the number of frames before commands are processed.
+	if (Broodwar->getFrameCount() % Broodwar->getLatencyFrames() != 0)
+		return;
+
+	//Check for building flags if minerals/gas offset flag(s) are set and we need to check if the offset needs to be reversed.
+	if(player->mineralsOffsetFlag || player->gasOffsetFlag)
+		BuildingConstruction::checkConstructionStarted(player);
+
+	// Iterate through all the units that we own.
+	for (auto &unit : Broodwar->self()->getUnits())
+	{
+		if (!UnitAction::checkUnitState(unit))
+			continue;
+
+		if (unit->getType().isWorker() && unit != player->scoutManager->scoutingUnit)
+		{
+			if (!player->scoutManager->unitScouting && player->enemyBase == BWAPI::TilePositions::None && analyzed)
+			{
+				ScoutManager::scoutStartLocations(unit);
+				player->scoutManager->unitScouting = true;
+				player->scoutManager->scoutingUnit = unit;
+			}
+			else
+				ResourceGathering::workerGather(unit);
+		}
+
+		//Start performing actions with unit.
+		// If the unit is a worker unit.
+		if (unit->getType().isWorker())
+		{
+			ResourceGathering::workerGather(unit);
+		}
+		else if (unit->getType().isResourceDepot() && !player->expansionCount && ResourceGathering::getMineralCount() + player->buildingMineralsOffset >= 400)
+		{
+			Broodwar << "Expanding" << std::endl;
+			//player->expansionCount++;
+			player->adjustMineralOffset(-400);
+			TilePosition newExpoTile = MapTools::getNextExpansion();
+			Broodwar << newExpoTile << std::endl;
+			BuildingConstruction::buildCenter(unit, newExpoTile, player);
+		}
+		else if (unit->getType().isResourceDepot() && Broodwar->self()->supplyTotal() * .8 < Broodwar->self()->supplyUsed() && ResourceGathering::getMineralCount() + player->buildingMineralsOffset >= 100) {
+			BuildingConstruction::buildSupply(unit, player);
+		}
+		else if (unit->getType().isResourceDepot() && player->barracksCount < Broodwar->self()->supplyUsed()/6 && ResourceGathering::getMineralCount() + player->buildingMineralsOffset >= 150)
+		{
+			BuildingConstruction::buildBarracks(unit, player);
+		}
+		else if (unit->getType() == UnitTypes::Terran_Barracks && Broodwar->self()->supplyUsed() / 2 < 100)
+		{
+			UnitAction::trainMarines(unit, player);
+		}
+		else if (unit->getType().isResourceDepot() && Broodwar->self()->supplyUsed() / 2 < 16) // A resource depot is a Command Center, Nexus, or Hatchery
+		{
+			ResourceGathering::buildWorker(unit, player);
+		}
+
+		
+		
+	}
+}
+\end{lstlisting}
+This is the on frame function. It determines most of the things that happen during the normal running of the AI. The function is extremely customizable. This particular code segment determines when buildings are built.  This is the heart of the program and what makes it run.
+
+\begin{lstlisting}
+void BuildingConstruction::buildBarracks(BWAPI::Unit base, PlayerInfo* player)
+{
+	UnitType terranType = UnitTypes::Terran_Barracks;
+	Unit barracksBuilder = base->getClosestUnit(GetType == terranType.whatBuilds().first && (IsIdle || IsGatheringMinerals) && IsOwned);
+
+	if (barracksBuilder && ResourceGathering::getMineralCount() + player->buildingMineralsOffset >= 150)
+	{
+		if (terranType.isBuilding() && !player->buildingBarracks)
+		{
+			TilePosition targetBuildLocation = Broodwar->getBuildLocation(terranType, barracksBuilder->getTilePosition());
+			if (targetBuildLocation)
+			{
+				// Register an event that draws the target build location
+				Broodwar->registerEvent([targetBuildLocation, terranType](Game*)
+				{
+					Broodwar->drawBoxMap(Position(targetBuildLocation), Position(targetBuildLocation + terranType.tileSize()), Colors::Blue);
+				},
+					nullptr,  // condition
+					terranType.buildTime() + 100);  // frames to run
+
+				// Order the builder to construct the barracks structure
+				barracksBuilder->build(terranType, targetBuildLocation);
+				player->barracksCount++;
+				player->adjustMineralOffset(-150);
+				player->buildingBarracks = true;
+			}
+		}
+	}
+}
+\end{lstlisting}
+This is the build barracks function. It is like all of the other build functions. It gets the type of building, and it selects a unit to build the building and then checks if the conditions are right to build the building. If they are correct then it will go ahead and build the building. it will then update the player class to let it know how many barracks are created. All functions use an offset to determine if there are enough minerals to build the building after all other buildings in queue are done.
 \end{document}
